@@ -1,3 +1,6 @@
+# DE_Project_2026
+TalkArena – AI-Powered Group Discussion Platform
+
 # Zomato Food Delivery Database: DBMS Project
 
 **Course:** Database Management Systems · **Year:** B.Tech 2nd year · **Team size:** 4
