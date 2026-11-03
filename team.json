@@ -1,0 +1,27 @@
+{
+  "team_number": "T0122",
+  "group_lead": {
+    "name": "Kunal",
+    "enrollment_no": 2501010327,
+    "github": "Kunal-2145"
+  },
+  "members": [
+    {
+      "name": "Himanshu",
+      "enrollment_no": 2501010642,
+      "github": "himanshurao0812-rgb"
+    },
+    {
+      "name": "Harsh Kumar Yadav",
+      "enrollment_no": 2501010721,
+      "github": "Yadav-Harsh24"
+    },
+    {
+      "name": "Kartik",
+      "enrollment_no": 2501010694,
+      "github": "kartik4745"
+    }
+  ],
+  "postgres_version": "POSTGRES_VERSION",
+  "laptop_used_for_benchmarks": "LAPTOP_MODEL"
+}
