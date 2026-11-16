@@ -22,6 +22,6 @@
       "github": "kartik4745"
     }
   ],
-  "postgres_version": "POSTGRES_VERSION",
-  "laptop_used_for_benchmarks": "LAPTOP_MODEL"
+  "postgres_version": "18.6",
+  "laptop_used_for_benchmarks": "MacBook Pro 14-inch (M4 Pro)"
 }
