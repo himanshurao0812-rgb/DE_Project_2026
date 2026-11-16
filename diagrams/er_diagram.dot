@@ -1,0 +1,158 @@
+digraph zomato_er {
+  graph [rankdir=LR, fontname="DejaVu Sans", fontsize=11, splines=true, nodesep=0.45, ranksep=1.5,
+         label="Zomato Food Delivery Database — ER Diagram (Team T0122)\n11 tables · crow's-foot notation · PK = primary key, FK = foreign key, U = unique, N = nullable",
+         labelloc=t, fontcolor="#1a1a1a"];
+  node  [shape=plaintext, fontname="DejaVu Sans", fontsize=10];
+  edge  [fontname="DejaVu Sans", fontsize=9, color="#4a5568", arrowsize=0.7];
+
+  // ---------- helper: entity node ----------
+  cities [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#EAF2FB">
+      <TR><TD BGCOLOR="#2C5282"><FONT COLOR="white"><B>cities</B> (10)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>city_id</B>  PK</TD></TR>
+      <TR><TD ALIGN="LEFT">city_name  U</TD></TR>
+      <TR><TD ALIGN="LEFT">state</TD></TR>
+    </TABLE>>];
+
+  localities [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#EAF2FB">
+      <TR><TD BGCOLOR="#2C5282"><FONT COLOR="white"><B>localities</B> (100)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>locality_id</B>  PK</TD></TR>
+      <TR><TD ALIGN="LEFT">city_id  FK→cities</TD></TR>
+      <TR><TD ALIGN="LEFT">locality_name</TD></TR>
+      <TR><TD ALIGN="LEFT">pincode</TD></TR>
+    </TABLE>>];
+
+  customers [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#EAF2FB">
+      <TR><TD BGCOLOR="#2C5282"><FONT COLOR="white"><B>customers</B> (25,000)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>customer_id</B>  PK</TD></TR>
+      <TR><TD ALIGN="LEFT">full_name</TD></TR>
+      <TR><TD ALIGN="LEFT">email  U</TD></TR>
+      <TR><TD ALIGN="LEFT">phone  U</TD></TR>
+      <TR><TD ALIGN="LEFT">city_id  FK→cities</TD></TR>
+      <TR><TD ALIGN="LEFT">signup_date</TD></TR>
+      <TR><TD ALIGN="LEFT">is_gold_member</TD></TR>
+      <TR><TD ALIGN="LEFT">gold_expires_on  N</TD></TR>
+      <TR><TD ALIGN="LEFT">is_active</TD></TR>
+    </TABLE>>];
+
+  restaurants [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#EAF2FB">
+      <TR><TD BGCOLOR="#2C5282"><FONT COLOR="white"><B>restaurants</B> (2,500)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>restaurant_id</B>  PK</TD></TR>
+      <TR><TD ALIGN="LEFT">name</TD></TR>
+      <TR><TD ALIGN="LEFT">locality_id  FK→localities</TD></TR>
+      <TR><TD ALIGN="LEFT">cuisines  text[]</TD></TR>
+      <TR><TD ALIGN="LEFT">avg_cost_for_two</TD></TR>
+      <TR><TD ALIGN="LEFT">rating  N</TD></TR>
+      <TR><TD ALIGN="LEFT">rating_count</TD></TR>
+      <TR><TD ALIGN="LEFT">opens_at / closes_at</TD></TR>
+      <TR><TD ALIGN="LEFT">is_pure_veg</TD></TR>
+      <TR><TD ALIGN="LEFT">status</TD></TR>
+      <TR><TD ALIGN="LEFT">onboarded_on</TD></TR>
+    </TABLE>>];
+
+  menu_items [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#F0F7EE">
+      <TR><TD BGCOLOR="#2F6B3C"><FONT COLOR="white"><B>menu_items</B> (50,000)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>item_id</B>  PK</TD></TR>
+      <TR><TD ALIGN="LEFT">restaurant_id  FK→restaurants</TD></TR>
+      <TR><TD ALIGN="LEFT">item_name  (U with restaurant)</TD></TR>
+      <TR><TD ALIGN="LEFT">category</TD></TR>
+      <TR><TD ALIGN="LEFT">price</TD></TR>
+      <TR><TD ALIGN="LEFT">is_veg / is_bestseller</TD></TR>
+      <TR><TD ALIGN="LEFT">is_available</TD></TR>
+    </TABLE>>];
+
+  partners [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#EAF2FB">
+      <TR><TD BGCOLOR="#2C5282"><FONT COLOR="white"><B>delivery_partners</B> (2,000)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>partner_id</B>  PK</TD></TR>
+      <TR><TD ALIGN="LEFT">full_name</TD></TR>
+      <TR><TD ALIGN="LEFT">phone  U</TD></TR>
+      <TR><TD ALIGN="LEFT">city_id  FK→cities</TD></TR>
+      <TR><TD ALIGN="LEFT">vehicle_type</TD></TR>
+      <TR><TD ALIGN="LEFT">joined_on</TD></TR>
+      <TR><TD ALIGN="LEFT">rating</TD></TR>
+      <TR><TD ALIGN="LEFT">status</TD></TR>
+    </TABLE>>];
+
+  coupons [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#FDF3E3">
+      <TR><TD BGCOLOR="#8A5A1A"><FONT COLOR="white"><B>coupons</B> (30)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>coupon_code</B>  PK (natural)</TD></TR>
+      <TR><TD ALIGN="LEFT">discount_pct</TD></TR>
+      <TR><TD ALIGN="LEFT">max_discount</TD></TR>
+      <TR><TD ALIGN="LEFT">min_order_value</TD></TR>
+      <TR><TD ALIGN="LEFT">valid_from / valid_to</TD></TR>
+    </TABLE>>];
+
+  orders [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#FBE9E9">
+      <TR><TD BGCOLOR="#94302E"><FONT COLOR="white"><B>orders</B> (150,000)  — fact table</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>order_id</B>  PK</TD></TR>
+      <TR><TD ALIGN="LEFT">customer_id  FK→customers</TD></TR>
+      <TR><TD ALIGN="LEFT">restaurant_id  FK→restaurants</TD></TR>
+      <TR><TD ALIGN="LEFT">partner_id  FK→delivery_partners  N</TD></TR>
+      <TR><TD ALIGN="LEFT">coupon_code  FK→coupons  N</TD></TR>
+      <TR><TD ALIGN="LEFT">placed_at  timestamptz</TD></TR>
+      <TR><TD ALIGN="LEFT">accepted_at  N</TD></TR>
+      <TR><TD ALIGN="LEFT">picked_up_at  N</TD></TR>
+      <TR><TD ALIGN="LEFT">delivered_at  N</TD></TR>
+      <TR><TD ALIGN="LEFT">distance_km</TD></TR>
+      <TR><TD ALIGN="LEFT">item_total / delivery_fee</TD></TR>
+      <TR><TD ALIGN="LEFT">discount / total_amount</TD></TR>
+      <TR><TD ALIGN="LEFT">status</TD></TR>
+    </TABLE>>];
+
+  order_items [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#F0F7EE">
+      <TR><TD BGCOLOR="#2F6B3C"><FONT COLOR="white"><B>order_items</B> (375,000)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>order_id</B>  PK, FK→orders</TD></TR>
+      <TR><TD ALIGN="LEFT"><B>item_id</B>  PK, FK→menu_items</TD></TR>
+      <TR><TD ALIGN="LEFT">quantity</TD></TR>
+      <TR><TD ALIGN="LEFT">unit_price</TD></TR>
+    </TABLE>>];
+
+  payments [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#F0F7EE">
+      <TR><TD BGCOLOR="#2F6B3C"><FONT COLOR="white"><B>payments</B> (137,378)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>payment_id</B>  PK</TD></TR>
+      <TR><TD ALIGN="LEFT">order_id  FK→orders (not unique)</TD></TR>
+      <TR><TD ALIGN="LEFT">amount</TD></TR>
+      <TR><TD ALIGN="LEFT">method</TD></TR>
+      <TR><TD ALIGN="LEFT">payment_status</TD></TR>
+      <TR><TD ALIGN="LEFT">attempted_at</TD></TR>
+    </TABLE>>];
+
+  reviews [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#F0F7EE">
+      <TR><TD BGCOLOR="#2F6B3C"><FONT COLOR="white"><B>reviews</B> (39,186)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B>review_id</B>  PK</TD></TR>
+      <TR><TD ALIGN="LEFT">order_id  U, FK→orders</TD></TR>
+      <TR><TD ALIGN="LEFT">customer_id  FK→customers</TD></TR>
+      <TR><TD ALIGN="LEFT">restaurant_id  FK→restaurants</TD></TR>
+      <TR><TD ALIGN="LEFT">food_rating</TD></TR>
+      <TR><TD ALIGN="LEFT">delivery_rating  N</TD></TR>
+      <TR><TD ALIGN="LEFT">review_text  N</TD></TR>
+      <TR><TD ALIGN="LEFT">created_at</TD></TR>
+    </TABLE>>];
+
+  // ---------- relationships ----------
+  cities -> localities  [label="1 : N  contains"];
+  cities -> customers   [label="1 : N  lives in"];
+  cities -> partners    [label="1 : N  works in"];
+  localities -> restaurants [label="1 : N  located in"];
+  restaurants -> menu_items [label="1 : N  offers"];
+  customers -> orders   [label="1 : N  places"];
+  restaurants -> orders [label="1 : N  receives"];
+  partners -> orders    [label="1 : N  delivers (0..N)"];
+  coupons -> orders     [label="1 : N  applied to (0..N)"];
+  orders -> order_items [label="1 : N  contains"];
+  menu_items -> order_items [label="1 : N  appears in"];
+  orders -> payments    [label="1 : N  attempted by"];
+  orders -> reviews     [label="1 : 1  reviewed by"];
+  customers -> reviews  [label="1 : N  writes"];
+  restaurants -> reviews [label="1 : N  is rated in"];
+}
