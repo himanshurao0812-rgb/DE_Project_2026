@@ -1,0 +1,31 @@
+query_id,type,avg_ms,median_ms,min_ms,max_ms,scan_nodes
+R01,READ,0.567,0.548,0.531,0.621,Seq Scan on restaurants | Seq Scan on localities
+R02,READ,8.038,7.211,6.104,10.798,Seq Scan on restaurants | Seq Scan on localities | Index Scan using menu_items_restaurant_name_key on menu_items
+R03,READ,0.171,0.162,0.153,0.198,Index Scan using menu_items_restaurant_name_key on menu_items
+R04,READ,11.145,9.463,8.088,15.884,Seq Scan on orders | Index Scan using restaurants_pkey on restaurants
+R05,READ,6.509,6.278,6.159,7.091,Seq Scan on orders
+R06,READ,10.506,10.668,9.429,11.422,Seq Scan on orders
+R07,READ,8.966,9.078,7.214,10.606,Seq Scan on orders | Index Scan using order_items_pkey on order_items | Index Scan using menu_items_pkey on menu_items
+R08,READ,9.341,9.969,6.715,11.340,Seq Scan on orders | Seq Scan on restaurants | Seq Scan on localities | Index Scan using order_items_pkey on order_items
+R09,READ,24.884,24.722,24.567,25.363,Seq Scan on orders | Seq Scan on restaurants | Seq Scan on localities
+R10,READ,5.216,5.200,5.101,5.346,Seq Scan on orders
+R11,READ,6.578,6.621,6.420,6.692,Seq Scan on orders
+R12,READ,8.476,7.738,7.725,9.965,Seq Scan on orders
+R13,READ,8.993,8.942,8.922,9.116,Seq Scan on delivery_partners | Seq Scan on orders
+R14,READ,7.371,7.381,7.235,7.496,Seq Scan on orders | Seq Scan on customers
+R15,READ,15.153,15.190,14.816,15.454,Seq Scan on orders | Seq Scan on coupons
+R16,READ,5.440,5.605,5.068,5.647,Seq Scan on payments
+R17,READ,17.728,17.652,17.184,18.349,Seq Scan on orders | Seq Scan on payments
+R18,READ,7.877,7.945,7.620,8.066,Seq Scan on reviews
+R19,READ,4387.840,4350.435,4335.202,4477.883,Seq Scan on restaurants | Seq Scan on localities | Seq Scan on orders | Seq Scan on reviews
+R20,READ,22.111,21.958,21.057,23.319,Seq Scan on orders | Seq Scan on customers
+R21,READ,11.176,11.254,10.919,11.355,Seq Scan on customers | Seq Scan on orders
+R22,READ,16.188,16.126,16.019,16.420,Seq Scan on orders | Seq Scan on restaurants | Seq Scan on localities
+R23,READ,37.245,37.038,36.807,37.890,Seq Scan on orders
+R24,READ,6.906,6.830,6.820,7.069,Index Scan using orders_pkey on orders | Index Scan using restaurants_pkey on restaurants | Seq Scan on payments | Index Scan using order_items_pkey on order_items | Index Scan using menu_items_pkey on menu_items
+R25,READ,0.277,0.277,0.272,0.283,Seq Scan on restaurants | Seq Scan on localities
+W01,WRITE,0.609,0.508,0.507,0.811,(no scan)
+W02,WRITE,9.847,9.124,8.725,11.692,Seq Scan on orders | Index Scan using orders_pkey on orders
+W03,WRITE,0.412,0.530,0.160,0.547,Index Scan using menu_items_restaurant_name_key on menu_items
+W04,WRITE,19.196,19.630,16.100,21.859,Seq Scan on restaurants | Seq Scan on reviews
+W05,WRITE,22.098,22.442,20.455,23.396,Seq Scan on customers
