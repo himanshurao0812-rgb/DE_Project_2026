@@ -1,0 +1,93 @@
+=== R17 run 1 ===
+Sort  (cost=92422.45..92543.74 rows=48517 width=12) (actual time=131.603..131.994 rows=16816.00 loops=1)
+  Sort Key: (count(*)) DESC, o.customer_id
+  Sort Method: quicksort  Memory: 1294kB
+  Buffers: shared hit=628 read=71931, temp read=56 written=124
+  ->  HashAggregate  (cost=86826.92..88646.32 rows=48517 width=12) (actual time=119.804..128.739 rows=16816.00 loops=1)
+        Group Key: o.customer_id
+        Filter: (count(*) >= 2)
+        Batches: 5  Memory Usage: 8505kB  Disk Usage: 688kB
+        Rows Removed by Filter: 106871
+        Buffers: shared hit=622 read=71931, temp read=56 written=124
+        ->  Gather  (cost=5926.76..86099.16 rows=145552 width=4) (actual time=32.733..99.353 rows=142198.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=622 read=71931
+              ->  Parallel Hash Join  (cost=4926.76..70543.96 rows=60647 width=4) (actual time=30.637..107.871 rows=47399.33 loops=3)
+                    Hash Cond: (o.order_id = p.order_id)
+                    Buffers: shared hit=622 read=71931
+                    ->  Parallel Seq Scan on orders o  (cost=0.00..60676.73 rows=1250073 width=12) (actual time=0.056..26.104 rows=1000000.00 loops=3)
+                          Buffers: shared read=48176
+                    ->  Parallel Hash  (cost=4168.67..4168.67 rows=60647 width=8) (actual time=30.500..30.500 rows=47399.33 loops=3)
+                          Buckets: 262144  Batches: 1  Memory Usage: 7648kB
+                          Buffers: shared hit=622 read=23755
+                          ->  Parallel Index Only Scan using idx_payments_failed_order on payments p  (cost=0.42..4168.67 rows=60647 width=8) (actual time=0.060..26.834 rows=47399.33 loops=3)
+                                Heap Fetches: 131598
+                                Index Searches: 1
+                                Buffers: shared hit=622 read=23755
+Planning:
+  Buffers: shared hit=361 read=21
+Planning Time: 1.103 ms
+Execution Time: 132.969 ms
+=== R17 run 2 ===
+Sort  (cost=92422.45..92543.74 rows=48517 width=12) (actual time=156.468..156.871 rows=16816.00 loops=1)
+  Sort Key: (count(*)) DESC, o.customer_id
+  Sort Method: quicksort  Memory: 1294kB
+  Buffers: shared hit=512 read=72049, temp read=59 written=127
+  ->  HashAggregate  (cost=86826.92..88646.32 rows=48517 width=12) (actual time=144.000..153.595 rows=16816.00 loops=1)
+        Group Key: o.customer_id
+        Filter: (count(*) >= 2)
+        Batches: 5  Memory Usage: 8505kB  Disk Usage: 696kB
+        Rows Removed by Filter: 106871
+        Buffers: shared hit=506 read=72049, temp read=59 written=127
+        ->  Gather  (cost=5926.76..86099.16 rows=145552 width=4) (actual time=28.524..120.356 rows=142198.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=506 read=72049
+              ->  Parallel Hash Join  (cost=4926.76..70543.96 rows=60647 width=4) (actual time=27.256..131.528 rows=47399.33 loops=3)
+                    Hash Cond: (o.order_id = p.order_id)
+                    Buffers: shared hit=506 read=72049
+                    ->  Parallel Seq Scan on orders o  (cost=0.00..60676.73 rows=1250073 width=12) (actual time=0.057..37.401 rows=1000000.00 loops=3)
+                          Buffers: shared read=48176
+                    ->  Parallel Hash  (cost=4168.67..4168.67 rows=60647 width=8) (actual time=27.119..27.119 rows=47399.33 loops=3)
+                          Buckets: 262144  Batches: 1  Memory Usage: 7680kB
+                          Buffers: shared hit=506 read=23873
+                          ->  Parallel Index Only Scan using idx_payments_failed_order on payments p  (cost=0.42..4168.67 rows=60647 width=8) (actual time=0.042..23.676 rows=47399.33 loops=3)
+                                Heap Fetches: 131598
+                                Index Searches: 1
+                                Buffers: shared hit=506 read=23873
+Planning:
+  Buffers: shared hit=362 read=20
+Planning Time: 0.672 ms
+Execution Time: 157.595 ms
+=== R17 run 3 ===
+Sort  (cost=92422.45..92543.74 rows=48517 width=12) (actual time=128.330..128.724 rows=16816.00 loops=1)
+  Sort Key: (count(*)) DESC, o.customer_id
+  Sort Method: quicksort  Memory: 1294kB
+  Buffers: shared hit=433 read=72130, temp read=56 written=124
+  ->  HashAggregate  (cost=86826.92..88646.32 rows=48517 width=12) (actual time=115.983..125.420 rows=16816.00 loops=1)
+        Group Key: o.customer_id
+        Filter: (count(*) >= 2)
+        Batches: 5  Memory Usage: 8505kB  Disk Usage: 688kB
+        Rows Removed by Filter: 106871
+        Buffers: shared hit=427 read=72130, temp read=56 written=124
+        ->  Gather  (cost=5926.76..86099.16 rows=145552 width=4) (actual time=28.573..94.990 rows=142198.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=427 read=72130
+              ->  Parallel Hash Join  (cost=4926.76..70543.96 rows=60647 width=4) (actual time=27.128..104.391 rows=47399.33 loops=3)
+                    Hash Cond: (o.order_id = p.order_id)
+                    Buffers: shared hit=427 read=72130
+                    ->  Parallel Seq Scan on orders o  (cost=0.00..60676.73 rows=1250073 width=12) (actual time=0.057..26.190 rows=1000000.00 loops=3)
+                          Buffers: shared read=48176
+                    ->  Parallel Hash  (cost=4168.67..4168.67 rows=60647 width=8) (actual time=26.983..26.983 rows=47399.33 loops=3)
+                          Buckets: 262144  Batches: 1  Memory Usage: 7680kB
+                          Buffers: shared hit=427 read=23954
+                          ->  Parallel Index Only Scan using idx_payments_failed_order on payments p  (cost=0.42..4168.67 rows=60647 width=8) (actual time=0.041..23.620 rows=47399.33 loops=3)
+                                Heap Fetches: 131598
+                                Index Searches: 1
+                                Buffers: shared hit=427 read=23954
+Planning:
+  Buffers: shared hit=351 read=31
+Planning Time: 0.811 ms
+Execution Time: 129.609 ms

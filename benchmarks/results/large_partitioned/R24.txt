@@ -1,0 +1,333 @@
+=== R24 run 1 ===
+Nested Loop  (cost=1.98..356.52 rows=57 width=62) (actual time=0.983..4.884 rows=4.00 loops=1)
+  Buffers: shared hit=17 read=67 written=1
+  ->  Nested Loop Left Join  (cost=1.14..318.50 rows=19 width=42) (actual time=0.447..4.341 rows=1.00 loops=1)
+        Buffers: shared hit=4 read=60
+        ->  Nested Loop  (cost=0.71..309.81 rows=19 width=38) (actual time=0.432..4.325 rows=1.00 loops=1)
+              Buffers: shared hit=4 read=57
+              ->  Append  (cost=0.42..151.97 rows=19 width=26) (actual time=0.327..4.220 rows=1.00 loops=1)
+                    Buffers: shared hit=3 read=55
+                    ->  Index Scan using orders_2025_01_pkey on orders_2025_01 o_1  (cost=0.42..8.44 rows=1 width=25) (actual time=0.326..0.327 rows=1.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3 read=4
+                    ->  Index Scan using orders_2025_02_pkey on orders_2025_02 o_2  (cost=0.42..8.44 rows=1 width=25) (actual time=0.179..0.180 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared read=3
+                    ->  Index Scan using orders_2025_03_pkey on orders_2025_03 o_3  (cost=0.42..8.44 rows=1 width=25) (actual time=0.178..0.178 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared read=3
+                    ->  Index Scan using orders_2025_04_pkey on orders_2025_04 o_4  (cost=0.42..8.44 rows=1 width=25) (actual time=0.177..0.177 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared read=3
+                    ->  Index Scan using orders_2025_05_pkey on orders_2025_05 o_5  (cost=0.42..8.44 rows=1 width=25) (actual time=0.171..0.171 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared read=3
+                    ->  Index Scan using orders_2025_06_pkey on orders_2025_06 o_6  (cost=0.42..8.44 rows=1 width=25) (actual time=0.169..0.169 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared read=3
+                    ->  Index Scan using orders_2025_07_pkey on orders_2025_07 o_7  (cost=0.42..8.44 rows=1 width=25) (actual time=0.217..0.217 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared read=3
+                    ->  Index Scan using orders_2025_08_pkey on orders_2025_08 o_8  (cost=0.42..8.44 rows=1 width=25) (actual time=0.221..0.222 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared read=3
+                    ->  Index Scan using orders_2025_09_pkey on orders_2025_09 o_9  (cost=0.42..8.44 rows=1 width=25) (actual time=0.282..0.282 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared read=3
+                    ->  Index Scan using orders_2025_10_pkey on orders_2025_10 o_10  (cost=0.42..8.44 rows=1 width=25) (actual time=0.214..0.214 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared read=3
+                    ->  Index Scan using orders_2025_11_pkey on orders_2025_11 o_11  (cost=0.42..8.44 rows=1 width=25) (actual time=0.255..0.255 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared read=3
+                    ->  Index Scan using orders_2025_12_pkey on orders_2025_12 o_12  (cost=0.42..8.44 rows=1 width=25) (actual time=0.235..0.235 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared read=3
+                    ->  Index Scan using orders_2026_01_pkey on orders_2026_01 o_13  (cost=0.42..8.44 rows=1 width=25) (actual time=0.247..0.247 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared read=3
+                    ->  Index Scan using orders_2026_02_pkey on orders_2026_02 o_14  (cost=0.42..8.44 rows=1 width=25) (actual time=0.220..0.220 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared read=3
+                    ->  Index Scan using orders_2026_03_pkey on orders_2026_03 o_15  (cost=0.42..8.44 rows=1 width=25) (actual time=0.276..0.276 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared read=3
+                    ->  Index Scan using orders_2026_04_pkey on orders_2026_04 o_16  (cost=0.42..8.44 rows=1 width=25) (actual time=0.296..0.296 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared read=3
+                    ->  Index Scan using orders_2026_05_pkey on orders_2026_05 o_17  (cost=0.42..8.44 rows=1 width=25) (actual time=0.256..0.256 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared read=3
+                    ->  Index Scan using orders_2026_06_pkey on orders_2026_06 o_18  (cost=0.42..8.44 rows=1 width=25) (actual time=0.290..0.290 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared read=3
+                    ->  Seq Scan on orders_default o_19  (cost=0.00..0.00 rows=1 width=36) (actual time=0.004..0.004 rows=0.00 loops=1)
+                          Filter: (order_id = 123457)
+              ->  Index Scan using restaurants_pkey on restaurants r  (cost=0.29..8.31 rows=1 width=20) (actual time=0.102..0.102 rows=1.00 loops=1)
+                    Index Cond: (restaurant_id = o.restaurant_id)
+                    Index Searches: 1
+                    Buffers: shared hit=1 read=2
+        ->  Materialize  (cost=0.42..8.45 rows=1 width=12) (actual time=0.015..0.015 rows=0.00 loops=1)
+              Storage: Memory  Maximum Storage: 17kB
+              Buffers: shared read=3
+              ->  Index Scan using payments_p0_order_id_payment_status_idx on payments_p0 p  (cost=0.42..8.45 rows=1 width=12) (actual time=0.014..0.014 rows=0.00 loops=1)
+                    Index Cond: ((order_id = 123457) AND (payment_status = 'SUCCESS'::text))
+                    Index Searches: 1
+                    Buffers: shared read=3
+  ->  Materialize  (cost=0.85..37.32 rows=3 width=28) (actual time=0.535..0.541 rows=4.00 loops=1)
+        Storage: Memory  Maximum Storage: 17kB
+        Buffers: shared hit=13 read=7 written=1
+        ->  Nested Loop  (cost=0.85..37.31 rows=3 width=28) (actual time=0.531..0.536 rows=4.00 loops=1)
+              Buffers: shared hit=13 read=7 written=1
+              ->  Index Scan using order_items_p4_pkey on order_items_p4 oi  (cost=0.42..11.98 rows=3 width=19) (actual time=0.271..0.272 rows=4.00 loops=1)
+                    Index Cond: (order_id = 123457)
+                    Index Searches: 1
+                    Buffers: shared read=4 written=1
+              ->  Index Scan using menu_items_pkey on menu_items m  (cost=0.42..8.44 rows=1 width=17) (actual time=0.065..0.065 rows=1.00 loops=4)
+                    Index Cond: (item_id = oi.item_id)
+                    Index Searches: 4
+                    Buffers: shared hit=13 read=3
+Planning:
+  Buffers: shared hit=2237 read=188
+Planning Time: 5.450 ms
+Execution Time: 4.973 ms
+=== R24 run 2 ===
+Nested Loop  (cost=1.98..356.52 rows=57 width=62) (actual time=0.049..0.158 rows=4.00 loops=1)
+  Buffers: shared hit=84
+  ->  Nested Loop Left Join  (cost=1.14..318.50 rows=19 width=42) (actual time=0.029..0.133 rows=1.00 loops=1)
+        Buffers: shared hit=64
+        ->  Nested Loop  (cost=0.71..309.81 rows=19 width=38) (actual time=0.019..0.123 rows=1.00 loops=1)
+              Buffers: shared hit=61
+              ->  Append  (cost=0.42..151.97 rows=19 width=26) (actual time=0.009..0.113 rows=1.00 loops=1)
+                    Buffers: shared hit=58
+                    ->  Index Scan using orders_2025_01_pkey on orders_2025_01 o_1  (cost=0.42..8.44 rows=1 width=25) (actual time=0.009..0.009 rows=1.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=7
+                    ->  Index Scan using orders_2025_02_pkey on orders_2025_02 o_2  (cost=0.42..8.44 rows=1 width=25) (actual time=0.006..0.006 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2025_03_pkey on orders_2025_03 o_3  (cost=0.42..8.44 rows=1 width=25) (actual time=0.007..0.007 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2025_04_pkey on orders_2025_04 o_4  (cost=0.42..8.44 rows=1 width=25) (actual time=0.008..0.008 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2025_05_pkey on orders_2025_05 o_5  (cost=0.42..8.44 rows=1 width=25) (actual time=0.005..0.005 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2025_06_pkey on orders_2025_06 o_6  (cost=0.42..8.44 rows=1 width=25) (actual time=0.005..0.005 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2025_07_pkey on orders_2025_07 o_7  (cost=0.42..8.44 rows=1 width=25) (actual time=0.005..0.005 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2025_08_pkey on orders_2025_08 o_8  (cost=0.42..8.44 rows=1 width=25) (actual time=0.007..0.007 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2025_09_pkey on orders_2025_09 o_9  (cost=0.42..8.44 rows=1 width=25) (actual time=0.007..0.007 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2025_10_pkey on orders_2025_10 o_10  (cost=0.42..8.44 rows=1 width=25) (actual time=0.006..0.006 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2025_11_pkey on orders_2025_11 o_11  (cost=0.42..8.44 rows=1 width=25) (actual time=0.006..0.006 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2025_12_pkey on orders_2025_12 o_12  (cost=0.42..8.44 rows=1 width=25) (actual time=0.005..0.005 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2026_01_pkey on orders_2026_01 o_13  (cost=0.42..8.44 rows=1 width=25) (actual time=0.005..0.005 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2026_02_pkey on orders_2026_02 o_14  (cost=0.42..8.44 rows=1 width=25) (actual time=0.006..0.006 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2026_03_pkey on orders_2026_03 o_15  (cost=0.42..8.44 rows=1 width=25) (actual time=0.005..0.006 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2026_04_pkey on orders_2026_04 o_16  (cost=0.42..8.44 rows=1 width=25) (actual time=0.005..0.005 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2026_05_pkey on orders_2026_05 o_17  (cost=0.42..8.44 rows=1 width=25) (actual time=0.005..0.005 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2026_06_pkey on orders_2026_06 o_18  (cost=0.42..8.44 rows=1 width=25) (actual time=0.006..0.006 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Seq Scan on orders_default o_19  (cost=0.00..0.00 rows=1 width=36) (actual time=0.001..0.001 rows=0.00 loops=1)
+                          Filter: (order_id = 123457)
+              ->  Index Scan using restaurants_pkey on restaurants r  (cost=0.29..8.31 rows=1 width=20) (actual time=0.008..0.008 rows=1.00 loops=1)
+                    Index Cond: (restaurant_id = o.restaurant_id)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Materialize  (cost=0.42..8.45 rows=1 width=12) (actual time=0.010..0.010 rows=0.00 loops=1)
+              Storage: Memory  Maximum Storage: 17kB
+              Buffers: shared hit=3
+              ->  Index Scan using payments_p0_order_id_payment_status_idx on payments_p0 p  (cost=0.42..8.45 rows=1 width=12) (actual time=0.009..0.009 rows=0.00 loops=1)
+                    Index Cond: ((order_id = 123457) AND (payment_status = 'SUCCESS'::text))
+                    Index Searches: 1
+                    Buffers: shared hit=3
+  ->  Materialize  (cost=0.85..37.32 rows=3 width=28) (actual time=0.020..0.024 rows=4.00 loops=1)
+        Storage: Memory  Maximum Storage: 17kB
+        Buffers: shared hit=20
+        ->  Nested Loop  (cost=0.85..37.31 rows=3 width=28) (actual time=0.015..0.018 rows=4.00 loops=1)
+              Buffers: shared hit=20
+              ->  Index Scan using order_items_p4_pkey on order_items_p4 oi  (cost=0.42..11.98 rows=3 width=19) (actual time=0.009..0.010 rows=4.00 loops=1)
+                    Index Cond: (order_id = 123457)
+                    Index Searches: 1
+                    Buffers: shared hit=4
+              ->  Index Scan using menu_items_pkey on menu_items m  (cost=0.42..8.44 rows=1 width=17) (actual time=0.002..0.002 rows=1.00 loops=4)
+                    Index Cond: (item_id = oi.item_id)
+                    Index Searches: 4
+                    Buffers: shared hit=16
+Planning:
+  Buffers: shared hit=2434 read=1
+Planning Time: 3.824 ms
+Execution Time: 0.238 ms
+=== R24 run 3 ===
+Nested Loop  (cost=1.98..356.52 rows=57 width=62) (actual time=0.043..0.141 rows=4.00 loops=1)
+  Buffers: shared hit=84
+  ->  Nested Loop Left Join  (cost=1.14..318.50 rows=19 width=42) (actual time=0.025..0.117 rows=1.00 loops=1)
+        Buffers: shared hit=64
+        ->  Nested Loop  (cost=0.71..309.81 rows=19 width=38) (actual time=0.016..0.109 rows=1.00 loops=1)
+              Buffers: shared hit=61
+              ->  Append  (cost=0.42..151.97 rows=19 width=26) (actual time=0.011..0.103 rows=1.00 loops=1)
+                    Buffers: shared hit=58
+                    ->  Index Scan using orders_2025_01_pkey on orders_2025_01 o_1  (cost=0.42..8.44 rows=1 width=25) (actual time=0.010..0.011 rows=1.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=7
+                    ->  Index Scan using orders_2025_02_pkey on orders_2025_02 o_2  (cost=0.42..8.44 rows=1 width=25) (actual time=0.007..0.007 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2025_03_pkey on orders_2025_03 o_3  (cost=0.42..8.44 rows=1 width=25) (actual time=0.006..0.006 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2025_04_pkey on orders_2025_04 o_4  (cost=0.42..8.44 rows=1 width=25) (actual time=0.005..0.005 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2025_05_pkey on orders_2025_05 o_5  (cost=0.42..8.44 rows=1 width=25) (actual time=0.005..0.005 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2025_06_pkey on orders_2025_06 o_6  (cost=0.42..8.44 rows=1 width=25) (actual time=0.004..0.004 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2025_07_pkey on orders_2025_07 o_7  (cost=0.42..8.44 rows=1 width=25) (actual time=0.005..0.005 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2025_08_pkey on orders_2025_08 o_8  (cost=0.42..8.44 rows=1 width=25) (actual time=0.006..0.006 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2025_09_pkey on orders_2025_09 o_9  (cost=0.42..8.44 rows=1 width=25) (actual time=0.005..0.005 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2025_10_pkey on orders_2025_10 o_10  (cost=0.42..8.44 rows=1 width=25) (actual time=0.005..0.005 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2025_11_pkey on orders_2025_11 o_11  (cost=0.42..8.44 rows=1 width=25) (actual time=0.005..0.005 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2025_12_pkey on orders_2025_12 o_12  (cost=0.42..8.44 rows=1 width=25) (actual time=0.004..0.004 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2026_01_pkey on orders_2026_01 o_13  (cost=0.42..8.44 rows=1 width=25) (actual time=0.004..0.004 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2026_02_pkey on orders_2026_02 o_14  (cost=0.42..8.44 rows=1 width=25) (actual time=0.007..0.007 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2026_03_pkey on orders_2026_03 o_15  (cost=0.42..8.44 rows=1 width=25) (actual time=0.005..0.005 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2026_04_pkey on orders_2026_04 o_16  (cost=0.42..8.44 rows=1 width=25) (actual time=0.005..0.005 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2026_05_pkey on orders_2026_05 o_17  (cost=0.42..8.44 rows=1 width=25) (actual time=0.005..0.005 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Index Scan using orders_2026_06_pkey on orders_2026_06 o_18  (cost=0.42..8.44 rows=1 width=25) (actual time=0.006..0.006 rows=0.00 loops=1)
+                          Index Cond: (order_id = 123457)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+                    ->  Seq Scan on orders_default o_19  (cost=0.00..0.00 rows=1 width=36) (actual time=0.001..0.001 rows=0.00 loops=1)
+                          Filter: (order_id = 123457)
+              ->  Index Scan using restaurants_pkey on restaurants r  (cost=0.29..8.31 rows=1 width=20) (actual time=0.004..0.004 rows=1.00 loops=1)
+                    Index Cond: (restaurant_id = o.restaurant_id)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Materialize  (cost=0.42..8.45 rows=1 width=12) (actual time=0.008..0.008 rows=0.00 loops=1)
+              Storage: Memory  Maximum Storage: 17kB
+              Buffers: shared hit=3
+              ->  Index Scan using payments_p0_order_id_payment_status_idx on payments_p0 p  (cost=0.42..8.45 rows=1 width=12) (actual time=0.007..0.007 rows=0.00 loops=1)
+                    Index Cond: ((order_id = 123457) AND (payment_status = 'SUCCESS'::text))
+                    Index Searches: 1
+                    Buffers: shared hit=3
+  ->  Materialize  (cost=0.85..37.32 rows=3 width=28) (actual time=0.018..0.022 rows=4.00 loops=1)
+        Storage: Memory  Maximum Storage: 17kB
+        Buffers: shared hit=20
+        ->  Nested Loop  (cost=0.85..37.31 rows=3 width=28) (actual time=0.014..0.018 rows=4.00 loops=1)
+              Buffers: shared hit=20
+              ->  Index Scan using order_items_p4_pkey on order_items_p4 oi  (cost=0.42..11.98 rows=3 width=19) (actual time=0.008..0.009 rows=4.00 loops=1)
+                    Index Cond: (order_id = 123457)
+                    Index Searches: 1
+                    Buffers: shared hit=4
+              ->  Index Scan using menu_items_pkey on menu_items m  (cost=0.42..8.44 rows=1 width=17) (actual time=0.002..0.002 rows=1.00 loops=4)
+                    Index Cond: (item_id = oi.item_id)
+                    Index Searches: 4
+                    Buffers: shared hit=16
+Planning:
+  Buffers: shared hit=2435
+Planning Time: 3.967 ms
+Execution Time: 0.216 ms

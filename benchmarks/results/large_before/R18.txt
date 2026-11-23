@@ -1,0 +1,63 @@
+=== R18 run 1 ===
+Limit  (cost=14253.21..14259.04 rows=50 width=42) (actual time=56.955..57.481 rows=50.00 loops=1)
+  Buffers: shared hit=76 read=7568
+  ->  Gather Merge  (cost=14253.21..20967.27 rows=57648 width=42) (actual time=56.954..57.474 rows=50.00 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=76 read=7568
+        ->  Sort  (cost=13253.19..13313.24 rows=24020 width=42) (actual time=54.686..54.690 rows=46.00 loops=3)
+              Sort Key: created_at DESC
+              Sort Method: top-N heapsort  Memory: 34kB
+              Buffers: shared hit=76 read=7568
+              Worker 0:  Sort Method: top-N heapsort  Memory: 34kB
+              Worker 1:  Sort Method: top-N heapsort  Memory: 35kB
+              ->  Parallel Seq Scan on reviews  (cost=0.00..12455.26 rows=24020 width=42) (actual time=0.036..52.753 rows=19511.33 loops=3)
+                    Filter: ((review_text ~~* '%cold%'::text) OR (review_text ~~* '%late%'::text))
+                    Rows Removed by Filter: 241143
+                    Buffers: shared read=7568
+Planning:
+  Buffers: shared hit=110 read=4 dirtied=1
+Planning Time: 0.287 ms
+Execution Time: 57.506 ms
+=== R18 run 2 ===
+Limit  (cost=14253.21..14259.04 rows=50 width=42) (actual time=56.132..56.777 rows=50.00 loops=1)
+  Buffers: shared hit=358 read=7286
+  ->  Gather Merge  (cost=14253.21..20967.27 rows=57648 width=42) (actual time=56.131..56.774 rows=50.00 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=358 read=7286
+        ->  Sort  (cost=13253.19..13313.24 rows=24020 width=42) (actual time=54.907..54.907 rows=36.00 loops=3)
+              Sort Key: created_at DESC
+              Sort Method: top-N heapsort  Memory: 35kB
+              Buffers: shared hit=358 read=7286
+              Worker 0:  Sort Method: top-N heapsort  Memory: 35kB
+              Worker 1:  Sort Method: top-N heapsort  Memory: 35kB
+              ->  Parallel Seq Scan on reviews  (cost=0.00..12455.26 rows=24020 width=42) (actual time=0.044..53.019 rows=19511.33 loops=3)
+                    Filter: ((review_text ~~* '%cold%'::text) OR (review_text ~~* '%late%'::text))
+                    Rows Removed by Filter: 241143
+                    Buffers: shared hit=282 read=7286
+Planning:
+  Buffers: shared hit=114
+Planning Time: 0.179 ms
+Execution Time: 56.795 ms
+=== R18 run 3 ===
+Limit  (cost=14253.21..14259.04 rows=50 width=42) (actual time=55.863..56.564 rows=50.00 loops=1)
+  Buffers: shared hit=640 read=7004
+  ->  Gather Merge  (cost=14253.21..20967.27 rows=57648 width=42) (actual time=55.862..56.562 rows=50.00 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=640 read=7004
+        ->  Sort  (cost=13253.19..13313.24 rows=24020 width=42) (actual time=54.580..54.581 rows=37.00 loops=3)
+              Sort Key: created_at DESC
+              Sort Method: top-N heapsort  Memory: 35kB
+              Buffers: shared hit=640 read=7004
+              Worker 0:  Sort Method: top-N heapsort  Memory: 35kB
+              Worker 1:  Sort Method: top-N heapsort  Memory: 34kB
+              ->  Parallel Seq Scan on reviews  (cost=0.00..12455.26 rows=24020 width=42) (actual time=0.052..52.648 rows=19511.33 loops=3)
+                    Filter: ((review_text ~~* '%cold%'::text) OR (review_text ~~* '%late%'::text))
+                    Rows Removed by Filter: 241143
+                    Buffers: shared hit=564 read=7004
+Planning:
+  Buffers: shared hit=114
+Planning Time: 0.182 ms
+Execution Time: 56.582 ms

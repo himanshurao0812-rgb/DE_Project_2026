@@ -1,0 +1,279 @@
+=== R12 run 1 ===
+Limit  (cost=71237.65..71243.48 rows=50 width=31) (actual time=68.692..70.051 rows=50.00 loops=1)
+  Buffers: shared hit=2717 read=45535 written=242
+  ->  Gather Merge  (cost=71237.65..71256.42 rows=161 width=31) (actual time=68.692..70.048 rows=50.00 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=2717 read=45535 written=242
+        ->  Sort  (cost=70237.62..70237.81 rows=77 width=31) (actual time=66.795..66.799 rows=16.67 loops=3)
+              Sort Key: o.placed_at
+              Sort Method: top-N heapsort  Memory: 28kB
+              Buffers: shared hit=2717 read=45535 written=242
+              Worker 0:  Sort Method: quicksort  Memory: 25kB
+              Worker 1:  Sort Method: quicksort  Memory: 25kB
+              ->  Parallel Append  (cost=0.00..70235.21 rows=77 width=31) (actual time=51.122..66.750 rows=500.00 loops=3)
+                    Buffers: shared hit=2641 read=45535 written=242
+                    ->  Parallel Seq Scan on orders_2025_01 o_1  (cost=0.00..3988.43 rows=1 width=31) (actual time=11.000..11.001 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170330
+                          Buffers: shared read=2736
+                    ->  Parallel Seq Scan on orders_2025_03 o_3  (cost=0.00..3988.43 rows=1 width=31) (actual time=11.643..11.643 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170330
+                          Buffers: shared read=2736
+                    ->  Parallel Seq Scan on orders_2025_05 o_5  (cost=0.00..3988.43 rows=1 width=31) (actual time=13.028..13.028 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170330
+                          Buffers: shared read=2736 written=64
+                    ->  Parallel Seq Scan on orders_2025_10 o_10  (cost=0.00..3988.43 rows=1 width=31) (actual time=12.674..12.675 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170330
+                          Buffers: shared read=2736 written=69
+                    ->  Parallel Seq Scan on orders_2025_12 o_12  (cost=0.00..3988.43 rows=1 width=31) (actual time=10.314..10.314 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170330
+                          Buffers: shared read=2736
+                    ->  Parallel Seq Scan on orders_2026_01 o_13  (cost=0.00..3988.43 rows=1 width=31) (actual time=10.953..10.953 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170330
+                          Buffers: shared read=2736
+                    ->  Parallel Seq Scan on orders_2025_08 o_8  (cost=0.00..3988.42 rows=1 width=31) (actual time=11.632..11.632 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170329
+                          Buffers: shared read=2736 written=8
+                    ->  Parallel Seq Scan on orders_2025_07 o_7  (cost=0.00..3987.43 rows=1 width=31) (actual time=11.697..11.697 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170330
+                          Buffers: shared read=2735 written=7
+                    ->  Parallel Seq Scan on orders_2026_03 o_15  (cost=0.00..3987.42 rows=1 width=31) (actual time=11.245..11.245 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170329
+                          Buffers: shared read=2735
+                    ->  Parallel Seq Scan on orders_2026_05 o_17  (cost=0.00..3987.42 rows=1 width=31) (actual time=11.469..11.470 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170329
+                          Buffers: shared read=2735 written=5
+                    ->  Parallel Seq Scan on orders_2025_09 o_9  (cost=0.00..3860.02 rows=1 width=31) (actual time=3.661..3.661 rows=0.00 loops=3)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 54945
+                          Buffers: shared read=2648 written=15
+                    ->  Parallel Seq Scan on orders_2026_04 o_16  (cost=0.00..3859.03 rows=1 width=31) (actual time=5.494..5.495 rows=0.00 loops=2)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 82418
+                          Buffers: shared read=2647 written=8
+                    ->  Parallel Seq Scan on orders_2025_04 o_4  (cost=0.00..3859.02 rows=1 width=31) (actual time=10.043..10.043 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 164835
+                          Buffers: shared read=2647 written=4
+                    ->  Parallel Seq Scan on orders_2025_06 o_6  (cost=0.00..3859.02 rows=1 width=31) (actual time=10.279..10.279 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 164835
+                          Buffers: shared read=2647 written=5
+                    ->  Parallel Seq Scan on orders_2025_11 o_11  (cost=0.00..3859.02 rows=1 width=31) (actual time=10.571..10.571 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 164835
+                          Buffers: shared read=2647 written=8
+                    ->  Parallel Seq Scan on orders_2026_06 o_18  (cost=0.00..3853.02 rows=84 width=31) (actual time=0.008..10.226 rows=1500.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 163335
+                          Buffers: shared hit=2641
+                    ->  Parallel Seq Scan on orders_2025_02 o_2  (cost=0.00..3602.22 rows=1 width=31) (actual time=10.950..10.950 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 153846
+                          Buffers: shared read=2471 written=49
+                    ->  Parallel Seq Scan on orders_2026_02 o_14  (cost=0.00..3602.22 rows=1 width=31) (actual time=10.473..10.473 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 153846
+                          Buffers: shared read=2471
+                    ->  Parallel Seq Scan on orders_default o_19  (cost=0.00..0.00 rows=1 width=52) (actual time=0.001..0.001 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+Planning:
+  Buffers: shared hit=1842 read=145 dirtied=23
+Planning Time: 3.952 ms
+Execution Time: 70.109 ms
+=== R12 run 2 ===
+Limit  (cost=71237.65..71243.48 rows=50 width=31) (actual time=69.615..71.014 rows=50.00 loops=1)
+  Buffers: shared hit=76 read=48176 written=92
+  ->  Gather Merge  (cost=71237.65..71256.42 rows=161 width=31) (actual time=69.615..71.011 rows=50.00 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=76 read=48176 written=92
+        ->  Sort  (cost=70237.62..70237.81 rows=77 width=31) (actual time=67.472..67.475 rows=16.67 loops=3)
+              Sort Key: o.placed_at
+              Sort Method: top-N heapsort  Memory: 28kB
+              Buffers: shared hit=76 read=48176 written=92
+              Worker 0:  Sort Method: quicksort  Memory: 25kB
+              Worker 1:  Sort Method: quicksort  Memory: 25kB
+              ->  Parallel Append  (cost=0.00..70235.21 rows=77 width=31) (actual time=51.454..67.427 rows=500.00 loops=3)
+                    Buffers: shared read=48176 written=92
+                    ->  Parallel Seq Scan on orders_2025_01 o_1  (cost=0.00..3988.43 rows=1 width=31) (actual time=10.924..10.924 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170330
+                          Buffers: shared read=2736
+                    ->  Parallel Seq Scan on orders_2025_03 o_3  (cost=0.00..3988.43 rows=1 width=31) (actual time=10.852..10.852 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170330
+                          Buffers: shared read=2736
+                    ->  Parallel Seq Scan on orders_2025_05 o_5  (cost=0.00..3988.43 rows=1 width=31) (actual time=11.982..11.982 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170330
+                          Buffers: shared read=2736 written=16
+                    ->  Parallel Seq Scan on orders_2025_10 o_10  (cost=0.00..3988.43 rows=1 width=31) (actual time=12.355..12.355 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170330
+                          Buffers: shared read=2736 written=21
+                    ->  Parallel Seq Scan on orders_2025_12 o_12  (cost=0.00..3988.43 rows=1 width=31) (actual time=10.758..10.758 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170330
+                          Buffers: shared read=2736
+                    ->  Parallel Seq Scan on orders_2026_01 o_13  (cost=0.00..3988.43 rows=1 width=31) (actual time=10.806..10.806 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170330
+                          Buffers: shared read=2736
+                    ->  Parallel Seq Scan on orders_2025_08 o_8  (cost=0.00..3988.42 rows=1 width=31) (actual time=12.442..12.442 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170329
+                          Buffers: shared read=2736 written=6
+                    ->  Parallel Seq Scan on orders_2025_07 o_7  (cost=0.00..3987.43 rows=1 width=31) (actual time=12.656..12.656 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170330
+                          Buffers: shared read=2735 written=7
+                    ->  Parallel Seq Scan on orders_2026_03 o_15  (cost=0.00..3987.42 rows=1 width=31) (actual time=11.252..11.252 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170329
+                          Buffers: shared read=2735
+                    ->  Parallel Seq Scan on orders_2026_05 o_17  (cost=0.00..3987.42 rows=1 width=31) (actual time=11.312..11.312 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170329
+                          Buffers: shared read=2735
+                    ->  Parallel Seq Scan on orders_2025_09 o_9  (cost=0.00..3860.02 rows=1 width=31) (actual time=3.515..3.515 rows=0.00 loops=3)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 54945
+                          Buffers: shared read=2648 written=15
+                    ->  Parallel Seq Scan on orders_2026_04 o_16  (cost=0.00..3859.03 rows=1 width=31) (actual time=5.799..5.799 rows=0.00 loops=2)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 82418
+                          Buffers: shared read=2647 written=12
+                    ->  Parallel Seq Scan on orders_2025_04 o_4  (cost=0.00..3859.02 rows=1 width=31) (actual time=10.145..10.145 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 164835
+                          Buffers: shared read=2647 written=1
+                    ->  Parallel Seq Scan on orders_2025_06 o_6  (cost=0.00..3859.02 rows=1 width=31) (actual time=10.101..10.101 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 164835
+                          Buffers: shared read=2647 written=2
+                    ->  Parallel Seq Scan on orders_2025_11 o_11  (cost=0.00..3859.02 rows=1 width=31) (actual time=12.636..12.636 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 164835
+                          Buffers: shared read=2647 written=3
+                    ->  Parallel Seq Scan on orders_2026_06 o_18  (cost=0.00..3853.02 rows=84 width=31) (actual time=0.052..10.769 rows=1500.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 163335
+                          Buffers: shared read=2641 written=6
+                    ->  Parallel Seq Scan on orders_2025_02 o_2  (cost=0.00..3602.22 rows=1 width=31) (actual time=10.502..10.502 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 153846
+                          Buffers: shared read=2471 written=3
+                    ->  Parallel Seq Scan on orders_2026_02 o_14  (cost=0.00..3602.22 rows=1 width=31) (actual time=10.571..10.571 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 153846
+                          Buffers: shared read=2471
+                    ->  Parallel Seq Scan on orders_default o_19  (cost=0.00..0.00 rows=1 width=52) (actual time=0.000..0.001 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+Planning:
+  Buffers: shared hit=1777 read=204
+Planning Time: 3.794 ms
+Execution Time: 71.071 ms
+=== R12 run 3 ===
+Limit  (cost=71237.65..71243.48 rows=50 width=31) (actual time=73.621..75.167 rows=50.00 loops=1)
+  Buffers: shared hit=76 read=48176 written=92
+  ->  Gather Merge  (cost=71237.65..71256.42 rows=161 width=31) (actual time=73.620..75.164 rows=50.00 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=76 read=48176 written=92
+        ->  Sort  (cost=70237.62..70237.81 rows=77 width=31) (actual time=71.654..71.657 rows=16.67 loops=3)
+              Sort Key: o.placed_at
+              Sort Method: top-N heapsort  Memory: 28kB
+              Buffers: shared hit=76 read=48176 written=92
+              Worker 0:  Sort Method: quicksort  Memory: 25kB
+              Worker 1:  Sort Method: quicksort  Memory: 25kB
+              ->  Parallel Append  (cost=0.00..70235.21 rows=77 width=31) (actual time=54.217..71.601 rows=500.00 loops=3)
+                    Buffers: shared read=48176 written=92
+                    ->  Parallel Seq Scan on orders_2025_01 o_1  (cost=0.00..3988.43 rows=1 width=31) (actual time=10.859..10.859 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170330
+                          Buffers: shared read=2736
+                    ->  Parallel Seq Scan on orders_2025_03 o_3  (cost=0.00..3988.43 rows=1 width=31) (actual time=11.404..11.404 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170330
+                          Buffers: shared read=2736
+                    ->  Parallel Seq Scan on orders_2025_05 o_5  (cost=0.00..3988.43 rows=1 width=31) (actual time=12.604..12.604 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170330
+                          Buffers: shared read=2736 written=16
+                    ->  Parallel Seq Scan on orders_2025_10 o_10  (cost=0.00..3988.43 rows=1 width=31) (actual time=13.142..13.142 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170330
+                          Buffers: shared read=2736 written=16
+                    ->  Parallel Seq Scan on orders_2025_12 o_12  (cost=0.00..3988.43 rows=1 width=31) (actual time=10.494..10.494 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170330
+                          Buffers: shared read=2736
+                    ->  Parallel Seq Scan on orders_2026_01 o_13  (cost=0.00..3988.43 rows=1 width=31) (actual time=11.327..11.327 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170330
+                          Buffers: shared read=2736 written=3
+                    ->  Parallel Seq Scan on orders_2025_08 o_8  (cost=0.00..3988.42 rows=1 width=31) (actual time=11.329..11.329 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170329
+                          Buffers: shared read=2736 written=9
+                    ->  Parallel Seq Scan on orders_2025_07 o_7  (cost=0.00..3987.43 rows=1 width=31) (actual time=10.491..10.491 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170330
+                          Buffers: shared read=2735 written=7
+                    ->  Parallel Seq Scan on orders_2026_03 o_15  (cost=0.00..3987.42 rows=1 width=31) (actual time=10.163..10.163 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170329
+                          Buffers: shared read=2735
+                    ->  Parallel Seq Scan on orders_2026_05 o_17  (cost=0.00..3987.42 rows=1 width=31) (actual time=10.736..10.737 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 170329
+                          Buffers: shared read=2735
+                    ->  Parallel Seq Scan on orders_2025_09 o_9  (cost=0.00..3860.02 rows=1 width=31) (actual time=5.479..5.479 rows=0.00 loops=3)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 54945
+                          Buffers: shared read=2648 written=3
+                    ->  Parallel Seq Scan on orders_2026_04 o_16  (cost=0.00..3859.03 rows=1 width=31) (actual time=10.998..10.998 rows=0.00 loops=2)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 82418
+                          Buffers: shared read=2647 written=10
+                    ->  Parallel Seq Scan on orders_2025_04 o_4  (cost=0.00..3859.02 rows=1 width=31) (actual time=10.489..10.489 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 164835
+                          Buffers: shared read=2647 written=7
+                    ->  Parallel Seq Scan on orders_2025_06 o_6  (cost=0.00..3859.02 rows=1 width=31) (actual time=9.856..9.856 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 164835
+                          Buffers: shared read=2647
+                    ->  Parallel Seq Scan on orders_2025_11 o_11  (cost=0.00..3859.02 rows=1 width=31) (actual time=11.121..11.121 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 164835
+                          Buffers: shared read=2647 written=7
+                    ->  Parallel Seq Scan on orders_2026_06 o_18  (cost=0.00..3853.02 rows=84 width=31) (actual time=0.051..11.205 rows=1500.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 163335
+                          Buffers: shared read=2641 written=2
+                    ->  Parallel Seq Scan on orders_2025_02 o_2  (cost=0.00..3602.22 rows=1 width=31) (actual time=10.655..10.655 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 153846
+                          Buffers: shared read=2471 written=12
+                    ->  Parallel Seq Scan on orders_2026_02 o_14  (cost=0.00..3602.22 rows=1 width=31) (actual time=10.415..10.415 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+                          Rows Removed by Filter: 153846
+                          Buffers: shared read=2471
+                    ->  Parallel Seq Scan on orders_default o_19  (cost=0.00..0.00 rows=1 width=52) (actual time=0.000..0.000 rows=0.00 loops=1)
+                          Filter: ((partner_id IS NULL) AND (status = ANY ('{PLACED,ACCEPTED}'::text[])))
+Planning:
+  Buffers: shared hit=1777 read=204
+Planning Time: 3.741 ms
+Execution Time: 75.238 ms

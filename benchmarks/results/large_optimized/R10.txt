@@ -1,0 +1,69 @@
+=== R10 run 1 ===
+Limit  (cost=12451.14..12462.79 rows=100 width=48) (actual time=12.405..13.303 rows=100.00 loops=1)
+  Buffers: shared hit=3709 read=1266 dirtied=1
+  ->  Gather Merge  (cost=12451.14..19011.47 rows=56328 width=48) (actual time=12.405..13.299 rows=100.00 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=3709 read=1266 dirtied=1
+        ->  Sort  (cost=11451.12..11509.79 rows=23470 width=48) (actual time=10.612..10.613 rows=80.67 loops=3)
+              Sort Key: ((delivered_at - placed_at)) DESC
+              Sort Method: top-N heapsort  Memory: 36kB
+              Buffers: shared hit=3709 read=1266 dirtied=1
+              Worker 0:  Sort Method: top-N heapsort  Memory: 37kB
+              Worker 1:  Sort Method: top-N heapsort  Memory: 37kB
+              ->  Parallel Index Scan using idx_orders_placed_at on orders  (cost=0.43..10554.11 rows=23470 width=48) (actual time=0.148..9.504 rows=15703.67 loops=3)
+                    Index Cond: ((placed_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                    Filter: ((delivered_at - placed_at) > '01:00:00'::interval)
+                    Rows Removed by Filter: 39241
+                    Index Searches: 1
+                    Buffers: shared hit=3691 read=1266 dirtied=1
+Planning:
+  Buffers: shared hit=257 read=28
+Planning Time: 0.714 ms
+Execution Time: 13.329 ms
+=== R10 run 2 ===
+Limit  (cost=12451.14..12462.79 rows=100 width=48) (actual time=9.063..9.873 rows=100.00 loops=1)
+  Buffers: shared hit=4972
+  ->  Gather Merge  (cost=12451.14..19011.47 rows=56328 width=48) (actual time=9.062..9.868 rows=100.00 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=4972
+        ->  Sort  (cost=11451.12..11509.79 rows=23470 width=48) (actual time=7.418..7.421 rows=82.67 loops=3)
+              Sort Key: ((delivered_at - placed_at)) DESC
+              Sort Method: top-N heapsort  Memory: 36kB
+              Buffers: shared hit=4972
+              Worker 0:  Sort Method: top-N heapsort  Memory: 37kB
+              Worker 1:  Sort Method: top-N heapsort  Memory: 37kB
+              ->  Parallel Index Scan using idx_orders_placed_at on orders  (cost=0.43..10554.11 rows=23470 width=48) (actual time=0.093..6.389 rows=15703.67 loops=3)
+                    Index Cond: ((placed_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                    Filter: ((delivered_at - placed_at) > '01:00:00'::interval)
+                    Rows Removed by Filter: 39241
+                    Index Searches: 1
+                    Buffers: shared hit=4954
+Planning:
+  Buffers: shared hit=285
+Planning Time: 0.540 ms
+Execution Time: 9.899 ms
+=== R10 run 3 ===
+Limit  (cost=12451.14..12462.79 rows=100 width=48) (actual time=8.668..9.550 rows=100.00 loops=1)
+  Buffers: shared hit=4962
+  ->  Gather Merge  (cost=12451.14..19011.47 rows=56328 width=48) (actual time=8.667..9.545 rows=100.00 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=4962
+        ->  Sort  (cost=11451.12..11509.79 rows=23470 width=48) (actual time=7.191..7.193 rows=81.00 loops=3)
+              Sort Key: ((delivered_at - placed_at)) DESC
+              Sort Method: top-N heapsort  Memory: 36kB
+              Buffers: shared hit=4962
+              Worker 0:  Sort Method: top-N heapsort  Memory: 36kB
+              Worker 1:  Sort Method: top-N heapsort  Memory: 36kB
+              ->  Parallel Index Scan using idx_orders_placed_at on orders  (cost=0.43..10554.11 rows=23470 width=48) (actual time=0.091..6.255 rows=15703.67 loops=3)
+                    Index Cond: ((placed_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                    Filter: ((delivered_at - placed_at) > '01:00:00'::interval)
+                    Rows Removed by Filter: 39241
+                    Index Searches: 1
+                    Buffers: shared hit=4944
+Planning:
+  Buffers: shared hit=285
+Planning Time: 0.509 ms
+Execution Time: 9.582 ms

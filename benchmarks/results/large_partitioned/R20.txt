@@ -1,0 +1,357 @@
+=== R20 run 1 ===
+Limit  (cost=141533.72..141533.77 rows=20 width=56) (actual time=311.810..313.892 rows=20.00 loops=1)
+  Buffers: shared hit=536 read=55322 dirtied=329 written=540, temp read=1629 written=1635
+  ->  Sort  (cost=141533.72..141760.87 rows=90858 width=56) (actual time=311.808..313.890 rows=20.00 loops=1)
+        Sort Key: (sum(o.total_amount)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=536 read=55322 dirtied=329 written=540, temp read=1629 written=1635
+        ->  Finalize GroupAggregate  (cost=107759.44..139116.02 rows=90858 width=56) (actual time=222.961..306.938 rows=79547.00 loops=1)
+              Group Key: c.customer_id
+              Buffers: shared hit=533 read=55322 dirtied=329 written=540, temp read=1629 written=1635
+              ->  Gather Merge  (cost=107759.44..135799.71 rows=218059 width=56) (actual time=222.953..266.360 rows=197853.00 loops=1)
+                    Workers Planned: 2
+                    Workers Launched: 2
+                    Buffers: shared hit=533 read=55322 dirtied=329 written=540, temp read=1629 written=1635
+                    ->  Partial GroupAggregate  (cost=106759.42..109630.27 rows=90858 width=56) (actual time=220.491..248.860 rows=65951.00 loops=3)
+                          Group Key: c.customer_id
+                          Buffers: shared hit=533 read=55322 dirtied=329 written=540, temp read=1629 written=1635
+                          ->  Sort  (cost=106759.42..107193.20 rows=173512 width=21) (actual time=220.478..227.286 rows=139374.00 loops=3)
+                                Sort Key: c.customer_id
+                                Sort Method: external merge  Disk: 4496kB
+                                Buffers: shared hit=533 read=55322 dirtied=329 written=540, temp read=1629 written=1635
+                                Worker 0:  Sort Method: external merge  Disk: 4264kB
+                                Worker 1:  Sort Method: external merge  Disk: 4272kB
+                                ->  Parallel Hash Join  (cost=9581.02..88100.32 rows=173512 width=21) (actual time=31.501..199.058 rows=139374.00 loops=3)
+                                      Hash Cond: (o.customer_id = c.customer_id)
+                                      Buffers: shared hit=519 read=55322 dirtied=329 written=540
+                                      ->  Parallel Append  (cost=0.00..75667.25 rows=1086486 width=9) (actual time=0.044..109.366 rows=869172.33 loops=3)
+                                            Buffers: shared hit=517 read=47659 written=526
+                                            ->  Parallel Seq Scan on orders_2025_01 o_1  (cost=0.00..3988.43 rows=87316 width=9) (actual time=0.056..17.314 rows=148512.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 21818
+                                                  Buffers: shared hit=159 read=2577 written=30
+                                            ->  Parallel Seq Scan on orders_2025_03 o_3  (cost=0.00..3988.43 rows=86995 width=9) (actual time=0.052..14.645 rows=148091.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 22239
+                                                  Buffers: shared hit=181 read=2555 written=29
+                                            ->  Parallel Seq Scan on orders_2025_05 o_5  (cost=0.00..3988.43 rows=87042 width=9) (actual time=0.087..14.020 rows=148145.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 22185
+                                                  Buffers: shared hit=2 read=2734 written=161
+                                            ->  Parallel Seq Scan on orders_2025_10 o_10  (cost=0.00..3988.43 rows=87319 width=9) (actual time=0.071..15.568 rows=148485.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 21845
+                                                  Buffers: shared hit=3 read=2733 written=20
+                                            ->  Parallel Seq Scan on orders_2025_12 o_12  (cost=0.00..3988.43 rows=87229 width=9) (actual time=0.061..12.720 rows=148134.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 22196
+                                                  Buffers: shared read=2736 written=3
+                                            ->  Parallel Seq Scan on orders_2026_01 o_13  (cost=0.00..3988.43 rows=87062 width=9) (actual time=0.085..12.892 rows=148423.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 21907
+                                                  Buffers: shared read=2736 written=11
+                                            ->  Parallel Seq Scan on orders_2025_08 o_8  (cost=0.00..3988.42 rows=87138 width=9) (actual time=0.066..15.667 rows=148147.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 22182
+                                                  Buffers: shared read=2736 written=7
+                                            ->  Parallel Seq Scan on orders_2025_07 o_7  (cost=0.00..3987.43 rows=87386 width=9) (actual time=0.069..12.867 rows=148091.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 22239
+                                                  Buffers: shared read=2735 written=9
+                                            ->  Parallel Seq Scan on orders_2026_03 o_15  (cost=0.00..3987.42 rows=86981 width=9) (actual time=0.078..13.626 rows=147930.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 22399
+                                                  Buffers: shared read=2735 written=5
+                                            ->  Parallel Seq Scan on orders_2026_05 o_17  (cost=0.00..3987.42 rows=87225 width=9) (actual time=0.072..13.825 rows=148213.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 22116
+                                                  Buffers: shared read=2735 written=3
+                                            ->  Parallel Seq Scan on orders_2025_09 o_9  (cost=0.00..3860.02 rows=84489 width=9) (actual time=0.051..4.381 rows=47899.67 loops=3)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 7045
+                                                  Buffers: shared read=2648 written=7
+                                            ->  Parallel Seq Scan on orders_2026_04 o_16  (cost=0.00..3859.03 rows=84490 width=9) (actual time=0.034..6.710 rows=71776.50 loops=2)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 10642
+                                                  Buffers: shared read=2647 written=7
+                                            ->  Parallel Seq Scan on orders_2025_04 o_4  (cost=0.00..3859.02 rows=84153 width=9) (actual time=0.022..12.732 rows=143220.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 21615
+                                                  Buffers: shared read=2647 written=6
+                                            ->  Parallel Seq Scan on orders_2025_06 o_6  (cost=0.00..3859.02 rows=84205 width=9) (actual time=0.022..11.259 rows=142995.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 21840
+                                                  Buffers: shared read=2647 written=2
+                                            ->  Parallel Seq Scan on orders_2025_11 o_11  (cost=0.00..3859.02 rows=84082 width=9) (actual time=0.018..11.525 rows=143234.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 21601
+                                                  Buffers: shared read=2647 written=10
+                                            ->  Parallel Seq Scan on orders_2026_06 o_18  (cost=0.00..3853.02 rows=82896 width=9) (actual time=0.021..12.656 rows=140765.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 24070
+                                                  Buffers: shared read=2641 written=171
+                                            ->  Parallel Seq Scan on orders_2025_02 o_2  (cost=0.00..3602.22 rows=79001 width=9) (actual time=0.029..11.334 rows=133974.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 19872
+                                                  Buffers: shared hit=13 read=2458 written=12
+                                            ->  Parallel Seq Scan on orders_2026_02 o_14  (cost=0.00..3602.22 rows=78854 width=9) (actual time=0.022..12.446 rows=133906.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 19940
+                                                  Buffers: shared hit=159 read=2312 written=33
+                                            ->  Parallel Seq Scan on orders_default o_19  (cost=0.00..0.00 rows=1 width=20) (actual time=0.001..0.001 rows=0.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                      ->  Parallel Hash  (cost=9107.79..9107.79 rows=37858 width=16) (actual time=31.411..31.411 rows=26666.67 loops=3)
+                                            Buckets: 131072  Batches: 1  Memory Usage: 5152kB
+                                            Buffers: shared hit=2 read=7663 dirtied=329 written=14
+                                            ->  Parallel Bitmap Heap Scan on customers c  (cost=1024.57..9107.79 rows=37858 width=16) (actual time=14.834..28.771 rows=26666.67 loops=3)
+                                                  Recheck Cond: (city_id = 2)
+                                                  Heap Blocks: exact=2686
+                                                  Buffers: shared hit=2 read=7663 dirtied=329 written=14
+                                                  Worker 0:  Heap Blocks: exact=2399
+                                                  Worker 1:  Heap Blocks: exact=2501
+                                                  ->  Bitmap Index Scan on idx_customers_city  (cost=0.00..1001.86 rows=90858 width=0) (actual time=15.878..15.878 rows=91638.00 loops=1)
+                                                        Index Cond: (city_id = 2)
+                                                        Index Searches: 1
+                                                        Buffers: shared read=79
+Planning:
+  Buffers: shared hit=1812 read=218
+Planning Time: 4.967 ms
+Execution Time: 316.900 ms
+=== R20 run 2 ===
+Limit  (cost=141533.72..141533.77 rows=20 width=56) (actual time=284.046..286.426 rows=20.00 loops=1)
+  Buffers: shared hit=19 read=55839 written=193, temp read=1630 written=1636
+  ->  Sort  (cost=141533.72..141760.87 rows=90858 width=56) (actual time=284.045..286.424 rows=20.00 loops=1)
+        Sort Key: (sum(o.total_amount)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=19 read=55839 written=193, temp read=1630 written=1636
+        ->  Finalize GroupAggregate  (cost=107759.44..139116.02 rows=90858 width=56) (actual time=195.413..278.411 rows=79547.00 loops=1)
+              Group Key: c.customer_id
+              Buffers: shared hit=16 read=55839 written=193, temp read=1630 written=1636
+              ->  Gather Merge  (cost=107759.44..135799.71 rows=218059 width=56) (actual time=195.408..238.289 rows=198015.00 loops=1)
+                    Workers Planned: 2
+                    Workers Launched: 2
+                    Buffers: shared hit=16 read=55839 written=193, temp read=1630 written=1636
+                    ->  Partial GroupAggregate  (cost=106759.42..109630.27 rows=90858 width=56) (actual time=193.129..221.469 rows=66005.00 loops=3)
+                          Group Key: c.customer_id
+                          Buffers: shared hit=16 read=55839 written=193, temp read=1630 written=1636
+                          ->  Sort  (cost=106759.42..107193.20 rows=173512 width=21) (actual time=193.118..199.950 rows=139374.00 loops=3)
+                                Sort Key: c.customer_id
+                                Sort Method: external merge  Disk: 4416kB
+                                Buffers: shared hit=16 read=55839 written=193, temp read=1630 written=1636
+                                Worker 0:  Sort Method: external merge  Disk: 4272kB
+                                Worker 1:  Sort Method: external merge  Disk: 4352kB
+                                ->  Parallel Hash Join  (cost=9581.02..88100.32 rows=173512 width=21) (actual time=9.732..172.083 rows=139374.00 loops=3)
+                                      Hash Cond: (o.customer_id = c.customer_id)
+                                      Buffers: shared hit=2 read=55839 written=193
+                                      ->  Parallel Append  (cost=0.00..75667.25 rows=1086486 width=9) (actual time=0.068..105.415 rows=869172.33 loops=3)
+                                            Buffers: shared read=48176 written=180
+                                            ->  Parallel Seq Scan on orders_2025_01 o_1  (cost=0.00..3988.43 rows=87316 width=9) (actual time=0.082..12.441 rows=148512.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 21818
+                                                  Buffers: shared read=2736 written=21
+                                            ->  Parallel Seq Scan on orders_2025_03 o_3  (cost=0.00..3988.43 rows=86995 width=9) (actual time=0.064..15.243 rows=148091.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 22239
+                                                  Buffers: shared read=2736 written=21
+                                            ->  Parallel Seq Scan on orders_2025_05 o_5  (cost=0.00..3988.43 rows=87042 width=9) (actual time=0.050..13.986 rows=148145.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 22185
+                                                  Buffers: shared read=2736 written=11
+                                            ->  Parallel Seq Scan on orders_2025_10 o_10  (cost=0.00..3988.43 rows=87319 width=9) (actual time=0.086..14.590 rows=148485.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 21845
+                                                  Buffers: shared read=2736 written=6
+                                            ->  Parallel Seq Scan on orders_2025_12 o_12  (cost=0.00..3988.43 rows=87229 width=9) (actual time=0.062..11.618 rows=148134.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 22196
+                                                  Buffers: shared read=2736 written=4
+                                            ->  Parallel Seq Scan on orders_2026_01 o_13  (cost=0.00..3988.43 rows=87062 width=9) (actual time=0.066..11.995 rows=148423.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 21907
+                                                  Buffers: shared read=2736 written=8
+                                            ->  Parallel Seq Scan on orders_2025_08 o_8  (cost=0.00..3988.42 rows=87138 width=9) (actual time=0.070..13.914 rows=148147.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 22182
+                                                  Buffers: shared read=2736 written=12
+                                            ->  Parallel Seq Scan on orders_2025_07 o_7  (cost=0.00..3987.43 rows=87386 width=9) (actual time=0.062..13.440 rows=148091.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 22239
+                                                  Buffers: shared read=2735 written=18
+                                            ->  Parallel Seq Scan on orders_2026_03 o_15  (cost=0.00..3987.42 rows=86981 width=9) (actual time=0.079..14.038 rows=147930.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 22399
+                                                  Buffers: shared read=2735 written=9
+                                            ->  Parallel Seq Scan on orders_2026_05 o_17  (cost=0.00..3987.42 rows=87225 width=9) (actual time=0.060..12.348 rows=148213.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 22116
+                                                  Buffers: shared read=2735 written=8
+                                            ->  Parallel Seq Scan on orders_2025_09 o_9  (cost=0.00..3860.02 rows=84489 width=9) (actual time=0.046..4.145 rows=47899.67 loops=3)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 7045
+                                                  Buffers: shared read=2648 written=10
+                                            ->  Parallel Seq Scan on orders_2026_04 o_16  (cost=0.00..3859.03 rows=84490 width=9) (actual time=0.036..6.347 rows=71776.50 loops=2)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 10642
+                                                  Buffers: shared read=2647 written=3
+                                            ->  Parallel Seq Scan on orders_2025_04 o_4  (cost=0.00..3859.02 rows=84153 width=9) (actual time=0.056..12.959 rows=143220.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 21615
+                                                  Buffers: shared read=2647 written=12
+                                            ->  Parallel Seq Scan on orders_2025_06 o_6  (cost=0.00..3859.02 rows=84205 width=9) (actual time=0.023..11.338 rows=142995.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 21840
+                                                  Buffers: shared read=2647 written=7
+                                            ->  Parallel Seq Scan on orders_2025_11 o_11  (cost=0.00..3859.02 rows=84082 width=9) (actual time=0.025..11.981 rows=143234.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 21601
+                                                  Buffers: shared read=2647 written=16
+                                            ->  Parallel Seq Scan on orders_2026_06 o_18  (cost=0.00..3853.02 rows=82896 width=9) (actual time=0.023..12.209 rows=140765.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 24070
+                                                  Buffers: shared read=2641 written=4
+                                            ->  Parallel Seq Scan on orders_2025_02 o_2  (cost=0.00..3602.22 rows=79001 width=9) (actual time=0.025..10.615 rows=133974.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 19872
+                                                  Buffers: shared read=2471 written=2
+                                            ->  Parallel Seq Scan on orders_2026_02 o_14  (cost=0.00..3602.22 rows=78854 width=9) (actual time=0.055..12.055 rows=133906.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 19940
+                                                  Buffers: shared read=2471 written=8
+                                            ->  Parallel Seq Scan on orders_default o_19  (cost=0.00..0.00 rows=1 width=20) (actual time=0.001..0.001 rows=0.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                      ->  Parallel Hash  (cost=9107.79..9107.79 rows=37858 width=16) (actual time=9.611..9.612 rows=26666.67 loops=3)
+                                            Buckets: 131072  Batches: 1  Memory Usage: 5184kB
+                                            Buffers: shared hit=2 read=7663 written=13
+                                            ->  Parallel Bitmap Heap Scan on customers c  (cost=1024.57..9107.79 rows=37858 width=16) (actual time=0.672..6.948 rows=26666.67 loops=3)
+                                                  Recheck Cond: (city_id = 2)
+                                                  Heap Blocks: exact=2635
+                                                  Buffers: shared hit=2 read=7663 written=13
+                                                  Worker 0:  Heap Blocks: exact=2481
+                                                  Worker 1:  Heap Blocks: exact=2470
+                                                  ->  Bitmap Index Scan on idx_customers_city  (cost=0.00..1001.86 rows=90858 width=0) (actual time=1.370..1.370 rows=91638.00 loops=1)
+                                                        Index Cond: (city_id = 2)
+                                                        Index Searches: 1
+                                                        Buffers: shared read=79 written=2
+Planning:
+  Buffers: shared hit=1804 read=226 written=1
+Planning Time: 4.025 ms
+Execution Time: 287.895 ms
+=== R20 run 3 ===
+Limit  (cost=141533.72..141533.77 rows=20 width=56) (actual time=278.095..280.485 rows=20.00 loops=1)
+  Buffers: shared hit=19 read=55839 written=216, temp read=1630 written=1636
+  ->  Sort  (cost=141533.72..141760.87 rows=90858 width=56) (actual time=278.094..280.483 rows=20.00 loops=1)
+        Sort Key: (sum(o.total_amount)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=19 read=55839 written=216, temp read=1630 written=1636
+        ->  Finalize GroupAggregate  (cost=107759.44..139116.02 rows=90858 width=56) (actual time=193.496..273.595 rows=79547.00 loops=1)
+              Group Key: c.customer_id
+              Buffers: shared hit=16 read=55839 written=216, temp read=1630 written=1636
+              ->  Gather Merge  (cost=107759.44..135799.71 rows=218059 width=56) (actual time=193.487..234.892 rows=197738.00 loops=1)
+                    Workers Planned: 2
+                    Workers Launched: 2
+                    Buffers: shared hit=16 read=55839 written=216, temp read=1630 written=1636
+                    ->  Partial GroupAggregate  (cost=106759.42..109630.27 rows=90858 width=56) (actual time=191.219..218.822 rows=65912.67 loops=3)
+                          Group Key: c.customer_id
+                          Buffers: shared hit=16 read=55839 written=216, temp read=1630 written=1636
+                          ->  Sort  (cost=106759.42..107193.20 rows=173512 width=21) (actual time=191.207..197.780 rows=139374.00 loops=3)
+                                Sort Key: c.customer_id
+                                Sort Method: external merge  Disk: 4328kB
+                                Buffers: shared hit=16 read=55839 written=216, temp read=1630 written=1636
+                                Worker 0:  Sort Method: external merge  Disk: 4352kB
+                                Worker 1:  Sort Method: external merge  Disk: 4360kB
+                                ->  Parallel Hash Join  (cost=9581.02..88100.32 rows=173512 width=21) (actual time=9.544..169.554 rows=139374.00 loops=3)
+                                      Hash Cond: (o.customer_id = c.customer_id)
+                                      Buffers: shared hit=2 read=55839 written=216
+                                      ->  Parallel Append  (cost=0.00..75667.25 rows=1086486 width=9) (actual time=0.053..103.390 rows=869172.33 loops=3)
+                                            Buffers: shared read=48176 written=216
+                                            ->  Parallel Seq Scan on orders_2025_01 o_1  (cost=0.00..3988.43 rows=87316 width=9) (actual time=0.066..13.379 rows=148512.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 21818
+                                                  Buffers: shared read=2736 written=39
+                                            ->  Parallel Seq Scan on orders_2025_03 o_3  (cost=0.00..3988.43 rows=86995 width=9) (actual time=0.063..13.214 rows=148091.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 22239
+                                                  Buffers: shared read=2736 written=33
+                                            ->  Parallel Seq Scan on orders_2025_05 o_5  (cost=0.00..3988.43 rows=87042 width=9) (actual time=0.106..12.619 rows=148145.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 22185
+                                                  Buffers: shared read=2736 written=4
+                                            ->  Parallel Seq Scan on orders_2025_10 o_10  (cost=0.00..3988.43 rows=87319 width=9) (actual time=0.050..12.928 rows=148485.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 21845
+                                                  Buffers: shared read=2736 written=10
+                                            ->  Parallel Seq Scan on orders_2025_12 o_12  (cost=0.00..3988.43 rows=87229 width=9) (actual time=0.085..12.797 rows=148134.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 22196
+                                                  Buffers: shared read=2736 written=7
+                                            ->  Parallel Seq Scan on orders_2026_01 o_13  (cost=0.00..3988.43 rows=87062 width=9) (actual time=0.043..12.353 rows=148423.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 21907
+                                                  Buffers: shared read=2736 written=2
+                                            ->  Parallel Seq Scan on orders_2025_08 o_8  (cost=0.00..3988.42 rows=87138 width=9) (actual time=0.059..11.724 rows=148147.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 22182
+                                                  Buffers: shared read=2736 written=4
+                                            ->  Parallel Seq Scan on orders_2025_07 o_7  (cost=0.00..3987.43 rows=87386 width=9) (actual time=0.044..12.771 rows=148091.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 22239
+                                                  Buffers: shared read=2735
+                                            ->  Parallel Seq Scan on orders_2026_03 o_15  (cost=0.00..3987.42 rows=86981 width=9) (actual time=0.069..12.771 rows=147930.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 22399
+                                                  Buffers: shared read=2735 written=8
+                                            ->  Parallel Seq Scan on orders_2026_05 o_17  (cost=0.00..3987.42 rows=87225 width=9) (actual time=0.047..13.059 rows=148213.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 22116
+                                                  Buffers: shared read=2735 written=9
+                                            ->  Parallel Seq Scan on orders_2025_09 o_9  (cost=0.00..3860.02 rows=84489 width=9) (actual time=0.047..4.019 rows=47899.67 loops=3)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 7045
+                                                  Buffers: shared read=2648 written=7
+                                            ->  Parallel Seq Scan on orders_2026_04 o_16  (cost=0.00..3859.03 rows=84490 width=9) (actual time=0.040..6.118 rows=71776.50 loops=2)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 10642
+                                                  Buffers: shared read=2647 written=7
+                                            ->  Parallel Seq Scan on orders_2025_04 o_4  (cost=0.00..3859.02 rows=84153 width=9) (actual time=0.021..10.729 rows=143220.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 21615
+                                                  Buffers: shared read=2647 written=6
+                                            ->  Parallel Seq Scan on orders_2025_06 o_6  (cost=0.00..3859.02 rows=84205 width=9) (actual time=0.026..12.179 rows=142995.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 21840
+                                                  Buffers: shared read=2647 written=10
+                                            ->  Parallel Seq Scan on orders_2025_11 o_11  (cost=0.00..3859.02 rows=84082 width=9) (actual time=0.019..11.359 rows=143234.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 21601
+                                                  Buffers: shared read=2647
+                                            ->  Parallel Seq Scan on orders_2026_06 o_18  (cost=0.00..3853.02 rows=82896 width=9) (actual time=0.021..13.376 rows=140765.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 24070
+                                                  Buffers: shared read=2641 written=10
+                                            ->  Parallel Seq Scan on orders_2025_02 o_2  (cost=0.00..3602.22 rows=79001 width=9) (actual time=0.019..11.655 rows=133974.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 19872
+                                                  Buffers: shared read=2471 written=9
+                                            ->  Parallel Seq Scan on orders_2026_02 o_14  (cost=0.00..3602.22 rows=78854 width=9) (actual time=0.025..12.669 rows=133906.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                                  Rows Removed by Filter: 19940
+                                                  Buffers: shared read=2471 written=51
+                                            ->  Parallel Seq Scan on orders_default o_19  (cost=0.00..0.00 rows=1 width=20) (actual time=0.002..0.002 rows=0.00 loops=1)
+                                                  Filter: (status = 'DELIVERED'::text)
+                                      ->  Parallel Hash  (cost=9107.79..9107.79 rows=37858 width=16) (actual time=9.440..9.440 rows=26666.67 loops=3)
+                                            Buckets: 131072  Batches: 1  Memory Usage: 5184kB
+                                            Buffers: shared hit=2 read=7663
+                                            ->  Parallel Bitmap Heap Scan on customers c  (cost=1024.57..9107.79 rows=37858 width=16) (actual time=0.690..6.721 rows=26666.67 loops=3)
+                                                  Recheck Cond: (city_id = 2)
+                                                  Heap Blocks: exact=2750
+                                                  Buffers: shared hit=2 read=7663
+                                                  Worker 0:  Heap Blocks: exact=2694
+                                                  Worker 1:  Heap Blocks: exact=2142
+                                                  ->  Bitmap Index Scan on idx_customers_city  (cost=0.00..1001.86 rows=90858 width=0) (actual time=1.443..1.443 rows=91638.00 loops=1)
+                                                        Index Cond: (city_id = 2)
+                                                        Index Searches: 1
+                                                        Buffers: shared read=79
+Planning:
+  Buffers: shared hit=1804 read=226
+Planning Time: 3.943 ms
+Execution Time: 281.820 ms

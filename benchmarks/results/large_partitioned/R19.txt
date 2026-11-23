@@ -1,0 +1,960 @@
+=== R19 run 1 ===
+Sort  (cost=1908505.59..1908518.09 rows=5000 width=68) (actual time=4377.961..4378.170 rows=8000.00 loops=1)
+  Sort Key: ((SubPlan 2)) DESC NULLS LAST
+  Sort Method: quicksort  Memory: 688kB
+  Buffers: shared hit=1094250 read=362397 written=2643
+  ->  Hash Join  (cost=2.38..1908198.40 rows=5000 width=68) (actual time=1.772..4376.021 rows=8000.00 loops=1)
+        Hash Cond: (r.locality_id = l.locality_id)
+        Buffers: shared hit=1094250 read=362397 written=2643
+        ->  Seq Scan on restaurants r  (cost=0.00..1447.00 rows=50000 width=24) (actual time=0.026..2.452 rows=50000.00 loops=1)
+              Buffers: shared read=947 written=4
+        ->  Hash  (cost=2.25..2.25 rows=10 width=4) (actual time=0.009..0.010 rows=10.00 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=1
+              ->  Seq Scan on localities l  (cost=0.00..2.25 rows=10 width=4) (actual time=0.003..0.006 rows=10.00 loops=1)
+                    Filter: (city_id = 1)
+                    Rows Removed by Filter: 90
+                    Buffers: shared hit=1
+        SubPlan 2
+          ->  Result  (cost=11.15..11.16 rows=1 width=8) (actual time=0.152..0.152 rows=1.00 loops=8000)
+                Buffers: shared hit=453080 read=66118 written=493
+                InitPlan 1
+                  ->  Limit  (cost=8.09..11.15 rows=1 width=8) (actual time=0.152..0.152 rows=0.96 loops=8000)
+                        Buffers: shared hit=453080 read=66118 written=493
+                        ->  Merge Append  (cost=8.09..231.28 rows=73 width=8) (actual time=0.151..0.151 rows=0.96 loops=8000)
+                              Sort Key: o.placed_at DESC
+                              Buffers: shared hit=453080 read=66118 written=493
+                              ->  Index Only Scan Backward using orders_2025_01_restaurant_id_placed_at_idx on orders_2025_01 o_1  (cost=0.42..4.49 rows=4 width=8) (actual time=0.010..0.010 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23106 read=895 written=4
+                              ->  Index Only Scan Backward using orders_2025_02_restaurant_id_placed_at_idx on orders_2025_02 o_2  (cost=0.42..4.49 rows=4 width=8) (actual time=0.008..0.008 rows=0.92 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23233 read=768 written=5
+                              ->  Index Only Scan Backward using orders_2025_03_restaurant_id_placed_at_idx on orders_2025_03 o_3  (cost=0.42..4.49 rows=4 width=8) (actual time=0.009..0.009 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23117 read=884 written=5
+                              ->  Index Only Scan Backward using orders_2025_04_restaurant_id_placed_at_idx on orders_2025_04 o_4  (cost=0.42..4.49 rows=4 width=8) (actual time=0.008..0.008 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23193 read=808 written=7
+                              ->  Index Only Scan Backward using orders_2025_05_restaurant_id_placed_at_idx on orders_2025_05 o_5  (cost=0.42..12.49 rows=4 width=8) (actual time=0.011..0.011 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 6178
+                                    Index Searches: 8000
+                                    Buffers: shared hit=24779 read=5400 written=47
+                              ->  Index Only Scan Backward using orders_2025_06_restaurant_id_placed_at_idx on orders_2025_06 o_6  (cost=0.42..4.49 rows=4 width=8) (actual time=0.008..0.008 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23177 read=824 written=8
+                              ->  Index Only Scan Backward using orders_2025_07_restaurant_id_placed_at_idx on orders_2025_07 o_7  (cost=0.42..4.49 rows=4 width=8) (actual time=0.009..0.009 rows=0.94 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23104 read=897 written=5
+                              ->  Index Only Scan Backward using orders_2025_08_restaurant_id_placed_at_idx on orders_2025_08 o_8  (cost=0.42..4.49 rows=4 width=8) (actual time=0.008..0.008 rows=0.94 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23121 read=880 written=4
+                              ->  Index Only Scan Backward using orders_2025_09_restaurant_id_placed_at_idx on orders_2025_09 o_9  (cost=0.42..16.49 rows=4 width=8) (actual time=0.009..0.009 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 6633
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25117 read=5517 written=34
+                              ->  Index Only Scan Backward using orders_2025_10_restaurant_id_placed_at_idx on orders_2025_10 o_10  (cost=0.42..16.49 rows=4 width=8) (actual time=0.010..0.010 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 6870
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25030 read=5841 written=46
+                              ->  Index Only Scan Backward using orders_2025_11_restaurant_id_placed_at_idx on orders_2025_11 o_11  (cost=0.42..16.49 rows=4 width=8) (actual time=0.009..0.009 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 6735
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25138 read=5598 written=42
+                              ->  Index Only Scan Backward using orders_2025_12_restaurant_id_placed_at_idx on orders_2025_12 o_12  (cost=0.42..4.49 rows=4 width=8) (actual time=0.008..0.008 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23115 read=886 written=9
+                              ->  Index Only Scan Backward using orders_2026_01_restaurant_id_placed_at_idx on orders_2026_01 o_13  (cost=0.42..20.49 rows=4 width=8) (actual time=0.009..0.009 rows=0.94 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 7490
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25295 read=6195 written=37
+                              ->  Index Only Scan Backward using orders_2026_02_restaurant_id_placed_at_idx on orders_2026_02 o_14  (cost=0.42..20.49 rows=4 width=8) (actual time=0.008..0.008 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 7415
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25370 read=6045 written=47
+                              ->  Index Only Scan Backward using orders_2026_03_restaurant_id_placed_at_idx on orders_2026_03 o_15  (cost=0.42..20.49 rows=4 width=8) (actual time=0.009..0.009 rows=0.94 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 7496
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25201 read=6295 written=41
+                              ->  Index Only Scan Backward using orders_2026_04_restaurant_id_placed_at_idx on orders_2026_04 o_16  (cost=0.42..20.49 rows=4 width=8) (actual time=0.008..0.008 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 7433
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25379 read=6054 written=54
+                              ->  Index Only Scan Backward using orders_2026_05_restaurant_id_placed_at_idx on orders_2026_05 o_17  (cost=0.42..20.49 rows=4 width=8) (actual time=0.003..0.003 rows=0.94 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 7486
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25243 read=6243 written=51
+                              ->  Index Only Scan Backward using orders_2026_06_restaurant_id_placed_at_idx on orders_2026_06 o_18  (cost=0.42..20.49 rows=4 width=8) (actual time=0.003..0.003 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 7450
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25362 read=6088 written=47
+                              ->  Index Only Scan Backward using orders_default_restaurant_id_placed_at_idx on orders_default o_19  (cost=0.12..8.14 rows=1 width=8) (actual time=0.000..0.000 rows=0.00 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=16000
+        SubPlan 3
+          ->  Aggregate  (cost=361.38..361.39 rows=1 width=8) (actual time=0.390..0.390 rows=1.00 loops=8000)
+                Buffers: shared hit=618988 read=293181 written=2131
+                ->  Append  (cost=4.45..361.20 rows=71 width=0) (actual time=0.013..0.386 rows=52.19 loops=8000)
+                      Buffers: shared hit=618988 read=293181 written=2131
+                      ->  Bitmap Heap Scan on orders_2025_01 o_21  (cost=4.45..20.05 rows=4 width=0) (actual time=0.011..0.024 rows=2.98 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27290
+                            Buffers: shared hit=31654 read=19636 written=154
+                            ->  Bitmap Index Scan on orders_2025_01_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.41 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_02 o_22  (cost=4.45..20.03 rows=3 width=0) (actual time=0.010..0.021 rows=2.68 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=24571
+                            Buffers: shared hit=31027 read=17544 written=133
+                            ->  Bitmap Index Scan on orders_2025_02_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.07 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_03 o_23  (cost=4.45..20.05 rows=4 width=0) (actual time=0.010..0.024 rows=2.94 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27127
+                            Buffers: shared hit=31583 read=19544 written=145
+                            ->  Bitmap Index Scan on orders_2025_03_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.39 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_04 o_24  (cost=4.45..20.04 rows=4 width=0) (actual time=0.010..0.023 rows=2.87 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=26371
+                            Buffers: shared hit=31661 read=18710 written=147
+                            ->  Bitmap Index Scan on orders_2025_04_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.30 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_05 o_25  (cost=4.45..20.05 rows=4 width=0) (actual time=0.010..0.020 rows=2.93 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=26981
+                            Buffers: shared hit=35987 read=14994 written=119
+                            ->  Bitmap Index Scan on orders_2025_05_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.37 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_06 o_26  (cost=4.45..20.04 rows=4 width=0) (actual time=0.010..0.023 rows=2.84 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=26262
+                            Buffers: shared hit=31442 read=18820 written=139
+                            ->  Bitmap Index Scan on orders_2025_06_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.28 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_07 o_27  (cost=4.45..20.05 rows=4 width=0) (actual time=0.010..0.024 rows=2.99 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27454
+                            Buffers: shared hit=31889 read=19565 written=151
+                            ->  Bitmap Index Scan on orders_2025_07_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.43 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_08 o_28  (cost=4.45..20.05 rows=4 width=0) (actual time=0.010..0.024 rows=2.96 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27167
+                            Buffers: shared hit=31625 read=19542 written=123
+                            ->  Bitmap Index Scan on orders_2025_08_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.40 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_09 o_29  (cost=4.45..20.04 rows=4 width=0) (actual time=0.009..0.018 rows=2.89 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=26524
+                            Buffers: shared hit=36303 read=14221 written=134
+                            ->  Bitmap Index Scan on orders_2025_09_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.32 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_10 o_30  (cost=4.45..20.05 rows=4 width=0) (actual time=0.010..0.019 rows=2.98 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27345
+                            Buffers: shared hit=36564 read=14781 written=114
+                            ->  Bitmap Index Scan on orders_2025_10_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.42 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_11 o_31  (cost=4.45..20.04 rows=4 width=0) (actual time=0.010..0.019 rows=2.87 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=26449
+                            Buffers: shared hit=36325 read=14124 written=110
+                            ->  Bitmap Index Scan on orders_2025_11_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.31 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_12 o_32  (cost=4.45..20.05 rows=4 width=0) (actual time=0.010..0.024 rows=2.99 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27323
+                            Buffers: shared hit=31654 read=19669 written=122
+                            ->  Bitmap Index Scan on orders_2025_12_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.42 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2026_01 o_33  (cost=4.45..20.05 rows=4 width=0) (actual time=0.009..0.018 rows=2.95 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27076
+                            Buffers: shared hit=37024 read=14052 written=102
+                            ->  Bitmap Index Scan on orders_2026_01_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.39 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2026_02 o_34  (cost=4.45..20.03 rows=3 width=0) (actual time=0.009..0.016 rows=2.68 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=24628
+                            Buffers: shared hit=36195 read=12433 written=78
+                            ->  Bitmap Index Scan on orders_2026_02_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.08 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2026_03 o_35  (cost=4.45..20.05 rows=4 width=0) (actual time=0.009..0.018 rows=2.95 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27176
+                            Buffers: shared hit=37069 read=14107 written=106
+                            ->  Bitmap Index Scan on orders_2026_03_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.40 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2026_04 o_36  (cost=4.45..20.04 rows=4 width=0) (actual time=0.009..0.018 rows=2.91 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=26554
+                            Buffers: shared hit=36876 read=13678 written=76
+                            ->  Bitmap Index Scan on orders_2026_04_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.32 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2026_05 o_37  (cost=4.45..20.05 rows=4 width=0) (actual time=0.009..0.018 rows=2.97 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27319
+                            Buffers: shared hit=37227 read=14092 written=82
+                            ->  Bitmap Index Scan on orders_2026_05_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.42 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2026_06 o_38  (cost=4.45..20.04 rows=4 width=0) (actual time=0.009..0.018 rows=2.83 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=26552
+                            Buffers: shared hit=36883 read=13669 written=96
+                            ->  Bitmap Index Scan on orders_2026_06_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.32 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Seq Scan on orders_default o_39  (cost=0.00..0.00 rows=1 width=0) (actual time=0.000..0.000 rows=0.00 loops=8000)
+                            Filter: ((restaurant_id = r.restaurant_id) AND (status = 'DELIVERED'::text))
+        SubPlan 4
+          ->  Aggregate  (cost=8.77..8.78 rows=1 width=32) (actual time=0.004..0.004 rows=1.00 loops=8000)
+                Buffers: shared hit=22181 read=2151 written=15
+                ->  Index Only Scan using idx_reviews_restaurant on reviews v  (cost=0.42..8.72 rows=17 width=2) (actual time=0.002..0.003 rows=15.68 loops=8000)
+                      Index Cond: (restaurant_id = r.restaurant_id)
+                      Heap Fetches: 0
+                      Index Searches: 8000
+                      Buffers: shared hit=22181 read=2151 written=15
+Planning:
+  Buffers: shared hit=1961 read=180
+Planning Time: 4.487 ms
+Execution Time: 4378.505 ms
+=== R19 run 2 ===
+Sort  (cost=1908505.59..1908518.09 rows=5000 width=68) (actual time=3460.771..3461.024 rows=8000.00 loops=1)
+  Sort Key: ((SubPlan 2)) DESC NULLS LAST
+  Sort Method: quicksort  Memory: 688kB
+  Buffers: shared hit=1098124 read=358523 written=2190
+  ->  Hash Join  (cost=2.38..1908198.40 rows=5000 width=68) (actual time=1.100..3448.782 rows=8000.00 loops=1)
+        Hash Cond: (r.locality_id = l.locality_id)
+        Buffers: shared hit=1098124 read=358523 written=2190
+        ->  Seq Scan on restaurants r  (cost=0.00..1447.00 rows=50000 width=24) (actual time=0.020..2.268 rows=50000.00 loops=1)
+              Buffers: shared read=947 written=8
+        ->  Hash  (cost=2.25..2.25 rows=10 width=4) (actual time=0.008..0.008 rows=10.00 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=1
+              ->  Seq Scan on localities l  (cost=0.00..2.25 rows=10 width=4) (actual time=0.003..0.005 rows=10.00 loops=1)
+                    Filter: (city_id = 1)
+                    Rows Removed by Filter: 90
+                    Buffers: shared hit=1
+        SubPlan 2
+          ->  Result  (cost=11.15..11.16 rows=1 width=8) (actual time=0.043..0.043 rows=1.00 loops=8000)
+                Buffers: shared hit=453614 read=65584 written=406
+                InitPlan 1
+                  ->  Limit  (cost=8.09..11.15 rows=1 width=8) (actual time=0.042..0.042 rows=0.96 loops=8000)
+                        Buffers: shared hit=453614 read=65584 written=406
+                        ->  Merge Append  (cost=8.09..231.28 rows=73 width=8) (actual time=0.042..0.042 rows=0.96 loops=8000)
+                              Sort Key: o.placed_at DESC
+                              Buffers: shared hit=453614 read=65584 written=406
+                              ->  Index Only Scan Backward using orders_2025_01_restaurant_id_placed_at_idx on orders_2025_01 o_1  (cost=0.42..4.49 rows=4 width=8) (actual time=0.001..0.001 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23108 read=893 written=2
+                              ->  Index Only Scan Backward using orders_2025_02_restaurant_id_placed_at_idx on orders_2025_02 o_2  (cost=0.42..4.49 rows=4 width=8) (actual time=0.001..0.001 rows=0.92 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23235 read=766 written=4
+                              ->  Index Only Scan Backward using orders_2025_03_restaurant_id_placed_at_idx on orders_2025_03 o_3  (cost=0.42..4.49 rows=4 width=8) (actual time=0.001..0.001 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23119 read=882 written=4
+                              ->  Index Only Scan Backward using orders_2025_04_restaurant_id_placed_at_idx on orders_2025_04 o_4  (cost=0.42..4.49 rows=4 width=8) (actual time=0.001..0.001 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23196 read=805 written=6
+                              ->  Index Only Scan Backward using orders_2025_05_restaurant_id_placed_at_idx on orders_2025_05 o_5  (cost=0.42..12.49 rows=4 width=8) (actual time=0.003..0.003 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 6178
+                                    Index Searches: 8000
+                                    Buffers: shared hit=24818 read=5361 written=24
+                              ->  Index Only Scan Backward using orders_2025_06_restaurant_id_placed_at_idx on orders_2025_06 o_6  (cost=0.42..4.49 rows=4 width=8) (actual time=0.001..0.001 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23179 read=822 written=8
+                              ->  Index Only Scan Backward using orders_2025_07_restaurant_id_placed_at_idx on orders_2025_07 o_7  (cost=0.42..4.49 rows=4 width=8) (actual time=0.001..0.001 rows=0.94 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23106 read=895 written=4
+                              ->  Index Only Scan Backward using orders_2025_08_restaurant_id_placed_at_idx on orders_2025_08 o_8  (cost=0.42..4.49 rows=4 width=8) (actual time=0.001..0.001 rows=0.94 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23123 read=878 written=6
+                              ->  Index Only Scan Backward using orders_2025_09_restaurant_id_placed_at_idx on orders_2025_09 o_9  (cost=0.42..16.49 rows=4 width=8) (actual time=0.003..0.003 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 6633
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25122 read=5512 written=34
+                              ->  Index Only Scan Backward using orders_2025_10_restaurant_id_placed_at_idx on orders_2025_10 o_10  (cost=0.42..16.49 rows=4 width=8) (actual time=0.003..0.003 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 6870
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25079 read=5792 written=32
+                              ->  Index Only Scan Backward using orders_2025_11_restaurant_id_placed_at_idx on orders_2025_11 o_11  (cost=0.42..16.49 rows=4 width=8) (actual time=0.003..0.003 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 6735
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25199 read=5537 written=33
+                              ->  Index Only Scan Backward using orders_2025_12_restaurant_id_placed_at_idx on orders_2025_12 o_12  (cost=0.42..4.49 rows=4 width=8) (actual time=0.001..0.001 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23117 read=884 written=6
+                              ->  Index Only Scan Backward using orders_2026_01_restaurant_id_placed_at_idx on orders_2026_01 o_13  (cost=0.42..20.49 rows=4 width=8) (actual time=0.003..0.003 rows=0.94 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 7490
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25422 read=6068 written=46
+                              ->  Index Only Scan Backward using orders_2026_02_restaurant_id_placed_at_idx on orders_2026_02 o_14  (cost=0.42..20.49 rows=4 width=8) (actual time=0.003..0.003 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 7415
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25412 read=6003 written=41
+                              ->  Index Only Scan Backward using orders_2026_03_restaurant_id_placed_at_idx on orders_2026_03 o_15  (cost=0.42..20.49 rows=4 width=8) (actual time=0.003..0.003 rows=0.94 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 7496
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25251 read=6245 written=32
+                              ->  Index Only Scan Backward using orders_2026_04_restaurant_id_placed_at_idx on orders_2026_04 o_16  (cost=0.42..20.49 rows=4 width=8) (actual time=0.003..0.003 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 7433
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25388 read=6045 written=34
+                              ->  Index Only Scan Backward using orders_2026_05_restaurant_id_placed_at_idx on orders_2026_05 o_17  (cost=0.42..20.49 rows=4 width=8) (actual time=0.003..0.003 rows=0.94 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 7486
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25312 read=6174 written=46
+                              ->  Index Only Scan Backward using orders_2026_06_restaurant_id_placed_at_idx on orders_2026_06 o_18  (cost=0.42..20.49 rows=4 width=8) (actual time=0.003..0.003 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 7450
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25428 read=6022 written=44
+                              ->  Index Only Scan Backward using orders_default_restaurant_id_placed_at_idx on orders_default o_19  (cost=0.12..8.14 rows=1 width=8) (actual time=0.000..0.000 rows=0.00 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=16000
+        SubPlan 3
+          ->  Aggregate  (cost=361.38..361.39 rows=1 width=8) (actual time=0.383..0.383 rows=1.00 loops=8000)
+                Buffers: shared hit=622326 read=289843 written=1766
+                ->  Append  (cost=4.45..361.20 rows=71 width=0) (actual time=0.012..0.380 rows=52.19 loops=8000)
+                      Buffers: shared hit=622326 read=289843 written=1766
+                      ->  Bitmap Heap Scan on orders_2025_01 o_21  (cost=4.45..20.05 rows=4 width=0) (actual time=0.010..0.023 rows=2.98 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27290
+                            Buffers: shared hit=31882 read=19408 written=130
+                            ->  Bitmap Index Scan on orders_2025_01_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.41 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_02 o_22  (cost=4.45..20.03 rows=3 width=0) (actual time=0.010..0.021 rows=2.68 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=24571
+                            Buffers: shared hit=31236 read=17335 written=95
+                            ->  Bitmap Index Scan on orders_2025_02_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.07 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_03 o_23  (cost=4.45..20.05 rows=4 width=0) (actual time=0.010..0.023 rows=2.94 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27127
+                            Buffers: shared hit=31793 read=19334 written=117
+                            ->  Bitmap Index Scan on orders_2025_03_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.39 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_04 o_24  (cost=4.45..20.04 rows=4 width=0) (actual time=0.010..0.023 rows=2.87 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=26371
+                            Buffers: shared hit=31587 read=18784 written=116
+                            ->  Bitmap Index Scan on orders_2025_04_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.30 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_05 o_25  (cost=4.45..20.05 rows=4 width=0) (actual time=0.009..0.019 rows=2.93 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=26981
+                            Buffers: shared hit=36150 read=14831 written=84
+                            ->  Bitmap Index Scan on orders_2025_05_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.37 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_06 o_26  (cost=4.45..20.04 rows=4 width=0) (actual time=0.010..0.023 rows=2.84 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=26262
+                            Buffers: shared hit=31582 read=18680 written=111
+                            ->  Bitmap Index Scan on orders_2025_06_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.28 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_07 o_27  (cost=4.45..20.05 rows=4 width=0) (actual time=0.010..0.023 rows=2.99 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27454
+                            Buffers: shared hit=32103 read=19351 written=129
+                            ->  Bitmap Index Scan on orders_2025_07_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.43 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_08 o_28  (cost=4.45..20.05 rows=4 width=0) (actual time=0.010..0.023 rows=2.96 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27167
+                            Buffers: shared hit=31837 read=19330 written=121
+                            ->  Bitmap Index Scan on orders_2025_08_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.40 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_09 o_29  (cost=4.45..20.04 rows=4 width=0) (actual time=0.009..0.018 rows=2.89 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=26524
+                            Buffers: shared hit=36405 read=14119 written=101
+                            ->  Bitmap Index Scan on orders_2025_09_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.32 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_10 o_30  (cost=4.45..20.05 rows=4 width=0) (actual time=0.009..0.019 rows=2.98 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27345
+                            Buffers: shared hit=36725 read=14620 written=78
+                            ->  Bitmap Index Scan on orders_2025_10_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.42 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_11 o_31  (cost=4.45..20.04 rows=4 width=0) (actual time=0.010..0.019 rows=2.87 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=26449
+                            Buffers: shared hit=36469 read=13980 written=94
+                            ->  Bitmap Index Scan on orders_2025_11_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.31 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_12 o_32  (cost=4.45..20.05 rows=4 width=0) (actual time=0.010..0.023 rows=2.99 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27323
+                            Buffers: shared hit=31852 read=19471 written=133
+                            ->  Bitmap Index Scan on orders_2025_12_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.42 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2026_01 o_33  (cost=4.45..20.05 rows=4 width=0) (actual time=0.009..0.017 rows=2.95 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27076
+                            Buffers: shared hit=37813 read=13263 written=82
+                            ->  Bitmap Index Scan on orders_2026_01_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.39 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2026_02 o_34  (cost=4.45..20.03 rows=3 width=0) (actual time=0.009..0.016 rows=2.68 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=24628
+                            Buffers: shared hit=36300 read=12328 written=65
+                            ->  Bitmap Index Scan on orders_2026_02_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.08 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2026_03 o_35  (cost=4.45..20.05 rows=4 width=0) (actual time=0.009..0.018 rows=2.95 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27176
+                            Buffers: shared hit=37221 read=13955 written=76
+                            ->  Bitmap Index Scan on orders_2026_03_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.40 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2026_04 o_36  (cost=4.45..20.04 rows=4 width=0) (actual time=0.009..0.018 rows=2.91 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=26554
+                            Buffers: shared hit=36950 read=13604 written=76
+                            ->  Bitmap Index Scan on orders_2026_04_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.32 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2026_05 o_37  (cost=4.45..20.05 rows=4 width=0) (actual time=0.009..0.018 rows=2.97 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27319
+                            Buffers: shared hit=37394 read=13925 written=83
+                            ->  Bitmap Index Scan on orders_2026_05_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.42 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2026_06 o_38  (cost=4.45..20.04 rows=4 width=0) (actual time=0.009..0.017 rows=2.83 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=26552
+                            Buffers: shared hit=37027 read=13525 written=75
+                            ->  Bitmap Index Scan on orders_2026_06_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.32 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Seq Scan on orders_default o_39  (cost=0.00..0.00 rows=1 width=0) (actual time=0.000..0.000 rows=0.00 loops=8000)
+                            Filter: ((restaurant_id = r.restaurant_id) AND (status = 'DELIVERED'::text))
+        SubPlan 4
+          ->  Aggregate  (cost=8.77..8.78 rows=1 width=32) (actual time=0.003..0.003 rows=1.00 loops=8000)
+                Buffers: shared hit=22183 read=2149 written=10
+                ->  Index Only Scan using idx_reviews_restaurant on reviews v  (cost=0.42..8.72 rows=17 width=2) (actual time=0.002..0.002 rows=15.68 loops=8000)
+                      Index Cond: (restaurant_id = r.restaurant_id)
+                      Heap Fetches: 0
+                      Index Searches: 8000
+                      Buffers: shared hit=22183 read=2149 written=10
+Planning:
+  Buffers: shared hit=1928 read=213 written=5
+Planning Time: 4.098 ms
+Execution Time: 3461.369 ms
+=== R19 run 3 ===
+Sort  (cost=1908505.59..1908518.09 rows=5000 width=68) (actual time=3410.535..3410.788 rows=8000.00 loops=1)
+  Sort Key: ((SubPlan 2)) DESC NULLS LAST
+  Sort Method: quicksort  Memory: 688kB
+  Buffers: shared hit=1090592 read=359160 written=2180
+  ->  Hash Join  (cost=2.38..1908198.40 rows=5000 width=68) (actual time=1.015..3408.575 rows=8000.00 loops=1)
+        Hash Cond: (r.locality_id = l.locality_id)
+        Buffers: shared hit=1090592 read=359160 written=2180
+        ->  Seq Scan on restaurants r  (cost=0.00..1447.00 rows=50000 width=24) (actual time=0.016..2.300 rows=50000.00 loops=1)
+              Buffers: shared read=947 written=4
+        ->  Hash  (cost=2.25..2.25 rows=10 width=4) (actual time=0.008..0.008 rows=10.00 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=1
+              ->  Seq Scan on localities l  (cost=0.00..2.25 rows=10 width=4) (actual time=0.003..0.005 rows=10.00 loops=1)
+                    Filter: (city_id = 1)
+                    Rows Removed by Filter: 90
+                    Buffers: shared hit=1
+        SubPlan 2
+          ->  Result  (cost=11.15..11.16 rows=1 width=8) (actual time=0.040..0.040 rows=1.00 loops=8000)
+                Buffers: shared hit=451581 read=60722 written=374
+                InitPlan 1
+                  ->  Limit  (cost=8.09..11.15 rows=1 width=8) (actual time=0.040..0.040 rows=0.96 loops=8000)
+                        Buffers: shared hit=451581 read=60722 written=374
+                        ->  Merge Append  (cost=8.09..231.28 rows=73 width=8) (actual time=0.040..0.040 rows=0.96 loops=8000)
+                              Sort Key: o.placed_at DESC
+                              Buffers: shared hit=451581 read=60722 written=374
+                              ->  Index Only Scan Backward using orders_2025_01_restaurant_id_placed_at_idx on orders_2025_01 o_1  (cost=0.42..4.49 rows=4 width=8) (actual time=0.001..0.001 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23108 read=893 written=3
+                              ->  Index Only Scan Backward using orders_2025_02_restaurant_id_placed_at_idx on orders_2025_02 o_2  (cost=0.42..4.49 rows=4 width=8) (actual time=0.001..0.001 rows=0.92 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23235 read=766 written=7
+                              ->  Index Only Scan Backward using orders_2025_03_restaurant_id_placed_at_idx on orders_2025_03 o_3  (cost=0.42..4.49 rows=4 width=8) (actual time=0.001..0.001 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23119 read=882 written=5
+                              ->  Index Only Scan Backward using orders_2025_04_restaurant_id_placed_at_idx on orders_2025_04 o_4  (cost=0.42..4.49 rows=4 width=8) (actual time=0.001..0.001 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23196 read=805 written=6
+                              ->  Index Only Scan Backward using orders_2025_05_restaurant_id_placed_at_idx on orders_2025_05 o_5  (cost=0.42..12.49 rows=4 width=8) (actual time=0.003..0.003 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 6178
+                                    Index Searches: 8000
+                                    Buffers: shared hit=24818 read=5361 written=32
+                              ->  Index Only Scan Backward using orders_2025_06_restaurant_id_placed_at_idx on orders_2025_06 o_6  (cost=0.42..4.49 rows=4 width=8) (actual time=0.001..0.001 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23179 read=822 written=3
+                              ->  Index Only Scan Backward using orders_2025_07_restaurant_id_placed_at_idx on orders_2025_07 o_7  (cost=0.42..4.49 rows=4 width=8) (actual time=0.001..0.001 rows=0.94 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23106 read=895 written=7
+                              ->  Index Only Scan Backward using orders_2025_08_restaurant_id_placed_at_idx on orders_2025_08 o_8  (cost=0.42..4.49 rows=4 width=8) (actual time=0.001..0.001 rows=0.94 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23123 read=878 written=5
+                              ->  Index Only Scan Backward using orders_2025_09_restaurant_id_placed_at_idx on orders_2025_09 o_9  (cost=0.42..16.49 rows=4 width=8) (actual time=0.003..0.003 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 6633
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25118 read=5516 written=41
+                              ->  Index Only Scan Backward using orders_2025_10_restaurant_id_placed_at_idx on orders_2025_10 o_10  (cost=0.42..16.49 rows=4 width=8) (actual time=0.003..0.003 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 6870
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25083 read=5788 written=28
+                              ->  Index Only Scan Backward using orders_2025_11_restaurant_id_placed_at_idx on orders_2025_11 o_11  (cost=0.42..16.49 rows=4 width=8) (actual time=0.003..0.003 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 6735
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25201 read=5535 written=25
+                              ->  Index Only Scan Backward using orders_2025_12_restaurant_id_placed_at_idx on orders_2025_12 o_12  (cost=0.42..4.49 rows=4 width=8) (actual time=0.001..0.001 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23117 read=884 written=7
+                              ->  Index Only Scan Backward using orders_2026_01_restaurant_id_placed_at_idx on orders_2026_01 o_13  (cost=0.42..20.49 rows=4 width=8) (actual time=0.001..0.001 rows=0.94 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 594
+                                    Index Searches: 8000
+                                    Buffers: shared hit=23402 read=1193 written=7
+                              ->  Index Only Scan Backward using orders_2026_02_restaurant_id_placed_at_idx on orders_2026_02 o_14  (cost=0.42..20.49 rows=4 width=8) (actual time=0.003..0.003 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 7415
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25418 read=5997 written=34
+                              ->  Index Only Scan Backward using orders_2026_03_restaurant_id_placed_at_idx on orders_2026_03 o_15  (cost=0.42..20.49 rows=4 width=8) (actual time=0.003..0.003 rows=0.94 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 7496
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25256 read=6240 written=39
+                              ->  Index Only Scan Backward using orders_2026_04_restaurant_id_placed_at_idx on orders_2026_04 o_16  (cost=0.42..20.49 rows=4 width=8) (actual time=0.003..0.003 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 7433
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25374 read=6059 written=38
+                              ->  Index Only Scan Backward using orders_2026_05_restaurant_id_placed_at_idx on orders_2026_05 o_17  (cost=0.42..20.49 rows=4 width=8) (actual time=0.003..0.003 rows=0.94 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 7486
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25306 read=6180 written=46
+                              ->  Index Only Scan Backward using orders_2026_06_restaurant_id_placed_at_idx on orders_2026_06 o_18  (cost=0.42..20.49 rows=4 width=8) (actual time=0.003..0.003 rows=0.93 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 7450
+                                    Index Searches: 8000
+                                    Buffers: shared hit=25422 read=6028 written=41
+                              ->  Index Only Scan Backward using orders_default_restaurant_id_placed_at_idx on orders_default o_19  (cost=0.12..8.14 rows=1 width=8) (actual time=0.000..0.000 rows=0.00 loops=8000)
+                                    Index Cond: (restaurant_id = r.restaurant_id)
+                                    Heap Fetches: 0
+                                    Index Searches: 8000
+                                    Buffers: shared hit=16000
+        SubPlan 3
+          ->  Aggregate  (cost=361.38..361.39 rows=1 width=8) (actual time=0.381..0.381 rows=1.00 loops=8000)
+                Buffers: shared hit=616827 read=295342 written=1788
+                ->  Append  (cost=4.45..361.20 rows=71 width=0) (actual time=0.012..0.377 rows=52.19 loops=8000)
+                      Buffers: shared hit=616827 read=295342 written=1788
+                      ->  Bitmap Heap Scan on orders_2025_01 o_21  (cost=4.45..20.05 rows=4 width=0) (actual time=0.010..0.023 rows=2.98 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27290
+                            Buffers: shared hit=31863 read=19427 written=96
+                            ->  Bitmap Index Scan on orders_2025_01_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.41 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_02 o_22  (cost=4.45..20.03 rows=3 width=0) (actual time=0.009..0.021 rows=2.68 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=24571
+                            Buffers: shared hit=31226 read=17345 written=93
+                            ->  Bitmap Index Scan on orders_2025_02_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.07 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_03 o_23  (cost=4.45..20.05 rows=4 width=0) (actual time=0.010..0.023 rows=2.94 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27127
+                            Buffers: shared hit=31775 read=19352 written=105
+                            ->  Bitmap Index Scan on orders_2025_03_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.39 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_04 o_24  (cost=4.45..20.04 rows=4 width=0) (actual time=0.010..0.022 rows=2.87 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=26371
+                            Buffers: shared hit=31573 read=18798 written=118
+                            ->  Bitmap Index Scan on orders_2025_04_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.30 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_05 o_25  (cost=4.45..20.05 rows=4 width=0) (actual time=0.009..0.018 rows=2.93 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=26981
+                            Buffers: shared hit=36145 read=14836 written=82
+                            ->  Bitmap Index Scan on orders_2025_05_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.37 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_06 o_26  (cost=4.45..20.04 rows=4 width=0) (actual time=0.010..0.023 rows=2.84 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=26262
+                            Buffers: shared hit=31585 read=18677 written=114
+                            ->  Bitmap Index Scan on orders_2025_06_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.28 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_07 o_27  (cost=4.45..20.05 rows=4 width=0) (actual time=0.010..0.023 rows=2.99 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27454
+                            Buffers: shared hit=32085 read=19369 written=131
+                            ->  Bitmap Index Scan on orders_2025_07_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.43 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_08 o_28  (cost=4.45..20.05 rows=4 width=0) (actual time=0.010..0.023 rows=2.96 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27167
+                            Buffers: shared hit=31814 read=19353 written=127
+                            ->  Bitmap Index Scan on orders_2025_08_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.40 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_09 o_29  (cost=4.45..20.04 rows=4 width=0) (actual time=0.009..0.018 rows=2.89 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=26524
+                            Buffers: shared hit=36399 read=14125 written=86
+                            ->  Bitmap Index Scan on orders_2025_09_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.32 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_10 o_30  (cost=4.45..20.05 rows=4 width=0) (actual time=0.009..0.019 rows=2.98 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27345
+                            Buffers: shared hit=36720 read=14625 written=101
+                            ->  Bitmap Index Scan on orders_2025_10_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.42 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_11 o_31  (cost=4.45..20.04 rows=4 width=0) (actual time=0.009..0.018 rows=2.87 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=26449
+                            Buffers: shared hit=36479 read=13970 written=93
+                            ->  Bitmap Index Scan on orders_2025_11_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.31 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2025_12 o_32  (cost=4.45..20.05 rows=4 width=0) (actual time=0.010..0.023 rows=2.99 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27323
+                            Buffers: shared hit=31847 read=19476 written=129
+                            ->  Bitmap Index Scan on orders_2025_12_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.42 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2026_01 o_33  (cost=4.45..20.05 rows=4 width=0) (actual time=0.010..0.022 rows=2.95 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27076
+                            Buffers: shared hit=32469 read=18607 written=118
+                            ->  Bitmap Index Scan on orders_2026_01_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.39 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2026_02 o_34  (cost=4.45..20.03 rows=3 width=0) (actual time=0.009..0.016 rows=2.68 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=24628
+                            Buffers: shared hit=36299 read=12329 written=72
+                            ->  Bitmap Index Scan on orders_2026_02_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.08 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2026_03 o_35  (cost=4.45..20.05 rows=4 width=0) (actual time=0.009..0.018 rows=2.95 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27176
+                            Buffers: shared hit=37209 read=13967 written=83
+                            ->  Bitmap Index Scan on orders_2026_03_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.40 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2026_04 o_36  (cost=4.45..20.04 rows=4 width=0) (actual time=0.009..0.017 rows=2.91 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=26554
+                            Buffers: shared hit=36938 read=13616 written=77
+                            ->  Bitmap Index Scan on orders_2026_04_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.32 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2026_05 o_37  (cost=4.45..20.05 rows=4 width=0) (actual time=0.009..0.018 rows=2.97 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=27319
+                            Buffers: shared hit=37378 read=13941 written=90
+                            ->  Bitmap Index Scan on orders_2026_05_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.42 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Bitmap Heap Scan on orders_2026_06 o_38  (cost=4.45..20.04 rows=4 width=0) (actual time=0.009..0.017 rows=2.83 loops=8000)
+                            Recheck Cond: (restaurant_id = r.restaurant_id)
+                            Filter: (status = 'DELIVERED'::text)
+                            Rows Removed by Filter: 0
+                            Heap Blocks: exact=26552
+                            Buffers: shared hit=37023 read=13529 written=73
+                            ->  Bitmap Index Scan on orders_2026_06_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.001..0.001 rows=3.32 loops=8000)
+                                  Index Cond: (restaurant_id = r.restaurant_id)
+                                  Index Searches: 8000
+                                  Buffers: shared hit=24000
+                      ->  Seq Scan on orders_default o_39  (cost=0.00..0.00 rows=1 width=0) (actual time=0.000..0.000 rows=0.00 loops=8000)
+                            Filter: ((restaurant_id = r.restaurant_id) AND (status = 'DELIVERED'::text))
+        SubPlan 4
+          ->  Aggregate  (cost=8.77..8.78 rows=1 width=32) (actual time=0.003..0.003 rows=1.00 loops=8000)
+                Buffers: shared hit=22183 read=2149 written=14
+                ->  Index Only Scan using idx_reviews_restaurant on reviews v  (cost=0.42..8.72 rows=17 width=2) (actual time=0.002..0.002 rows=15.68 loops=8000)
+                      Index Cond: (restaurant_id = r.restaurant_id)
+                      Heap Fetches: 0
+                      Index Searches: 8000
+                      Buffers: shared hit=22183 read=2149 written=14
+Planning:
+  Buffers: shared hit=1928 read=213
+Planning Time: 4.129 ms
+Execution Time: 3411.165 ms

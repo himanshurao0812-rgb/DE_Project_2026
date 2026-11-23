@@ -1,0 +1,99 @@
+=== R24 run 1 ===
+Nested Loop  (cost=2.01..72.78 rows=4 width=61) (actual time=1.053..1.057 rows=4.00 loops=1)
+  Buffers: shared hit=18 read=15
+  ->  Nested Loop Left Join  (cost=1.15..25.21 rows=1 width=41) (actual time=0.529..0.529 rows=1.00 loops=1)
+        Buffers: shared hit=5 read=8
+        ->  Nested Loop  (cost=0.72..16.76 rows=1 width=37) (actual time=0.516..0.517 rows=1.00 loops=1)
+              Buffers: shared hit=5 read=5
+              ->  Index Scan using orders_pkey on orders o  (cost=0.43..8.45 rows=1 width=25) (actual time=0.386..0.386 rows=1.00 loops=1)
+                    Index Cond: (order_id = 123457)
+                    Index Searches: 1
+                    Buffers: shared hit=3 read=4
+              ->  Index Scan using restaurants_pkey on restaurants r  (cost=0.29..8.31 rows=1 width=20) (actual time=0.129..0.129 rows=1.00 loops=1)
+                    Index Cond: (restaurant_id = o.restaurant_id)
+                    Index Searches: 1
+                    Buffers: shared hit=2 read=1
+        ->  Index Scan using idx_payments_success_order on payments p  (cost=0.43..8.45 rows=1 width=12) (actual time=0.012..0.012 rows=0.00 loops=1)
+              Index Cond: (order_id = 123457)
+              Index Searches: 1
+              Buffers: shared read=3
+  ->  Nested Loop  (cost=0.86..47.52 rows=4 width=28) (actual time=0.524..0.527 rows=4.00 loops=1)
+        Buffers: shared hit=13 read=7
+        ->  Index Scan using order_items_pkey on order_items oi  (cost=0.43..13.75 rows=4 width=19) (actual time=0.289..0.289 rows=4.00 loops=1)
+              Index Cond: (order_id = 123457)
+              Index Searches: 1
+              Buffers: shared read=4
+        ->  Index Scan using menu_items_pkey on menu_items m  (cost=0.42..8.44 rows=1 width=17) (actual time=0.059..0.059 rows=1.00 loops=4)
+              Index Cond: (item_id = oi.item_id)
+              Index Searches: 4
+              Buffers: shared hit=13 read=3
+Planning:
+  Buffers: shared hit=700 read=20
+Planning Time: 1.269 ms
+Execution Time: 1.090 ms
+=== R24 run 2 ===
+Nested Loop  (cost=2.01..72.78 rows=4 width=61) (actual time=0.039..0.043 rows=4.00 loops=1)
+  Buffers: shared hit=33
+  ->  Nested Loop Left Join  (cost=1.15..25.21 rows=1 width=41) (actual time=0.024..0.024 rows=1.00 loops=1)
+        Buffers: shared hit=13
+        ->  Nested Loop  (cost=0.72..16.76 rows=1 width=37) (actual time=0.016..0.016 rows=1.00 loops=1)
+              Buffers: shared hit=10
+              ->  Index Scan using orders_pkey on orders o  (cost=0.43..8.45 rows=1 width=25) (actual time=0.010..0.010 rows=1.00 loops=1)
+                    Index Cond: (order_id = 123457)
+                    Index Searches: 1
+                    Buffers: shared hit=7
+              ->  Index Scan using restaurants_pkey on restaurants r  (cost=0.29..8.31 rows=1 width=20) (actual time=0.004..0.004 rows=1.00 loops=1)
+                    Index Cond: (restaurant_id = o.restaurant_id)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Index Scan using idx_payments_success_order on payments p  (cost=0.43..8.45 rows=1 width=12) (actual time=0.007..0.007 rows=0.00 loops=1)
+              Index Cond: (order_id = 123457)
+              Index Searches: 1
+              Buffers: shared hit=3
+  ->  Nested Loop  (cost=0.86..47.52 rows=4 width=28) (actual time=0.015..0.018 rows=4.00 loops=1)
+        Buffers: shared hit=20
+        ->  Index Scan using order_items_pkey on order_items oi  (cost=0.43..13.75 rows=4 width=19) (actual time=0.008..0.008 rows=4.00 loops=1)
+              Index Cond: (order_id = 123457)
+              Index Searches: 1
+              Buffers: shared hit=4
+        ->  Index Scan using menu_items_pkey on menu_items m  (cost=0.42..8.44 rows=1 width=17) (actual time=0.002..0.002 rows=1.00 loops=4)
+              Index Cond: (item_id = oi.item_id)
+              Index Searches: 4
+              Buffers: shared hit=16
+Planning:
+  Buffers: shared hit=720
+Planning Time: 1.027 ms
+Execution Time: 0.069 ms
+=== R24 run 3 ===
+Nested Loop  (cost=2.01..72.78 rows=4 width=61) (actual time=0.033..0.036 rows=4.00 loops=1)
+  Buffers: shared hit=33
+  ->  Nested Loop Left Join  (cost=1.15..25.21 rows=1 width=41) (actual time=0.020..0.021 rows=1.00 loops=1)
+        Buffers: shared hit=13
+        ->  Nested Loop  (cost=0.72..16.76 rows=1 width=37) (actual time=0.014..0.014 rows=1.00 loops=1)
+              Buffers: shared hit=10
+              ->  Index Scan using orders_pkey on orders o  (cost=0.43..8.45 rows=1 width=25) (actual time=0.008..0.008 rows=1.00 loops=1)
+                    Index Cond: (order_id = 123457)
+                    Index Searches: 1
+                    Buffers: shared hit=7
+              ->  Index Scan using restaurants_pkey on restaurants r  (cost=0.29..8.31 rows=1 width=20) (actual time=0.004..0.004 rows=1.00 loops=1)
+                    Index Cond: (restaurant_id = o.restaurant_id)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Index Scan using idx_payments_success_order on payments p  (cost=0.43..8.45 rows=1 width=12) (actual time=0.006..0.006 rows=0.00 loops=1)
+              Index Cond: (order_id = 123457)
+              Index Searches: 1
+              Buffers: shared hit=3
+  ->  Nested Loop  (cost=0.86..47.52 rows=4 width=28) (actual time=0.013..0.015 rows=4.00 loops=1)
+        Buffers: shared hit=20
+        ->  Index Scan using order_items_pkey on order_items oi  (cost=0.43..13.75 rows=4 width=19) (actual time=0.006..0.006 rows=4.00 loops=1)
+              Index Cond: (order_id = 123457)
+              Index Searches: 1
+              Buffers: shared hit=4
+        ->  Index Scan using menu_items_pkey on menu_items m  (cost=0.42..8.44 rows=1 width=17) (actual time=0.002..0.002 rows=1.00 loops=4)
+              Index Cond: (item_id = oi.item_id)
+              Index Searches: 4
+              Buffers: shared hit=16
+Planning:
+  Buffers: shared hit=720
+Planning Time: 1.245 ms
+Execution Time: 0.060 ms

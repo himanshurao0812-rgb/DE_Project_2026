@@ -1,0 +1,330 @@
+=== R09 run 1 ===
+GroupAggregate  (cost=82540.47..84482.70 rows=13038 width=44) (actual time=258.504..458.434 rows=60.00 loops=1)
+  Group Key: l.city_id, (date_trunc('month'::text, o.placed_at))
+  Buffers: shared hit=2892 read=48158 written=368, temp read=4446 written=4460
+  ->  Gather Merge  (cost=82540.47..84058.96 rows=13038 width=28) (actual time=253.773..320.134 rows=862790.00 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=2892 read=48158 written=368, temp read=4446 written=4460
+        ->  Sort  (cost=81540.45..81554.03 rows=5432 width=28) (actual time=249.957..266.068 rows=287596.67 loops=3)
+              Sort Key: l.city_id, (date_trunc('month'::text, o.placed_at))
+              Sort Method: external merge  Disk: 12544kB
+              Buffers: shared hit=2892 read=48158 written=368, temp read=4446 written=4460
+              Worker 0:  Sort Method: external merge  Disk: 9072kB
+              Worker 1:  Sort Method: external merge  Disk: 13952kB
+              ->  Hash Join  (cost=2075.25..81203.47 rows=5432 width=28) (actual time=54.242..222.390 rows=287596.67 loops=3)
+                    Hash Cond: (r.locality_id = l.locality_id)
+                    Buffers: shared hit=2862 read=48158 written=368
+                    ->  Hash Join  (cost=2072.00..81171.78 rows=5432 width=20) (actual time=54.209..185.784 rows=287596.67 loops=3)
+                          Hash Cond: (o.restaurant_id = r.restaurant_id)
+                          Buffers: shared hit=2859 read=48158 written=368
+                          ->  Parallel Append  (cost=0.00..79085.52 rows=5433 width=20) (actual time=48.240..136.114 rows=287596.67 loops=3)
+                                Buffers: shared hit=18 read=48158 written=368
+                                ->  Parallel Seq Scan on orders_2025_01 o_1  (cost=0.00..4489.40 rows=436 width=20) (actual time=21.380..21.380 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 170330
+                                      Buffers: shared hit=4 read=2732 written=20
+                                ->  Parallel Seq Scan on orders_2025_03 o_3  (cost=0.00..4489.40 rows=435 width=20) (actual time=20.709..20.709 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 170330
+                                      Buffers: shared hit=4 read=2732 written=17
+                                ->  Parallel Seq Scan on orders_2025_05 o_5  (cost=0.00..4489.40 rows=435 width=20) (actual time=21.361..21.361 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 170330
+                                      Buffers: shared hit=4 read=2732 written=57
+                                ->  Parallel Seq Scan on orders_2025_10 o_10  (cost=0.00..4489.40 rows=436 width=20) (actual time=21.000..21.000 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 170330
+                                      Buffers: shared hit=3 read=2733 written=52
+                                ->  Parallel Seq Scan on orders_2025_12 o_12  (cost=0.00..4489.40 rows=436 width=20) (actual time=19.192..19.192 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 170330
+                                      Buffers: shared hit=2 read=2734 written=11
+                                ->  Parallel Seq Scan on orders_2026_01 o_13  (cost=0.00..4489.40 rows=435 width=20) (actual time=0.048..25.824 rows=148423.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 21907
+                                      Buffers: shared read=2736 written=49
+                                ->  Parallel Seq Scan on orders_2025_08 o_8  (cost=0.00..4489.39 rows=436 width=20) (actual time=20.284..20.284 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 170329
+                                      Buffers: shared read=2736
+                                ->  Parallel Seq Scan on orders_2025_07 o_7  (cost=0.00..4488.40 rows=437 width=20) (actual time=20.641..20.641 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 170330
+                                      Buffers: shared read=2735 written=10
+                                ->  Parallel Seq Scan on orders_2026_03 o_15  (cost=0.00..4488.39 rows=435 width=20) (actual time=0.062..23.890 rows=147930.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 22399
+                                      Buffers: shared read=2735 written=8
+                                ->  Parallel Seq Scan on orders_2026_05 o_17  (cost=0.00..4488.39 rows=436 width=20) (actual time=0.076..23.973 rows=148213.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 22116
+                                      Buffers: shared read=2735 written=9
+                                ->  Parallel Seq Scan on orders_2025_09 o_9  (cost=0.00..4344.83 rows=422 width=20) (actual time=18.073..18.073 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 164835
+                                      Buffers: shared read=2648
+                                ->  Parallel Seq Scan on orders_2026_04 o_16  (cost=0.00..4343.84 rows=422 width=20) (actual time=0.055..7.860 rows=47851.00 loops=3)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 7094
+                                      Buffers: shared read=2647 written=21
+                                ->  Parallel Seq Scan on orders_2025_04 o_4  (cost=0.00..4343.83 rows=421 width=20) (actual time=9.365..9.365 rows=0.00 loops=2)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 82418
+                                      Buffers: shared read=2647 written=16
+                                ->  Parallel Seq Scan on orders_2025_06 o_6  (cost=0.00..4343.83 rows=421 width=20) (actual time=17.365..17.365 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 164835
+                                      Buffers: shared read=2647 written=36
+                                ->  Parallel Seq Scan on orders_2025_11 o_11  (cost=0.00..4343.83 rows=421 width=20) (actual time=18.262..18.262 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 164835
+                                      Buffers: shared read=2647
+                                ->  Parallel Seq Scan on orders_2026_06 o_18  (cost=0.00..4337.83 rows=415 width=20) (actual time=0.027..23.246 rows=140765.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 24070
+                                      Buffers: shared read=2641 written=27
+                                ->  Parallel Seq Scan on orders_2025_02 o_2  (cost=0.00..4054.71 rows=395 width=20) (actual time=18.442..18.442 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 153846
+                                      Buffers: shared read=2471 written=11
+                                ->  Parallel Seq Scan on orders_2026_02 o_14  (cost=0.00..4054.71 rows=394 width=20) (actual time=0.033..23.171 rows=133906.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 19940
+                                      Buffers: shared hit=1 read=2470 written=24
+                                ->  Parallel Seq Scan on orders_default o_19  (cost=0.00..0.00 rows=1 width=20) (actual time=0.000..0.000 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                          ->  Hash  (cost=1447.00..1447.00 rows=50000 width=8) (actual time=5.923..5.923 rows=50000.00 loops=3)
+                                Buckets: 65536  Batches: 1  Memory Usage: 2466kB
+                                Buffers: shared hit=2841
+                                ->  Seq Scan on restaurants r  (cost=0.00..1447.00 rows=50000 width=8) (actual time=0.022..3.291 rows=50000.00 loops=3)
+                                      Buffers: shared hit=2841
+                    ->  Hash  (cost=2.00..2.00 rows=100 width=8) (actual time=0.025..0.026 rows=100.00 loops=3)
+                          Buckets: 1024  Batches: 1  Memory Usage: 12kB
+                          Buffers: shared hit=3
+                          ->  Seq Scan on localities l  (cost=0.00..2.00 rows=100 width=8) (actual time=0.016..0.019 rows=100.00 loops=3)
+                                Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=2090 read=4 dirtied=11
+Planning Time: 3.636 ms
+Execution Time: 460.074 ms
+=== R09 run 2 ===
+GroupAggregate  (cost=82540.47..84482.70 rows=13038 width=44) (actual time=259.725..455.761 rows=60.00 loops=1)
+  Group Key: l.city_id, (date_trunc('month'::text, o.placed_at))
+  Buffers: shared hit=980 read=50070 written=272, temp read=4445 written=4459
+  ->  Gather Merge  (cost=82540.47..84058.96 rows=13038 width=28) (actual time=254.745..318.631 rows=862790.00 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=980 read=50070 written=272, temp read=4445 written=4459
+        ->  Sort  (cost=81540.45..81554.03 rows=5432 width=28) (actual time=251.761..267.140 rows=287596.67 loops=3)
+              Sort Key: l.city_id, (date_trunc('month'::text, o.placed_at))
+              Sort Method: external merge  Disk: 12752kB
+              Buffers: shared hit=980 read=50070 written=272, temp read=4445 written=4459
+              Worker 0:  Sort Method: external merge  Disk: 8888kB
+              Worker 1:  Sort Method: external merge  Disk: 13920kB
+              ->  Hash Join  (cost=2075.25..81203.47 rows=5432 width=28) (actual time=55.359..224.227 rows=287596.67 loops=3)
+                    Hash Cond: (r.locality_id = l.locality_id)
+                    Buffers: shared hit=950 read=50070 written=272
+                    ->  Hash Join  (cost=2072.00..81171.78 rows=5432 width=20) (actual time=55.327..186.331 rows=287596.67 loops=3)
+                          Hash Cond: (o.restaurant_id = r.restaurant_id)
+                          Buffers: shared hit=947 read=50070 written=272
+                          ->  Parallel Append  (cost=0.00..79085.52 rows=5433 width=20) (actual time=49.413..138.567 rows=287596.67 loops=3)
+                                Buffers: shared read=48176 written=272
+                                ->  Parallel Seq Scan on orders_2025_01 o_1  (cost=0.00..4489.40 rows=436 width=20) (actual time=21.462..21.462 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 170330
+                                      Buffers: shared read=2736 written=5
+                                ->  Parallel Seq Scan on orders_2025_03 o_3  (cost=0.00..4489.40 rows=435 width=20) (actual time=22.787..22.787 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 170330
+                                      Buffers: shared read=2736 written=6
+                                ->  Parallel Seq Scan on orders_2025_05 o_5  (cost=0.00..4489.40 rows=435 width=20) (actual time=19.578..19.578 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 170330
+                                      Buffers: shared read=2736 written=53
+                                ->  Parallel Seq Scan on orders_2025_10 o_10  (cost=0.00..4489.40 rows=436 width=20) (actual time=21.694..21.694 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 170330
+                                      Buffers: shared read=2736 written=43
+                                ->  Parallel Seq Scan on orders_2025_12 o_12  (cost=0.00..4489.40 rows=436 width=20) (actual time=22.159..22.160 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 170330
+                                      Buffers: shared read=2736
+                                ->  Parallel Seq Scan on orders_2026_01 o_13  (cost=0.00..4489.40 rows=435 width=20) (actual time=0.055..27.096 rows=148423.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 21907
+                                      Buffers: shared read=2736 written=4
+                                ->  Parallel Seq Scan on orders_2025_08 o_8  (cost=0.00..4489.39 rows=436 width=20) (actual time=21.930..21.930 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 170329
+                                      Buffers: shared read=2736
+                                ->  Parallel Seq Scan on orders_2025_07 o_7  (cost=0.00..4488.40 rows=437 width=20) (actual time=18.447..18.447 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 170330
+                                      Buffers: shared read=2735 written=30
+                                ->  Parallel Seq Scan on orders_2026_03 o_15  (cost=0.00..4488.39 rows=435 width=20) (actual time=0.073..22.624 rows=147930.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 22399
+                                      Buffers: shared read=2735 written=3
+                                ->  Parallel Seq Scan on orders_2026_05 o_17  (cost=0.00..4488.39 rows=436 width=20) (actual time=0.057..26.215 rows=148213.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 22116
+                                      Buffers: shared read=2735 written=9
+                                ->  Parallel Seq Scan on orders_2025_09 o_9  (cost=0.00..4344.83 rows=422 width=20) (actual time=20.041..20.041 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 164835
+                                      Buffers: shared read=2648 written=31
+                                ->  Parallel Seq Scan on orders_2026_04 o_16  (cost=0.00..4343.84 rows=422 width=20) (actual time=0.048..8.196 rows=47851.00 loops=3)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 7094
+                                      Buffers: shared read=2647
+                                ->  Parallel Seq Scan on orders_2025_04 o_4  (cost=0.00..4343.83 rows=421 width=20) (actual time=18.503..18.503 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 164835
+                                      Buffers: shared read=2647
+                                ->  Parallel Seq Scan on orders_2025_06 o_6  (cost=0.00..4343.83 rows=421 width=20) (actual time=18.766..18.766 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 164835
+                                      Buffers: shared read=2647 written=34
+                                ->  Parallel Seq Scan on orders_2025_11 o_11  (cost=0.00..4343.83 rows=421 width=20) (actual time=18.600..18.600 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 164835
+                                      Buffers: shared read=2647 written=15
+                                ->  Parallel Seq Scan on orders_2026_06 o_18  (cost=0.00..4337.83 rows=415 width=20) (actual time=0.022..22.681 rows=140765.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 24070
+                                      Buffers: shared read=2641
+                                ->  Parallel Seq Scan on orders_2025_02 o_2  (cost=0.00..4054.71 rows=395 width=20) (actual time=17.396..17.396 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 153846
+                                      Buffers: shared read=2471 written=20
+                                ->  Parallel Seq Scan on orders_2026_02 o_14  (cost=0.00..4054.71 rows=394 width=20) (actual time=0.048..22.244 rows=133906.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 19940
+                                      Buffers: shared read=2471 written=19
+                                ->  Parallel Seq Scan on orders_default o_19  (cost=0.00..0.00 rows=1 width=20) (actual time=0.000..0.000 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                          ->  Hash  (cost=1447.00..1447.00 rows=50000 width=8) (actual time=5.878..5.880 rows=50000.00 loops=3)
+                                Buckets: 65536  Batches: 1  Memory Usage: 2466kB
+                                Buffers: shared hit=947 read=1894
+                                ->  Seq Scan on restaurants r  (cost=0.00..1447.00 rows=50000 width=8) (actual time=0.033..3.237 rows=50000.00 loops=3)
+                                      Buffers: shared hit=947 read=1894
+                    ->  Hash  (cost=2.00..2.00 rows=100 width=8) (actual time=0.026..0.026 rows=100.00 loops=3)
+                          Buckets: 1024  Batches: 1  Memory Usage: 12kB
+                          Buffers: shared hit=3
+                          ->  Seq Scan on localities l  (cost=0.00..2.00 rows=100 width=8) (actual time=0.015..0.019 rows=100.00 loops=3)
+                                Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=1856 read=230
+Planning Time: 4.324 ms
+Execution Time: 457.127 ms
+=== R09 run 3 ===
+GroupAggregate  (cost=82540.47..84482.70 rows=13038 width=44) (actual time=254.449..430.744 rows=60.00 loops=1)
+  Group Key: l.city_id, (date_trunc('month'::text, o.placed_at))
+  Buffers: shared hit=1204 read=49846 written=282, temp read=4445 written=4458
+  ->  Gather Merge  (cost=82540.47..84058.96 rows=13038 width=28) (actual time=249.503..314.066 rows=862790.00 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=1204 read=49846 written=282, temp read=4445 written=4458
+        ->  Sort  (cost=81540.45..81554.03 rows=5432 width=28) (actual time=246.373..261.529 rows=287596.67 loops=3)
+              Sort Key: l.city_id, (date_trunc('month'::text, o.placed_at))
+              Sort Method: external merge  Disk: 12624kB
+              Buffers: shared hit=1204 read=49846 written=282, temp read=4445 written=4458
+              Worker 0:  Sort Method: external merge  Disk: 13864kB
+              Worker 1:  Sort Method: external merge  Disk: 9072kB
+              ->  Hash Join  (cost=2075.25..81203.47 rows=5432 width=28) (actual time=51.935..218.865 rows=287596.67 loops=3)
+                    Hash Cond: (r.locality_id = l.locality_id)
+                    Buffers: shared hit=1174 read=49846 written=282
+                    ->  Hash Join  (cost=2072.00..81171.78 rows=5432 width=20) (actual time=51.904..182.114 rows=287596.67 loops=3)
+                          Hash Cond: (o.restaurant_id = r.restaurant_id)
+                          Buffers: shared hit=1171 read=49846 written=282
+                          ->  Parallel Append  (cost=0.00..79085.52 rows=5433 width=20) (actual time=45.986..133.694 rows=287596.67 loops=3)
+                                Buffers: shared read=48176 written=282
+                                ->  Parallel Seq Scan on orders_2025_01 o_1  (cost=0.00..4489.40 rows=436 width=20) (actual time=20.814..20.814 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 170330
+                                      Buffers: shared read=2736 written=50
+                                ->  Parallel Seq Scan on orders_2025_03 o_3  (cost=0.00..4489.40 rows=435 width=20) (actual time=21.179..21.179 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 170330
+                                      Buffers: shared read=2736 written=69
+                                ->  Parallel Seq Scan on orders_2025_05 o_5  (cost=0.00..4489.40 rows=435 width=20) (actual time=18.907..18.907 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 170330
+                                      Buffers: shared read=2736 written=12
+                                ->  Parallel Seq Scan on orders_2025_10 o_10  (cost=0.00..4489.40 rows=436 width=20) (actual time=19.626..19.626 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 170330
+                                      Buffers: shared read=2736 written=4
+                                ->  Parallel Seq Scan on orders_2025_12 o_12  (cost=0.00..4489.40 rows=436 width=20) (actual time=19.362..19.362 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 170330
+                                      Buffers: shared read=2736 written=11
+                                ->  Parallel Seq Scan on orders_2026_01 o_13  (cost=0.00..4489.40 rows=435 width=20) (actual time=0.058..24.223 rows=148423.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 21907
+                                      Buffers: shared read=2736 written=13
+                                ->  Parallel Seq Scan on orders_2025_08 o_8  (cost=0.00..4489.39 rows=436 width=20) (actual time=18.789..18.789 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 170329
+                                      Buffers: shared read=2736
+                                ->  Parallel Seq Scan on orders_2025_07 o_7  (cost=0.00..4488.40 rows=437 width=20) (actual time=19.119..19.119 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 170330
+                                      Buffers: shared read=2735 written=15
+                                ->  Parallel Seq Scan on orders_2026_03 o_15  (cost=0.00..4488.39 rows=435 width=20) (actual time=0.064..23.145 rows=147930.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 22399
+                                      Buffers: shared read=2735
+                                ->  Parallel Seq Scan on orders_2026_05 o_17  (cost=0.00..4488.39 rows=436 width=20) (actual time=0.111..22.927 rows=148213.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 22116
+                                      Buffers: shared read=2735 written=9
+                                ->  Parallel Seq Scan on orders_2025_09 o_9  (cost=0.00..4344.83 rows=422 width=20) (actual time=18.106..18.106 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 164835
+                                      Buffers: shared read=2648
+                                ->  Parallel Seq Scan on orders_2026_04 o_16  (cost=0.00..4343.84 rows=422 width=20) (actual time=0.066..7.949 rows=47851.00 loops=3)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 7094
+                                      Buffers: shared read=2647 written=56
+                                ->  Parallel Seq Scan on orders_2025_04 o_4  (cost=0.00..4343.83 rows=421 width=20) (actual time=9.500..9.500 rows=0.00 loops=2)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 82418
+                                      Buffers: shared read=2647
+                                ->  Parallel Seq Scan on orders_2025_06 o_6  (cost=0.00..4343.83 rows=421 width=20) (actual time=19.069..19.069 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 164835
+                                      Buffers: shared read=2647
+                                ->  Parallel Seq Scan on orders_2025_11 o_11  (cost=0.00..4343.83 rows=421 width=20) (actual time=19.414..19.414 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 164835
+                                      Buffers: shared read=2647
+                                ->  Parallel Seq Scan on orders_2026_06 o_18  (cost=0.00..4337.83 rows=415 width=20) (actual time=0.025..24.769 rows=140765.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 24070
+                                      Buffers: shared read=2641 written=6
+                                ->  Parallel Seq Scan on orders_2025_02 o_2  (cost=0.00..4054.71 rows=395 width=20) (actual time=17.178..17.178 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 153846
+                                      Buffers: shared read=2471 written=13
+                                ->  Parallel Seq Scan on orders_2026_02 o_14  (cost=0.00..4054.71 rows=394 width=20) (actual time=0.030..22.369 rows=133906.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                                      Rows Removed by Filter: 19940
+                                      Buffers: shared read=2471 written=24
+                                ->  Parallel Seq Scan on orders_default o_19  (cost=0.00..0.00 rows=1 width=20) (actual time=0.000..0.000 rows=0.00 loops=1)
+                                      Filter: ((status = 'DELIVERED'::text) AND (EXTRACT(year FROM placed_at) = '2026'::numeric))
+                          ->  Hash  (cost=1447.00..1447.00 rows=50000 width=8) (actual time=5.882..5.882 rows=50000.00 loops=3)
+                                Buckets: 65536  Batches: 1  Memory Usage: 2466kB
+                                Buffers: shared hit=1171 read=1670
+                                ->  Seq Scan on restaurants r  (cost=0.00..1447.00 rows=50000 width=8) (actual time=0.031..3.341 rows=50000.00 loops=3)
+                                      Buffers: shared hit=1171 read=1670
+                    ->  Hash  (cost=2.00..2.00 rows=100 width=8) (actual time=0.025..0.025 rows=100.00 loops=3)
+                          Buckets: 1024  Batches: 1  Memory Usage: 12kB
+                          Buffers: shared hit=3
+                          ->  Seq Scan on localities l  (cost=0.00..2.00 rows=100 width=8) (actual time=0.014..0.018 rows=100.00 loops=3)
+                                Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=1856 read=230
+Planning Time: 4.206 ms
+Execution Time: 432.291 ms

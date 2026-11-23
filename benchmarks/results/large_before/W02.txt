@@ -1,0 +1,69 @@
+=== W02 run 1 ===
+Update on orders  (cost=85676.96..85684.98 rows=0 width=0) (actual time=162.234..162.234 rows=0.00 loops=1)
+  Buffers: shared hit=13643 read=34588 dirtied=2
+  InitPlan 1
+    ->  Limit  (cost=85676.53..85676.53 rows=1 width=16) (actual time=161.801..161.801 rows=1.00 loops=1)
+          Buffers: shared hit=13586 read=34586
+          ->  Sort  (cost=85676.53..85676.80 rows=110 width=16) (actual time=161.800..161.801 rows=1.00 loops=1)
+                Sort Key: orders_1.placed_at
+                Sort Method: top-N heapsort  Memory: 25kB
+                Buffers: shared hit=13586 read=34586
+                ->  Seq Scan on orders orders_1  (cost=0.00..85675.98 rows=110 width=16) (actual time=12.084..161.762 rows=750.00 loops=1)
+                      Filter: ((partner_id IS NULL) AND (status = 'ACCEPTED'::text))
+                      Rows Removed by Filter: 2999250
+                      Buffers: shared hit=13583 read=34586
+  ->  Index Scan using orders_pkey on orders  (cost=0.43..8.45 rows=1 width=42) (actual time=162.043..162.044 rows=1.00 loops=1)
+        Index Cond: (order_id = (InitPlan 1).col1)
+        Index Searches: 1
+        Buffers: shared hit=13589 read=34587
+Planning:
+  Buffers: shared hit=100
+Planning Time: 0.181 ms
+Trigger for constraint orders_partner_fk: time=1.077 calls=1
+Execution Time: 163.940 ms
+=== W02 run 2 ===
+Update on orders  (cost=85676.96..85684.98 rows=0 width=0) (actual time=156.525..156.526 rows=0.00 loops=1)
+  Buffers: shared hit=16542 read=31512 dirtied=2
+  InitPlan 1
+    ->  Limit  (cost=85676.53..85676.53 rows=1 width=16) (actual time=155.541..155.541 rows=1.00 loops=1)
+          Buffers: shared hit=16476 read=31511
+          ->  Sort  (cost=85676.53..85676.80 rows=110 width=16) (actual time=155.540..155.540 rows=1.00 loops=1)
+                Sort Key: orders_1.placed_at
+                Sort Method: top-N heapsort  Memory: 25kB
+                Buffers: shared hit=16476 read=31511
+                ->  Seq Scan on orders orders_1  (cost=0.00..85675.98 rows=110 width=16) (actual time=153.751..155.505 rows=750.00 loops=1)
+                      Filter: ((partner_id IS NULL) AND (status = 'ACCEPTED'::text))
+                      Rows Removed by Filter: 2999250
+                      Buffers: shared hit=16473 read=31511
+  ->  Index Scan using orders_pkey on orders  (cost=0.43..8.45 rows=1 width=42) (actual time=155.557..155.557 rows=1.00 loops=1)
+        Index Cond: (order_id = (InitPlan 1).col1)
+        Index Searches: 1
+        Buffers: shared hit=16480 read=31511
+Planning:
+  Buffers: shared hit=100
+Planning Time: 0.201 ms
+Trigger for constraint orders_partner_fk: time=0.242 calls=1
+Execution Time: 156.836 ms
+=== W02 run 3 ===
+Update on orders  (cost=85676.96..85684.98 rows=0 width=0) (actual time=162.729..162.730 rows=0.00 loops=1)
+  Buffers: shared hit=14035 read=34184 dirtied=1
+  InitPlan 1
+    ->  Limit  (cost=85676.53..85676.53 rows=1 width=16) (actual time=162.514..162.514 rows=1.00 loops=1)
+          Buffers: shared hit=13967 read=34183
+          ->  Sort  (cost=85676.53..85676.80 rows=110 width=16) (actual time=162.513..162.513 rows=1.00 loops=1)
+                Sort Key: orders_1.placed_at
+                Sort Method: top-N heapsort  Memory: 25kB
+                Buffers: shared hit=13967 read=34183
+                ->  Seq Scan on orders orders_1  (cost=0.00..85675.98 rows=110 width=16) (actual time=160.695..162.477 rows=750.00 loops=1)
+                      Filter: ((partner_id IS NULL) AND (status = 'ACCEPTED'::text))
+                      Rows Removed by Filter: 2999250
+                      Buffers: shared hit=13964 read=34183
+  ->  Index Scan using orders_pkey on orders  (cost=0.43..8.45 rows=1 width=42) (actual time=162.531..162.531 rows=1.00 loops=1)
+        Index Cond: (order_id = (InitPlan 1).col1)
+        Index Searches: 1
+        Buffers: shared hit=13973 read=34183
+Planning:
+  Buffers: shared hit=100
+Planning Time: 0.193 ms
+Trigger for constraint orders_partner_fk: time=0.241 calls=1
+Execution Time: 163.036 ms

@@ -1,0 +1,69 @@
+=== R14 run 1 ===
+Gather  (cost=68798.94..78239.16 rows=1359 width=20) (actual time=47.126..56.761 rows=6885.00 loops=1)
+  Workers Planned: 2
+  Workers Launched: 2
+  Buffers: shared hit=9279 read=45585
+  ->  Parallel Hash Semi Join  (cost=67798.94..77103.26 rows=566 width=20) (actual time=45.837..54.359 rows=2295.00 loops=3)
+        Hash Cond: (c.customer_id = o.customer_id)
+        Buffers: shared hit=9279 read=45585
+        ->  Parallel Seq Scan on customers c  (cost=0.00..9292.17 rows=1692 width=20) (actual time=0.060..7.215 rows=8240.00 loops=3)
+              Filter: (is_gold_member AND (gold_expires_on < '2026-07-01'::date))
+              Rows Removed by Filter: 158427
+              Buffers: shared read=6688
+        ->  Parallel Hash  (cost=66927.28..66927.28 rows=69733 width=4) (actual time=45.702..45.702 rows=54945.00 loops=3)
+              Buckets: 262144  Batches: 1  Memory Usage: 8544kB
+              Buffers: shared hit=9279 read=38897
+              ->  Parallel Seq Scan on orders o  (cost=0.00..66927.28 rows=69733 width=4) (actual time=39.444..42.855 rows=54945.00 loops=3)
+                    Filter: ((placed_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                    Rows Removed by Filter: 945055
+                    Buffers: shared hit=9279 read=38897
+Planning:
+  Buffers: shared hit=277 read=11
+Planning Time: 0.475 ms
+Execution Time: 56.917 ms
+=== R14 run 2 ===
+Gather  (cost=68798.94..78239.16 rows=1359 width=20) (actual time=47.894..57.523 rows=6885.00 loops=1)
+  Workers Planned: 2
+  Workers Launched: 2
+  Buffers: shared hit=9843 read=45021
+  ->  Parallel Hash Semi Join  (cost=67798.94..77103.26 rows=566 width=20) (actual time=46.373..54.792 rows=2295.00 loops=3)
+        Hash Cond: (c.customer_id = o.customer_id)
+        Buffers: shared hit=9843 read=45021
+        ->  Parallel Seq Scan on customers c  (cost=0.00..9292.17 rows=1692 width=20) (actual time=0.051..7.108 rows=8240.00 loops=3)
+              Filter: (is_gold_member AND (gold_expires_on < '2026-07-01'::date))
+              Rows Removed by Filter: 158427
+              Buffers: shared hit=282 read=6406
+        ->  Parallel Hash  (cost=66927.28..66927.28 rows=69733 width=4) (actual time=46.245..46.245 rows=54945.00 loops=3)
+              Buckets: 262144  Batches: 1  Memory Usage: 8544kB
+              Buffers: shared hit=9561 read=38615
+              ->  Parallel Seq Scan on orders o  (cost=0.00..66927.28 rows=69733 width=4) (actual time=40.120..43.516 rows=54945.00 loops=3)
+                    Filter: ((placed_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                    Rows Removed by Filter: 945055
+                    Buffers: shared hit=9561 read=38615
+Planning:
+  Buffers: shared hit=286
+Planning Time: 0.371 ms
+Execution Time: 57.672 ms
+=== R14 run 3 ===
+Gather  (cost=68798.94..78239.16 rows=1359 width=20) (actual time=47.495..57.483 rows=6885.00 loops=1)
+  Workers Planned: 2
+  Workers Launched: 2
+  Buffers: shared hit=10144 read=44720
+  ->  Parallel Hash Semi Join  (cost=67798.94..77103.26 rows=566 width=20) (actual time=46.131..54.913 rows=2295.00 loops=3)
+        Hash Cond: (c.customer_id = o.customer_id)
+        Buffers: shared hit=10144 read=44720
+        ->  Parallel Seq Scan on customers c  (cost=0.00..9292.17 rows=1692 width=20) (actual time=0.056..7.370 rows=8240.00 loops=3)
+              Filter: (is_gold_member AND (gold_expires_on < '2026-07-01'::date))
+              Rows Removed by Filter: 158427
+              Buffers: shared hit=310 read=6378
+        ->  Parallel Hash  (cost=66927.28..66927.28 rows=69733 width=4) (actual time=46.003..46.003 rows=54945.00 loops=3)
+              Buckets: 262144  Batches: 1  Memory Usage: 8544kB
+              Buffers: shared hit=9834 read=38342
+              ->  Parallel Seq Scan on orders o  (cost=0.00..66927.28 rows=69733 width=4) (actual time=39.576..43.102 rows=54945.00 loops=3)
+                    Filter: ((placed_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                    Rows Removed by Filter: 945055
+                    Buffers: shared hit=9834 read=38342
+Planning:
+  Buffers: shared hit=286
+Planning Time: 0.406 ms
+Execution Time: 57.635 ms

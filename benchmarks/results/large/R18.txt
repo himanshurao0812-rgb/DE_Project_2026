@@ -1,0 +1,99 @@
+=== R18 run 1 ===
+Limit  (cost=10230.21..10236.03 rows=50 width=42) (actual time=18.241..19.169 rows=50.00 loops=1)
+  Buffers: shared hit=69 read=7583
+  ->  Gather Merge  (cost=10230.21..17055.26 rows=58601 width=42) (actual time=18.240..19.165 rows=50.00 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=69 read=7583
+        ->  Sort  (cost=9230.18..9291.23 rows=24417 width=42) (actual time=16.373..16.374 rows=33.67 loops=3)
+              Sort Key: created_at DESC
+              Sort Method: top-N heapsort  Memory: 34kB
+              Buffers: shared hit=69 read=7583
+              Worker 0:  Sort Method: top-N heapsort  Memory: 34kB
+              Worker 1:  Sort Method: top-N heapsort  Memory: 34kB
+              ->  Parallel Bitmap Heap Scan on reviews  (cost=477.68..8419.07 rows=24417 width=42) (actual time=1.587..13.985 rows=19511.33 loops=3)
+                    Recheck Cond: ((review_text ~~* '%cold%'::text) OR (review_text ~~* '%late%'::text))
+                    Heap Blocks: exact=2741
+                    Buffers: shared hit=53 read=7583
+                    Worker 0:  Heap Blocks: exact=2387
+                    Worker 1:  Heap Blocks: exact=2430
+                    ->  BitmapOr  (cost=477.68..477.68 rows=59742 width=0) (actual time=2.577..2.577 rows=0.00 loops=1)
+                          Buffers: shared hit=13 read=25
+                          ->  Bitmap Index Scan on idx_reviews_text_trgm  (cost=0.00..223.15 rows=29662 width=0) (actual time=1.519..1.519 rows=29016.00 loops=1)
+                                Index Cond: (review_text ~~* '%cold%'::text)
+                                Index Searches: 1
+                                Buffers: shared hit=6 read=13
+                          ->  Bitmap Index Scan on idx_reviews_text_trgm  (cost=0.00..225.23 rows=30079 width=0) (actual time=1.057..1.057 rows=29518.00 loops=1)
+                                Index Cond: (review_text ~~* '%late%'::text)
+                                Index Searches: 1
+                                Buffers: shared hit=7 read=12
+Planning:
+  Buffers: shared hit=143 read=17 dirtied=1
+Planning Time: 1.439 ms
+Execution Time: 19.227 ms
+=== R18 run 2 ===
+Limit  (cost=10230.21..10236.03 rows=50 width=42) (actual time=14.831..15.873 rows=50.00 loops=1)
+  Buffers: shared hit=7652
+  ->  Gather Merge  (cost=10230.21..17055.26 rows=58601 width=42) (actual time=14.830..15.870 rows=50.00 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=7652
+        ->  Sort  (cost=9230.18..9291.23 rows=24417 width=42) (actual time=13.258..13.259 rows=38.33 loops=3)
+              Sort Key: created_at DESC
+              Sort Method: top-N heapsort  Memory: 34kB
+              Buffers: shared hit=7652
+              Worker 0:  Sort Method: top-N heapsort  Memory: 35kB
+              Worker 1:  Sort Method: top-N heapsort  Memory: 34kB
+              ->  Parallel Bitmap Heap Scan on reviews  (cost=477.68..8419.07 rows=24417 width=42) (actual time=1.273..11.324 rows=19511.33 loops=3)
+                    Recheck Cond: ((review_text ~~* '%cold%'::text) OR (review_text ~~* '%late%'::text))
+                    Heap Blocks: exact=2447
+                    Buffers: shared hit=7636
+                    Worker 0:  Heap Blocks: exact=2590
+                    Worker 1:  Heap Blocks: exact=2521
+                    ->  BitmapOr  (cost=477.68..477.68 rows=59742 width=0) (actual time=2.196..2.196 rows=0.00 loops=1)
+                          Buffers: shared hit=38
+                          ->  Bitmap Index Scan on idx_reviews_text_trgm  (cost=0.00..223.15 rows=29662 width=0) (actual time=1.315..1.315 rows=29016.00 loops=1)
+                                Index Cond: (review_text ~~* '%cold%'::text)
+                                Index Searches: 1
+                                Buffers: shared hit=19
+                          ->  Bitmap Index Scan on idx_reviews_text_trgm  (cost=0.00..225.23 rows=30079 width=0) (actual time=0.881..0.881 rows=29518.00 loops=1)
+                                Index Cond: (review_text ~~* '%late%'::text)
+                                Index Searches: 1
+                                Buffers: shared hit=19
+Planning:
+  Buffers: shared hit=160
+Planning Time: 0.679 ms
+Execution Time: 15.917 ms
+=== R18 run 3 ===
+Limit  (cost=10230.21..10236.03 rows=50 width=42) (actual time=14.754..15.855 rows=50.00 loops=1)
+  Buffers: shared hit=7652
+  ->  Gather Merge  (cost=10230.21..17055.26 rows=58601 width=42) (actual time=14.753..15.852 rows=50.00 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=7652
+        ->  Sort  (cost=9230.18..9291.23 rows=24417 width=42) (actual time=13.176..13.177 rows=40.33 loops=3)
+              Sort Key: created_at DESC
+              Sort Method: top-N heapsort  Memory: 34kB
+              Buffers: shared hit=7652
+              Worker 0:  Sort Method: top-N heapsort  Memory: 35kB
+              Worker 1:  Sort Method: top-N heapsort  Memory: 35kB
+              ->  Parallel Bitmap Heap Scan on reviews  (cost=477.68..8419.07 rows=24417 width=42) (actual time=1.247..11.265 rows=19511.33 loops=3)
+                    Recheck Cond: ((review_text ~~* '%cold%'::text) OR (review_text ~~* '%late%'::text))
+                    Heap Blocks: exact=2579
+                    Buffers: shared hit=7636
+                    Worker 0:  Heap Blocks: exact=2454
+                    Worker 1:  Heap Blocks: exact=2525
+                    ->  BitmapOr  (cost=477.68..477.68 rows=59742 width=0) (actual time=2.189..2.189 rows=0.00 loops=1)
+                          Buffers: shared hit=38
+                          ->  Bitmap Index Scan on idx_reviews_text_trgm  (cost=0.00..223.15 rows=29662 width=0) (actual time=1.303..1.303 rows=29016.00 loops=1)
+                                Index Cond: (review_text ~~* '%cold%'::text)
+                                Index Searches: 1
+                                Buffers: shared hit=19
+                          ->  Bitmap Index Scan on idx_reviews_text_trgm  (cost=0.00..225.23 rows=30079 width=0) (actual time=0.885..0.885 rows=29518.00 loops=1)
+                                Index Cond: (review_text ~~* '%late%'::text)
+                                Index Searches: 1
+                                Buffers: shared hit=19
+Planning:
+  Buffers: shared hit=160
+Planning Time: 0.664 ms
+Execution Time: 15.905 ms

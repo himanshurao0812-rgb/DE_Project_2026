@@ -1,0 +1,105 @@
+=== R21 run 1 ===
+Sort  (cost=109957.51..109957.54 rows=10 width=52) (actual time=178.963..178.982 rows=10.00 loops=1)
+  Sort Key: c.city_id
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=10907 read=43960, temp read=1265 written=1426
+  ->  HashAggregate  (cost=109957.12..109957.35 rows=10 width=52) (actual time=178.952..178.974 rows=10.00 loops=1)
+        Group Key: c.city_id
+        Batches: 1  Memory Usage: 32kB
+        Buffers: shared hit=10904 read=43960, temp read=1265 written=1426
+        ->  Hash Join  (cost=90928.12..108532.63 rows=142449 width=12) (actual time=89.565..170.525 rows=144314.00 loops=1)
+              Hash Cond: (c.customer_id = may.customer_id)
+              Buffers: shared hit=10904 read=43960, temp read=1265 written=1426
+              ->  Seq Scan on customers c  (cost=0.00..11688.00 rows=500000 width=8) (actual time=0.031..27.421 rows=500000.00 loops=1)
+                    Buffers: shared hit=846 read=5842
+              ->  Hash  (cost=88451.51..88451.51 rows=142449 width=12) (actual time=89.410..89.429 rows=144314.00 loops=1)
+                    Buckets: 262144  Batches: 2  Memory Usage: 5153kB
+                    Buffers: shared hit=10058 read=38118, temp read=129 written=571
+                    ->  Subquery Scan on may  (cost=85602.53..88451.51 rows=142449 width=12) (actual time=59.745..79.678 rows=144314.00 loops=1)
+                          Buffers: shared hit=10058 read=38118, temp read=129 written=290
+                          ->  HashAggregate  (cost=85602.53..87027.02 rows=142449 width=12) (actual time=59.745..73.833 rows=144314.00 loops=1)
+                                Group Key: orders.customer_id
+                                Batches: 5  Memory Usage: 8249kB  Disk Usage: 1600kB
+                                Buffers: shared hit=10058 read=38118, temp read=129 written=290
+                                ->  Gather  (cost=1000.00..84760.79 rows=168348 width=4) (actual time=36.264..42.558 rows=170329.00 loops=1)
+                                      Workers Planned: 2
+                                      Workers Launched: 2
+                                      Buffers: shared hit=10058 read=38118
+                                      ->  Parallel Seq Scan on orders  (cost=0.00..66925.99 rows=70145 width=4) (actual time=35.011..41.046 rows=56776.33 loops=3)
+                                            Filter: ((placed_at >= '2026-05-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-06-01 00:00:00+05:30'::timestamp with time zone))
+                                            Rows Removed by Filter: 943224
+                                            Buffers: shared hit=10058 read=38118
+Planning:
+  Buffers: shared hit=192
+Planning Time: 0.359 ms
+Execution Time: 179.537 ms
+=== R21 run 2 ===
+Sort  (cost=109957.51..109957.54 rows=10 width=52) (actual time=175.137..175.153 rows=10.00 loops=1)
+  Sort Key: c.city_id
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=11290 read=43573, temp read=1258 written=1419
+  ->  HashAggregate  (cost=109957.12..109957.35 rows=10 width=52) (actual time=175.125..175.143 rows=10.00 loops=1)
+        Group Key: c.city_id
+        Batches: 1  Memory Usage: 32kB
+        Buffers: shared hit=11287 read=43573, temp read=1258 written=1419
+        ->  Hash Join  (cost=90928.12..108532.63 rows=142449 width=12) (actual time=87.831..166.926 rows=144314.00 loops=1)
+              Hash Cond: (c.customer_id = may.customer_id)
+              Buffers: shared hit=11287 read=43573, temp read=1258 written=1419
+              ->  Seq Scan on customers c  (cost=0.00..11688.00 rows=500000 width=8) (actual time=0.026..27.345 rows=500000.00 loops=1)
+                    Buffers: shared hit=940 read=5748
+              ->  Hash  (cost=88451.51..88451.51 rows=142449 width=12) (actual time=87.682..87.697 rows=144314.00 loops=1)
+                    Buckets: 262144  Batches: 2  Memory Usage: 5153kB
+                    Buffers: shared hit=10347 read=37825, temp read=122 written=564
+                    ->  Subquery Scan on may  (cost=85602.53..88451.51 rows=142449 width=12) (actual time=58.592..78.187 rows=144314.00 loops=1)
+                          Buffers: shared hit=10347 read=37825, temp read=122 written=283
+                          ->  HashAggregate  (cost=85602.53..87027.02 rows=142449 width=12) (actual time=58.591..72.288 rows=144314.00 loops=1)
+                                Group Key: orders.customer_id
+                                Batches: 5  Memory Usage: 8505kB  Disk Usage: 1584kB
+                                Buffers: shared hit=10347 read=37825, temp read=122 written=283
+                                ->  Gather  (cost=1000.00..84760.79 rows=168348 width=4) (actual time=28.983..42.314 rows=170329.00 loops=1)
+                                      Workers Planned: 2
+                                      Workers Launched: 2
+                                      Buffers: shared hit=10347 read=37825
+                                      ->  Parallel Seq Scan on orders  (cost=0.00..66925.99 rows=70145 width=4) (actual time=27.706..40.594 rows=56776.33 loops=3)
+                                            Filter: ((placed_at >= '2026-05-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-06-01 00:00:00+05:30'::timestamp with time zone))
+                                            Rows Removed by Filter: 943224
+                                            Buffers: shared hit=10347 read=37825
+Planning:
+  Buffers: shared hit=192
+Planning Time: 0.376 ms
+Execution Time: 175.683 ms
+=== R21 run 3 ===
+Sort  (cost=109957.51..109957.54 rows=10 width=52) (actual time=175.968..175.986 rows=10.00 loops=1)
+  Sort Key: c.city_id
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=11665 read=43202, temp read=1266 written=1429
+  ->  HashAggregate  (cost=109957.12..109957.35 rows=10 width=52) (actual time=175.957..175.976 rows=10.00 loops=1)
+        Group Key: c.city_id
+        Batches: 1  Memory Usage: 32kB
+        Buffers: shared hit=11662 read=43202, temp read=1266 written=1429
+        ->  Hash Join  (cost=90928.12..108532.63 rows=142449 width=12) (actual time=88.902..167.264 rows=144314.00 loops=1)
+              Hash Cond: (c.customer_id = may.customer_id)
+              Buffers: shared hit=11662 read=43202, temp read=1266 written=1429
+              ->  Seq Scan on customers c  (cost=0.00..11688.00 rows=500000 width=8) (actual time=0.033..26.950 rows=500000.00 loops=1)
+                    Buffers: shared hit=1034 read=5654
+              ->  Hash  (cost=88451.51..88451.51 rows=142449 width=12) (actual time=88.759..88.776 rows=144314.00 loops=1)
+                    Buckets: 262144  Batches: 2  Memory Usage: 5153kB
+                    Buffers: shared hit=10628 read=37548, temp read=130 written=574
+                    ->  Subquery Scan on may  (cost=85602.53..88451.51 rows=142449 width=12) (actual time=60.440..79.708 rows=144314.00 loops=1)
+                          Buffers: shared hit=10628 read=37548, temp read=130 written=293
+                          ->  HashAggregate  (cost=85602.53..87027.02 rows=142449 width=12) (actual time=60.440..73.837 rows=144314.00 loops=1)
+                                Group Key: orders.customer_id
+                                Batches: 5  Memory Usage: 8249kB  Disk Usage: 1600kB
+                                Buffers: shared hit=10628 read=37548, temp read=130 written=293
+                                ->  Gather  (cost=1000.00..84760.79 rows=168348 width=4) (actual time=36.067..42.743 rows=170329.00 loops=1)
+                                      Workers Planned: 2
+                                      Workers Launched: 2
+                                      Buffers: shared hit=10628 read=37548
+                                      ->  Parallel Seq Scan on orders  (cost=0.00..66925.99 rows=70145 width=4) (actual time=34.880..41.168 rows=56776.33 loops=3)
+                                            Filter: ((placed_at >= '2026-05-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-06-01 00:00:00+05:30'::timestamp with time zone))
+                                            Rows Removed by Filter: 943224
+                                            Buffers: shared hit=10628 read=37548
+Planning:
+  Buffers: shared hit=192
+Planning Time: 0.357 ms
+Execution Time: 176.515 ms

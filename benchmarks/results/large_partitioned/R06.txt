@@ -1,0 +1,573 @@
+=== R06 run 1 ===
+Sort  (cost=361.51..361.56 rows=19 width=34) (actual time=4.977..4.980 rows=0.00 loops=1)
+  Sort Key: orders.placed_at
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=31 read=90
+  ->  Append  (cost=4.45..361.11 rows=19 width=34) (actual time=4.963..4.966 rows=0.00 loops=1)
+        Buffers: shared hit=28 read=90
+        ->  Bitmap Heap Scan on orders_2025_01 orders_1  (cost=4.45..20.06 rows=1 width=32) (actual time=0.414..0.414 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 4
+              Heap Blocks: exact=4
+              Buffers: shared read=7
+              ->  Bitmap Index Scan on orders_2025_01_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.376..0.376 rows=4.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared read=3
+        ->  Bitmap Heap Scan on orders_2025_02 orders_2  (cost=4.45..20.04 rows=1 width=32) (actual time=0.321..0.322 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 4
+              Heap Blocks: exact=4
+              Buffers: shared read=7
+              ->  Bitmap Index Scan on orders_2025_02_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.285..0.285 rows=4.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared read=3
+        ->  Bitmap Heap Scan on orders_2025_03 orders_3  (cost=4.45..20.06 rows=1 width=32) (actual time=0.344..0.344 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 4
+              Heap Blocks: exact=4
+              Buffers: shared read=7
+              ->  Bitmap Index Scan on orders_2025_03_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.284..0.284 rows=4.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared read=3
+        ->  Bitmap Heap Scan on orders_2025_04 orders_4  (cost=4.45..20.05 rows=1 width=32) (actual time=0.303..0.303 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 4
+              Heap Blocks: exact=4
+              Buffers: shared hit=4 read=3
+              ->  Bitmap Index Scan on orders_2025_04_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.283..0.283 rows=4.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared read=3
+        ->  Bitmap Heap Scan on orders_2025_05 orders_5  (cost=4.45..20.06 rows=1 width=32) (actual time=0.396..0.396 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 4
+              Heap Blocks: exact=4
+              Buffers: shared read=7
+              ->  Bitmap Index Scan on orders_2025_05_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.356..0.356 rows=4.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared read=3
+        ->  Bitmap Heap Scan on orders_2025_06 orders_6  (cost=4.45..20.05 rows=1 width=32) (actual time=0.304..0.304 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 4
+              Heap Blocks: exact=4
+              Buffers: shared hit=3 read=4
+              ->  Bitmap Index Scan on orders_2025_06_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.277..0.277 rows=4.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared read=3
+        ->  Bitmap Heap Scan on orders_2025_07 orders_7  (cost=4.45..20.06 rows=1 width=32) (actual time=0.318..0.318 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 6
+              Heap Blocks: exact=6
+              Buffers: shared hit=1 read=8
+              ->  Bitmap Index Scan on orders_2025_07_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.273..0.273 rows=6.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared read=3
+        ->  Bitmap Heap Scan on orders_2025_08 orders_8  (cost=4.45..20.06 rows=1 width=32) (actual time=0.287..0.287 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 1
+              Heap Blocks: exact=1
+              Buffers: shared read=4
+              ->  Bitmap Index Scan on orders_2025_08_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.274..0.274 rows=1.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared read=3
+        ->  Bitmap Heap Scan on orders_2025_09 orders_9  (cost=4.45..20.05 rows=1 width=32) (actual time=0.286..0.286 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 5
+              Heap Blocks: exact=5
+              Buffers: shared hit=5 read=3
+              ->  Bitmap Index Scan on orders_2025_09_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.270..0.270 rows=5.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared read=3
+        ->  Bitmap Heap Scan on orders_2025_10 orders_10  (cost=4.45..20.06 rows=1 width=32) (actual time=0.307..0.307 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 3
+              Heap Blocks: exact=3
+              Buffers: shared read=6
+              ->  Bitmap Index Scan on orders_2025_10_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.279..0.279 rows=3.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared read=3
+        ->  Bitmap Heap Scan on orders_2025_11 orders_11  (cost=4.45..20.05 rows=1 width=32) (actual time=0.303..0.303 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 3
+              Heap Blocks: exact=3
+              Buffers: shared read=6
+              ->  Bitmap Index Scan on orders_2025_11_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.265..0.265 rows=3.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared read=3
+        ->  Bitmap Heap Scan on orders_2025_12 orders_12  (cost=4.45..20.06 rows=1 width=32) (actual time=0.289..0.289 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 2
+              Heap Blocks: exact=2
+              Buffers: shared read=5
+              ->  Bitmap Index Scan on orders_2025_12_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.269..0.269 rows=2.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared read=3
+        ->  Bitmap Heap Scan on orders_2026_01 orders_13  (cost=4.45..20.06 rows=1 width=32) (actual time=0.292..0.292 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 3
+              Heap Blocks: exact=3
+              Buffers: shared read=6
+              ->  Bitmap Index Scan on orders_2026_01_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.248..0.249 rows=3.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared read=3
+        ->  Bitmap Heap Scan on orders_2026_02 orders_14  (cost=4.45..20.04 rows=1 width=32) (actual time=0.279..0.279 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 2
+              Heap Blocks: exact=2
+              Buffers: shared read=5
+              ->  Bitmap Index Scan on orders_2026_02_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.259..0.259 rows=2.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared read=3
+        ->  Bitmap Heap Scan on orders_2026_03 orders_15  (cost=4.45..20.06 rows=1 width=32) (actual time=0.287..0.287 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 6
+              Heap Blocks: exact=6
+              Buffers: shared hit=6 read=3
+              ->  Bitmap Index Scan on orders_2026_03_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.270..0.270 rows=6.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared read=3
+        ->  Bitmap Heap Scan on orders_2026_04 orders_16  (cost=4.45..20.05 rows=1 width=32) (actual time=0.193..0.193 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 5
+              Heap Blocks: exact=5
+              Buffers: shared hit=5 read=3
+              ->  Bitmap Index Scan on orders_2026_04_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.182..0.182 rows=5.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared read=3
+        ->  Bitmap Heap Scan on orders_2026_05 orders_17  (cost=4.45..20.06 rows=1 width=32) (actual time=0.026..0.026 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 4
+              Heap Blocks: exact=4
+              Buffers: shared hit=4 read=3
+              ->  Bitmap Index Scan on orders_2026_05_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.011..0.011 rows=4.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared read=3
+        ->  Bitmap Heap Scan on orders_2026_06 orders_18  (cost=4.45..20.05 rows=1 width=32) (actual time=0.010..0.010 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Buffers: shared read=3
+              ->  Bitmap Index Scan on orders_2026_06_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.009..0.009 rows=0.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared read=3
+        ->  Seq Scan on orders_default orders_19  (cost=0.00..0.00 rows=1 width=64) (actual time=0.002..0.002 rows=0.00 loops=1)
+              Filter: ((restaurant_id = 217) AND (date(placed_at) = '2026-06-15'::date))
+Planning:
+  Buffers: shared hit=1738 read=213 dirtied=27
+Planning Time: 3.710 ms
+Execution Time: 5.084 ms
+=== R06 run 2 ===
+Sort  (cost=361.51..361.56 rows=19 width=34) (actual time=0.253..0.255 rows=0.00 loops=1)
+  Sort Key: orders.placed_at
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=121
+  ->  Append  (cost=4.45..361.11 rows=19 width=34) (actual time=0.242..0.243 rows=0.00 loops=1)
+        Buffers: shared hit=118
+        ->  Bitmap Heap Scan on orders_2025_01 orders_1  (cost=4.45..20.06 rows=1 width=32) (actual time=0.015..0.015 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 4
+              Heap Blocks: exact=4
+              Buffers: shared hit=7
+              ->  Bitmap Index Scan on orders_2025_01_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.005..0.005 rows=4.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2025_02 orders_2  (cost=4.45..20.04 rows=1 width=32) (actual time=0.013..0.013 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 4
+              Heap Blocks: exact=4
+              Buffers: shared hit=7
+              ->  Bitmap Index Scan on orders_2025_02_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.007..0.007 rows=4.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2025_03 orders_3  (cost=4.45..20.06 rows=1 width=32) (actual time=0.013..0.013 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 4
+              Heap Blocks: exact=4
+              Buffers: shared hit=7
+              ->  Bitmap Index Scan on orders_2025_03_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.006..0.006 rows=4.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2025_04 orders_4  (cost=4.45..20.05 rows=1 width=32) (actual time=0.022..0.022 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 4
+              Heap Blocks: exact=4
+              Buffers: shared hit=7
+              ->  Bitmap Index Scan on orders_2025_04_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.006..0.006 rows=4.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2025_05 orders_5  (cost=4.45..20.06 rows=1 width=32) (actual time=0.012..0.012 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 4
+              Heap Blocks: exact=4
+              Buffers: shared hit=7
+              ->  Bitmap Index Scan on orders_2025_05_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.006..0.006 rows=4.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2025_06 orders_6  (cost=4.45..20.05 rows=1 width=32) (actual time=0.015..0.015 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 4
+              Heap Blocks: exact=4
+              Buffers: shared hit=7
+              ->  Bitmap Index Scan on orders_2025_06_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.005..0.005 rows=4.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2025_07 orders_7  (cost=4.45..20.06 rows=1 width=32) (actual time=0.014..0.014 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 6
+              Heap Blocks: exact=6
+              Buffers: shared hit=9
+              ->  Bitmap Index Scan on orders_2025_07_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.005..0.005 rows=6.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2025_08 orders_8  (cost=4.45..20.06 rows=1 width=32) (actual time=0.008..0.008 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 1
+              Heap Blocks: exact=1
+              Buffers: shared hit=4
+              ->  Bitmap Index Scan on orders_2025_08_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.006..0.006 rows=1.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2025_09 orders_9  (cost=4.45..20.05 rows=1 width=32) (actual time=0.019..0.019 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 5
+              Heap Blocks: exact=5
+              Buffers: shared hit=8
+              ->  Bitmap Index Scan on orders_2025_09_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.005..0.005 rows=5.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2025_10 orders_10  (cost=4.45..20.06 rows=1 width=32) (actual time=0.010..0.010 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 3
+              Heap Blocks: exact=3
+              Buffers: shared hit=6
+              ->  Bitmap Index Scan on orders_2025_10_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.006..0.006 rows=3.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2025_11 orders_11  (cost=4.45..20.05 rows=1 width=32) (actual time=0.009..0.009 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 3
+              Heap Blocks: exact=3
+              Buffers: shared hit=6
+              ->  Bitmap Index Scan on orders_2025_11_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.005..0.005 rows=3.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2025_12 orders_12  (cost=4.45..20.06 rows=1 width=32) (actual time=0.010..0.010 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 2
+              Heap Blocks: exact=2
+              Buffers: shared hit=5
+              ->  Bitmap Index Scan on orders_2025_12_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.006..0.006 rows=2.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2026_01 orders_13  (cost=4.45..20.06 rows=1 width=32) (actual time=0.011..0.011 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 3
+              Heap Blocks: exact=3
+              Buffers: shared hit=6
+              ->  Bitmap Index Scan on orders_2026_01_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.007..0.007 rows=3.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2026_02 orders_14  (cost=4.45..20.04 rows=1 width=32) (actual time=0.009..0.009 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 2
+              Heap Blocks: exact=2
+              Buffers: shared hit=5
+              ->  Bitmap Index Scan on orders_2026_02_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.006..0.006 rows=2.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2026_03 orders_15  (cost=4.45..20.06 rows=1 width=32) (actual time=0.023..0.023 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 6
+              Heap Blocks: exact=6
+              Buffers: shared hit=9
+              ->  Bitmap Index Scan on orders_2026_03_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.007..0.007 rows=6.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2026_04 orders_16  (cost=4.45..20.05 rows=1 width=32) (actual time=0.015..0.015 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 5
+              Heap Blocks: exact=5
+              Buffers: shared hit=8
+              ->  Bitmap Index Scan on orders_2026_04_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.005..0.005 rows=5.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2026_05 orders_17  (cost=4.45..20.06 rows=1 width=32) (actual time=0.017..0.017 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 4
+              Heap Blocks: exact=4
+              Buffers: shared hit=7
+              ->  Bitmap Index Scan on orders_2026_05_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.005..0.005 rows=4.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2026_06 orders_18  (cost=4.45..20.05 rows=1 width=32) (actual time=0.004..0.005 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Buffers: shared hit=3
+              ->  Bitmap Index Scan on orders_2026_06_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.004..0.004 rows=0.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Seq Scan on orders_default orders_19  (cost=0.00..0.00 rows=1 width=64) (actual time=0.001..0.001 rows=0.00 loops=1)
+              Filter: ((restaurant_id = 217) AND (date(placed_at) = '2026-06-15'::date))
+Planning:
+  Buffers: shared hit=1937
+Planning Time: 3.142 ms
+Execution Time: 0.374 ms
+=== R06 run 3 ===
+Sort  (cost=361.51..361.56 rows=19 width=34) (actual time=0.246..0.247 rows=0.00 loops=1)
+  Sort Key: orders.placed_at
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=121
+  ->  Append  (cost=4.45..361.11 rows=19 width=34) (actual time=0.235..0.236 rows=0.00 loops=1)
+        Buffers: shared hit=118
+        ->  Bitmap Heap Scan on orders_2025_01 orders_1  (cost=4.45..20.06 rows=1 width=32) (actual time=0.015..0.015 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 4
+              Heap Blocks: exact=4
+              Buffers: shared hit=7
+              ->  Bitmap Index Scan on orders_2025_01_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.005..0.005 rows=4.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2025_02 orders_2  (cost=4.45..20.04 rows=1 width=32) (actual time=0.012..0.012 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 4
+              Heap Blocks: exact=4
+              Buffers: shared hit=7
+              ->  Bitmap Index Scan on orders_2025_02_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.007..0.007 rows=4.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2025_03 orders_3  (cost=4.45..20.06 rows=1 width=32) (actual time=0.011..0.011 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 4
+              Heap Blocks: exact=4
+              Buffers: shared hit=7
+              ->  Bitmap Index Scan on orders_2025_03_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.005..0.005 rows=4.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2025_04 orders_4  (cost=4.45..20.05 rows=1 width=32) (actual time=0.021..0.021 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 4
+              Heap Blocks: exact=4
+              Buffers: shared hit=7
+              ->  Bitmap Index Scan on orders_2025_04_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.006..0.006 rows=4.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2025_05 orders_5  (cost=4.45..20.06 rows=1 width=32) (actual time=0.011..0.011 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 4
+              Heap Blocks: exact=4
+              Buffers: shared hit=7
+              ->  Bitmap Index Scan on orders_2025_05_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.005..0.005 rows=4.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2025_06 orders_6  (cost=4.45..20.05 rows=1 width=32) (actual time=0.015..0.015 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 4
+              Heap Blocks: exact=4
+              Buffers: shared hit=7
+              ->  Bitmap Index Scan on orders_2025_06_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.005..0.005 rows=4.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2025_07 orders_7  (cost=4.45..20.06 rows=1 width=32) (actual time=0.013..0.013 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 6
+              Heap Blocks: exact=6
+              Buffers: shared hit=9
+              ->  Bitmap Index Scan on orders_2025_07_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.005..0.005 rows=6.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2025_08 orders_8  (cost=4.45..20.06 rows=1 width=32) (actual time=0.007..0.007 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 1
+              Heap Blocks: exact=1
+              Buffers: shared hit=4
+              ->  Bitmap Index Scan on orders_2025_08_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.006..0.006 rows=1.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2025_09 orders_9  (cost=4.45..20.05 rows=1 width=32) (actual time=0.021..0.021 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 5
+              Heap Blocks: exact=5
+              Buffers: shared hit=8
+              ->  Bitmap Index Scan on orders_2025_09_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.006..0.006 rows=5.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2025_10 orders_10  (cost=4.45..20.06 rows=1 width=32) (actual time=0.009..0.009 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 3
+              Heap Blocks: exact=3
+              Buffers: shared hit=6
+              ->  Bitmap Index Scan on orders_2025_10_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.005..0.005 rows=3.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2025_11 orders_11  (cost=4.45..20.05 rows=1 width=32) (actual time=0.016..0.016 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 3
+              Heap Blocks: exact=3
+              Buffers: shared hit=6
+              ->  Bitmap Index Scan on orders_2025_11_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.005..0.005 rows=3.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2025_12 orders_12  (cost=4.45..20.06 rows=1 width=32) (actual time=0.009..0.009 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 2
+              Heap Blocks: exact=2
+              Buffers: shared hit=5
+              ->  Bitmap Index Scan on orders_2025_12_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.006..0.006 rows=2.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2026_01 orders_13  (cost=4.45..20.06 rows=1 width=32) (actual time=0.010..0.010 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 3
+              Heap Blocks: exact=3
+              Buffers: shared hit=6
+              ->  Bitmap Index Scan on orders_2026_01_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.006..0.006 rows=3.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2026_02 orders_14  (cost=4.45..20.04 rows=1 width=32) (actual time=0.009..0.009 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 2
+              Heap Blocks: exact=2
+              Buffers: shared hit=5
+              ->  Bitmap Index Scan on orders_2026_02_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.006..0.006 rows=2.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2026_03 orders_15  (cost=4.45..20.06 rows=1 width=32) (actual time=0.020..0.020 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 6
+              Heap Blocks: exact=6
+              Buffers: shared hit=9
+              ->  Bitmap Index Scan on orders_2026_03_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.005..0.005 rows=6.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2026_04 orders_16  (cost=4.45..20.05 rows=1 width=32) (actual time=0.013..0.013 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 5
+              Heap Blocks: exact=5
+              Buffers: shared hit=8
+              ->  Bitmap Index Scan on orders_2026_04_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.004..0.004 rows=5.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2026_05 orders_17  (cost=4.45..20.06 rows=1 width=32) (actual time=0.017..0.017 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Rows Removed by Filter: 4
+              Heap Blocks: exact=4
+              Buffers: shared hit=7
+              ->  Bitmap Index Scan on orders_2026_05_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.005..0.005 rows=4.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Bitmap Heap Scan on orders_2026_06 orders_18  (cost=4.45..20.05 rows=1 width=32) (actual time=0.003..0.003 rows=0.00 loops=1)
+              Recheck Cond: (restaurant_id = 217)
+              Filter: (date(placed_at) = '2026-06-15'::date)
+              Buffers: shared hit=3
+              ->  Bitmap Index Scan on orders_2026_06_restaurant_id_placed_at_idx  (cost=0.00..4.45 rows=4 width=0) (actual time=0.003..0.003 rows=0.00 loops=1)
+                    Index Cond: (restaurant_id = 217)
+                    Index Searches: 1
+                    Buffers: shared hit=3
+        ->  Seq Scan on orders_default orders_19  (cost=0.00..0.00 rows=1 width=64) (actual time=0.001..0.001 rows=0.00 loops=1)
+              Filter: ((restaurant_id = 217) AND (date(placed_at) = '2026-06-15'::date))
+Planning:
+  Buffers: shared hit=1937
+Planning Time: 2.888 ms
+Execution Time: 0.337 ms

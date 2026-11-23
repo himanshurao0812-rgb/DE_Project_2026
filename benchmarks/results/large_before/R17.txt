@@ -1,0 +1,93 @@
+=== R17 run 1 ===
+Sort  (cost=128549.42..128672.32 rows=49159 width=12) (actual time=146.974..147.358 rows=16816.00 loops=1)
+  Sort Key: (count(*)) DESC, o.customer_id
+  Sort Method: quicksort  Memory: 1294kB
+  Buffers: shared hit=10882 read=62980, temp read=57 written=127
+  ->  HashAggregate  (cost=122875.22..124718.67 rows=49159 width=12) (actual time=135.377..144.105 rows=16816.00 loops=1)
+        Group Key: o.customer_id
+        Filter: (count(*) >= 2)
+        Batches: 5  Memory Usage: 8505kB  Disk Usage: 688kB
+        Rows Removed by Filter: 106871
+        Buffers: shared hit=10876 read=62980, temp read=57 written=127
+        ->  Gather  (cost=41769.53..122137.84 rows=147476 width=4) (actual time=45.893..113.941 rows=142198.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=10876 read=62980
+              ->  Parallel Hash Join  (cost=40769.53..106390.24 rows=61448 width=4) (actual time=44.587..124.026 rows=47399.33 loops=3)
+                    Hash Cond: (o.order_id = p.order_id)
+                    Buffers: shared hit=10876 read=62980
+                    ->  Parallel Seq Scan on orders o  (cost=0.00..60676.85 rows=1250085 width=12) (actual time=0.048..31.774 rows=1000000.00 loops=3)
+                          Buffers: shared hit=10030 read=38146
+                    ->  Parallel Hash  (cost=40001.43..40001.43 rows=61448 width=8) (actual time=44.452..44.452 rows=47399.33 loops=3)
+                          Buckets: 262144  Batches: 1  Memory Usage: 7648kB
+                          Buffers: shared hit=846 read=24834
+                          ->  Parallel Seq Scan on payments p  (cost=0.00..40001.43 rows=61448 width=8) (actual time=0.039..40.585 rows=47399.33 loops=3)
+                                Filter: (payment_status = 'FAILED'::text)
+                                Rows Removed by Filter: 869172
+                                Buffers: shared hit=846 read=24834
+Planning:
+  Buffers: shared hit=160 read=5
+Planning Time: 0.329 ms
+Execution Time: 148.306 ms
+=== R17 run 2 ===
+Sort  (cost=128549.42..128672.32 rows=49159 width=12) (actual time=148.077..148.468 rows=16816.00 loops=1)
+  Sort Key: (count(*)) DESC, o.customer_id
+  Sort Method: quicksort  Memory: 1294kB
+  Buffers: shared hit=11446 read=62416, temp read=56 written=124
+  ->  HashAggregate  (cost=122875.22..124718.67 rows=49159 width=12) (actual time=135.609..145.245 rows=16816.00 loops=1)
+        Group Key: o.customer_id
+        Filter: (count(*) >= 2)
+        Batches: 5  Memory Usage: 8505kB  Disk Usage: 688kB
+        Rows Removed by Filter: 106871
+        Buffers: shared hit=11440 read=62416, temp read=56 written=124
+        ->  Gather  (cost=41769.53..122137.84 rows=147476 width=4) (actual time=46.764..115.564 rows=142198.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=11440 read=62416
+              ->  Parallel Hash Join  (cost=40769.53..106390.24 rows=61448 width=4) (actual time=45.424..124.354 rows=47399.33 loops=3)
+                    Hash Cond: (o.order_id = p.order_id)
+                    Buffers: shared hit=11440 read=62416
+                    ->  Parallel Seq Scan on orders o  (cost=0.00..60676.85 rows=1250085 width=12) (actual time=0.050..31.792 rows=1000000.00 loops=3)
+                          Buffers: shared hit=10312 read=37864
+                    ->  Parallel Hash  (cost=40001.43..40001.43 rows=61448 width=8) (actual time=45.288..45.288 rows=47399.33 loops=3)
+                          Buckets: 262144  Batches: 1  Memory Usage: 7616kB
+                          Buffers: shared hit=1128 read=24552
+                          ->  Parallel Seq Scan on payments p  (cost=0.00..40001.43 rows=61448 width=8) (actual time=0.044..41.022 rows=47399.33 loops=3)
+                                Filter: (payment_status = 'FAILED'::text)
+                                Rows Removed by Filter: 869172
+                                Buffers: shared hit=1128 read=24552
+Planning:
+  Buffers: shared hit=165
+Planning Time: 0.304 ms
+Execution Time: 149.437 ms
+=== R17 run 3 ===
+Sort  (cost=128549.42..128672.32 rows=49159 width=12) (actual time=145.655..146.060 rows=16816.00 loops=1)
+  Sort Key: (count(*)) DESC, o.customer_id
+  Sort Method: quicksort  Memory: 1294kB
+  Buffers: shared hit=12010 read=61852, temp read=57 written=125
+  ->  HashAggregate  (cost=122875.22..124718.67 rows=49159 width=12) (actual time=133.413..142.766 rows=16816.00 loops=1)
+        Group Key: o.customer_id
+        Filter: (count(*) >= 2)
+        Batches: 5  Memory Usage: 8505kB  Disk Usage: 688kB
+        Rows Removed by Filter: 106871
+        Buffers: shared hit=12004 read=61852, temp read=57 written=125
+        ->  Gather  (cost=41769.53..122137.84 rows=147476 width=4) (actual time=43.136..112.512 rows=142198.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=12004 read=61852
+              ->  Parallel Hash Join  (cost=40769.53..106390.24 rows=61448 width=4) (actual time=41.835..122.045 rows=47399.33 loops=3)
+                    Hash Cond: (o.order_id = p.order_id)
+                    Buffers: shared hit=12004 read=61852
+                    ->  Parallel Seq Scan on orders o  (cost=0.00..60676.85 rows=1250085 width=12) (actual time=0.053..32.046 rows=1000000.00 loops=3)
+                          Buffers: shared hit=10594 read=37582
+                    ->  Parallel Hash  (cost=40001.43..40001.43 rows=61448 width=8) (actual time=41.690..41.690 rows=47399.33 loops=3)
+                          Buckets: 262144  Batches: 1  Memory Usage: 7648kB
+                          Buffers: shared hit=1410 read=24270
+                          ->  Parallel Seq Scan on payments p  (cost=0.00..40001.43 rows=61448 width=8) (actual time=0.050..37.921 rows=47399.33 loops=3)
+                                Filter: (payment_status = 'FAILED'::text)
+                                Rows Removed by Filter: 869172
+                                Buffers: shared hit=1410 read=24270
+Planning:
+  Buffers: shared hit=165
+Planning Time: 0.299 ms
+Execution Time: 146.827 ms

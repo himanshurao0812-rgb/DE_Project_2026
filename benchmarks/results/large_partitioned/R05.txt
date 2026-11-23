@@ -1,0 +1,273 @@
+=== R05 run 1 ===
+Gather Merge  (cost=80072.70..80156.12 rows=716 width=20) (actual time=80.456..81.752 rows=709.00 loops=1)
+  Workers Planned: 2
+  Workers Launched: 2
+  Buffers: shared hit=76 read=48176 written=387
+  ->  Sort  (cost=79072.68..79073.45 rows=309 width=20) (actual time=78.244..78.252 rows=236.33 loops=3)
+        Sort Key: orders.accepted_at
+        Sort Method: quicksort  Memory: 52kB
+        Buffers: shared hit=76 read=48176 written=387
+        Worker 0:  Sort Method: quicksort  Memory: 25kB
+        Worker 1:  Sort Method: quicksort  Memory: 25kB
+        ->  Parallel Append  (cost=0.00..79059.90 rows=309 width=20) (actual time=64.719..78.170 rows=236.33 loops=3)
+              Buffers: shared read=48176 written=387
+              ->  Parallel Seq Scan on orders_2025_01 orders_1  (cost=0.00..4489.40 rows=1 width=20) (actual time=15.331..15.331 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170330
+                    Buffers: shared read=2736 written=64
+              ->  Parallel Seq Scan on orders_2025_03 orders_3  (cost=0.00..4489.40 rows=1 width=20) (actual time=15.482..15.482 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170330
+                    Buffers: shared read=2736 written=66
+              ->  Parallel Seq Scan on orders_2025_05 orders_5  (cost=0.00..4489.40 rows=1 width=20) (actual time=14.001..14.001 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170330
+                    Buffers: shared read=2736 written=39
+              ->  Parallel Seq Scan on orders_2025_10 orders_10  (cost=0.00..4489.40 rows=1 width=20) (actual time=14.209..14.209 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170330
+                    Buffers: shared read=2736 written=45
+              ->  Parallel Seq Scan on orders_2025_12 orders_12  (cost=0.00..4489.40 rows=1 width=20) (actual time=12.240..12.240 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170330
+                    Buffers: shared read=2736
+              ->  Parallel Seq Scan on orders_2026_01 orders_13  (cost=0.00..4489.40 rows=1 width=20) (actual time=13.648..13.648 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170330
+                    Buffers: shared read=2736 written=1
+              ->  Parallel Seq Scan on orders_2025_08 orders_8  (cost=0.00..4489.39 rows=1 width=20) (actual time=11.702..11.702 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170329
+                    Buffers: shared read=2736 written=12
+              ->  Parallel Seq Scan on orders_2025_07 orders_7  (cost=0.00..4488.40 rows=1 width=20) (actual time=11.989..11.989 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170330
+                    Buffers: shared read=2735 written=22
+              ->  Parallel Seq Scan on orders_2026_03 orders_15  (cost=0.00..4488.39 rows=1 width=20) (actual time=11.733..11.733 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170329
+                    Buffers: shared read=2735
+              ->  Parallel Seq Scan on orders_2026_05 orders_17  (cost=0.00..4488.39 rows=1 width=20) (actual time=12.605..12.605 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170329
+                    Buffers: shared read=2735
+              ->  Parallel Seq Scan on orders_2025_09 orders_9  (cost=0.00..4344.83 rows=1 width=20) (actual time=4.270..4.270 rows=0.00 loops=3)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 54945
+                    Buffers: shared read=2648 written=8
+              ->  Parallel Seq Scan on orders_2026_04 orders_16  (cost=0.00..4343.84 rows=1 width=20) (actual time=6.205..6.205 rows=0.00 loops=2)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 82418
+                    Buffers: shared read=2647 written=7
+              ->  Parallel Seq Scan on orders_2025_04 orders_4  (cost=0.00..4343.83 rows=1 width=20) (actual time=11.721..11.721 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 164835
+                    Buffers: shared read=2647 written=3
+              ->  Parallel Seq Scan on orders_2025_06 orders_6  (cost=0.00..4343.83 rows=1 width=20) (actual time=11.746..11.746 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 164835
+                    Buffers: shared read=2647 written=8
+              ->  Parallel Seq Scan on orders_2025_11 orders_11  (cost=0.00..4343.83 rows=1 width=20) (actual time=13.037..13.037 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 164835
+                    Buffers: shared read=2647 written=9
+              ->  Parallel Seq Scan on orders_2026_06 orders_18  (cost=0.00..4337.83 rows=411 width=20) (actual time=12.495..12.668 rows=709.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 164126
+                    Buffers: shared read=2641 written=5
+              ->  Parallel Seq Scan on orders_2025_02 orders_2  (cost=0.00..4054.71 rows=1 width=20) (actual time=12.488..12.488 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 153846
+                    Buffers: shared read=2471 written=40
+              ->  Parallel Seq Scan on orders_2026_02 orders_14  (cost=0.00..4054.71 rows=1 width=20) (actual time=14.647..14.647 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 153846
+                    Buffers: shared read=2471 written=58
+              ->  Parallel Seq Scan on orders_default orders_19  (cost=0.00..0.00 rows=1 width=20) (actual time=0.000..0.000 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+Planning:
+  Buffers: shared hit=1872
+Planning Time: 3.162 ms
+Execution Time: 81.824 ms
+=== R05 run 2 ===
+Gather Merge  (cost=80072.70..80156.12 rows=716 width=20) (actual time=73.233..74.887 rows=709.00 loops=1)
+  Workers Planned: 2
+  Workers Launched: 2
+  Buffers: shared hit=76 read=48176 written=118
+  ->  Sort  (cost=79072.68..79073.45 rows=309 width=20) (actual time=71.273..71.279 rows=236.33 loops=3)
+        Sort Key: orders.accepted_at
+        Sort Method: quicksort  Memory: 52kB
+        Buffers: shared hit=76 read=48176 written=118
+        Worker 0:  Sort Method: quicksort  Memory: 25kB
+        Worker 1:  Sort Method: quicksort  Memory: 25kB
+        ->  Parallel Append  (cost=0.00..79059.90 rows=309 width=20) (actual time=58.306..71.234 rows=236.33 loops=3)
+              Buffers: shared read=48176 written=118
+              ->  Parallel Seq Scan on orders_2025_01 orders_1  (cost=0.00..4489.40 rows=1 width=20) (actual time=12.686..12.686 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170330
+                    Buffers: shared read=2736
+              ->  Parallel Seq Scan on orders_2025_03 orders_3  (cost=0.00..4489.40 rows=1 width=20) (actual time=11.890..11.890 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170330
+                    Buffers: shared read=2736
+              ->  Parallel Seq Scan on orders_2025_05 orders_5  (cost=0.00..4489.40 rows=1 width=20) (actual time=13.563..13.563 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170330
+                    Buffers: shared read=2736 written=20
+              ->  Parallel Seq Scan on orders_2025_10 orders_10  (cost=0.00..4489.40 rows=1 width=20) (actual time=13.174..13.174 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170330
+                    Buffers: shared read=2736 written=19
+              ->  Parallel Seq Scan on orders_2025_12 orders_12  (cost=0.00..4489.40 rows=1 width=20) (actual time=11.798..11.798 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170330
+                    Buffers: shared read=2736
+              ->  Parallel Seq Scan on orders_2026_01 orders_13  (cost=0.00..4489.40 rows=1 width=20) (actual time=11.588..11.588 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170330
+                    Buffers: shared read=2736
+              ->  Parallel Seq Scan on orders_2025_08 orders_8  (cost=0.00..4489.39 rows=1 width=20) (actual time=12.182..12.182 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170329
+                    Buffers: shared read=2736 written=13
+              ->  Parallel Seq Scan on orders_2025_07 orders_7  (cost=0.00..4488.40 rows=1 width=20) (actual time=12.003..12.003 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170330
+                    Buffers: shared read=2735 written=8
+              ->  Parallel Seq Scan on orders_2026_03 orders_15  (cost=0.00..4488.39 rows=1 width=20) (actual time=11.288..11.288 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170329
+                    Buffers: shared read=2735
+              ->  Parallel Seq Scan on orders_2026_05 orders_17  (cost=0.00..4488.39 rows=1 width=20) (actual time=11.727..11.727 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170329
+                    Buffers: shared read=2735
+              ->  Parallel Seq Scan on orders_2025_09 orders_9  (cost=0.00..4344.83 rows=1 width=20) (actual time=3.893..3.893 rows=0.00 loops=3)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 54945
+                    Buffers: shared read=2648 written=3
+              ->  Parallel Seq Scan on orders_2026_04 orders_16  (cost=0.00..4343.84 rows=1 width=20) (actual time=6.023..6.023 rows=0.00 loops=2)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 82418
+                    Buffers: shared read=2647 written=2
+              ->  Parallel Seq Scan on orders_2025_04 orders_4  (cost=0.00..4343.83 rows=1 width=20) (actual time=11.279..11.279 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 164835
+                    Buffers: shared read=2647 written=3
+              ->  Parallel Seq Scan on orders_2025_06 orders_6  (cost=0.00..4343.83 rows=1 width=20) (actual time=10.471..10.471 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 164835
+                    Buffers: shared read=2647 written=4
+              ->  Parallel Seq Scan on orders_2025_11 orders_11  (cost=0.00..4343.83 rows=1 width=20) (actual time=12.141..12.141 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 164835
+                    Buffers: shared read=2647 written=3
+              ->  Parallel Seq Scan on orders_2026_06 orders_18  (cost=0.00..4337.83 rows=411 width=20) (actual time=11.534..11.702 rows=709.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 164126
+                    Buffers: shared read=2641 written=8
+              ->  Parallel Seq Scan on orders_2025_02 orders_2  (cost=0.00..4054.71 rows=1 width=20) (actual time=11.047..11.047 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 153846
+                    Buffers: shared read=2471 written=27
+              ->  Parallel Seq Scan on orders_2026_02 orders_14  (cost=0.00..4054.71 rows=1 width=20) (actual time=11.397..11.397 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 153846
+                    Buffers: shared read=2471 written=8
+              ->  Parallel Seq Scan on orders_default orders_19  (cost=0.00..0.00 rows=1 width=20) (actual time=0.001..0.001 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+Planning:
+  Buffers: shared hit=1663 read=203
+Planning Time: 3.682 ms
+Execution Time: 74.959 ms
+=== R05 run 3 ===
+Gather Merge  (cost=80072.70..80156.12 rows=716 width=20) (actual time=81.961..83.257 rows=709.00 loops=1)
+  Workers Planned: 2
+  Workers Launched: 2
+  Buffers: shared hit=76 read=48176 written=128
+  ->  Sort  (cost=79072.68..79073.45 rows=309 width=20) (actual time=79.833..79.840 rows=236.33 loops=3)
+        Sort Key: orders.accepted_at
+        Sort Method: quicksort  Memory: 52kB
+        Buffers: shared hit=76 read=48176 written=128
+        Worker 0:  Sort Method: quicksort  Memory: 25kB
+        Worker 1:  Sort Method: quicksort  Memory: 25kB
+        ->  Parallel Append  (cost=0.00..79059.90 rows=309 width=20) (actual time=66.500..79.792 rows=236.33 loops=3)
+              Buffers: shared read=48176 written=128
+              ->  Parallel Seq Scan on orders_2025_01 orders_1  (cost=0.00..4489.40 rows=1 width=20) (actual time=12.105..12.105 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170330
+                    Buffers: shared read=2736
+              ->  Parallel Seq Scan on orders_2025_03 orders_3  (cost=0.00..4489.40 rows=1 width=20) (actual time=11.848..11.848 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170330
+                    Buffers: shared read=2736
+              ->  Parallel Seq Scan on orders_2025_05 orders_5  (cost=0.00..4489.40 rows=1 width=20) (actual time=17.916..17.917 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170330
+                    Buffers: shared read=2736 written=18
+              ->  Parallel Seq Scan on orders_2025_10 orders_10  (cost=0.00..4489.40 rows=1 width=20) (actual time=17.463..17.463 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170330
+                    Buffers: shared read=2736 written=19
+              ->  Parallel Seq Scan on orders_2025_12 orders_12  (cost=0.00..4489.40 rows=1 width=20) (actual time=14.991..14.991 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170330
+                    Buffers: shared read=2736
+              ->  Parallel Seq Scan on orders_2026_01 orders_13  (cost=0.00..4489.40 rows=1 width=20) (actual time=14.332..14.332 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170330
+                    Buffers: shared read=2736
+              ->  Parallel Seq Scan on orders_2025_08 orders_8  (cost=0.00..4489.39 rows=1 width=20) (actual time=12.564..12.564 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170329
+                    Buffers: shared read=2736 written=14
+              ->  Parallel Seq Scan on orders_2025_07 orders_7  (cost=0.00..4488.40 rows=1 width=20) (actual time=13.150..13.150 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170330
+                    Buffers: shared read=2735 written=13
+              ->  Parallel Seq Scan on orders_2026_03 orders_15  (cost=0.00..4488.39 rows=1 width=20) (actual time=11.642..11.642 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170329
+                    Buffers: shared read=2735
+              ->  Parallel Seq Scan on orders_2026_05 orders_17  (cost=0.00..4488.39 rows=1 width=20) (actual time=12.703..12.703 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 170329
+                    Buffers: shared read=2735
+              ->  Parallel Seq Scan on orders_2025_09 orders_9  (cost=0.00..4344.83 rows=1 width=20) (actual time=3.793..3.794 rows=0.00 loops=3)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 54945
+                    Buffers: shared read=2648 written=5
+              ->  Parallel Seq Scan on orders_2026_04 orders_16  (cost=0.00..4343.84 rows=1 width=20) (actual time=6.264..6.264 rows=0.00 loops=2)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 82418
+                    Buffers: shared read=2647 written=13
+              ->  Parallel Seq Scan on orders_2025_04 orders_4  (cost=0.00..4343.83 rows=1 width=20) (actual time=10.876..10.876 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 164835
+                    Buffers: shared read=2647
+              ->  Parallel Seq Scan on orders_2025_06 orders_6  (cost=0.00..4343.83 rows=1 width=20) (actual time=11.122..11.122 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 164835
+                    Buffers: shared read=2647 written=11
+              ->  Parallel Seq Scan on orders_2025_11 orders_11  (cost=0.00..4343.83 rows=1 width=20) (actual time=12.829..12.829 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 164835
+                    Buffers: shared read=2647
+              ->  Parallel Seq Scan on orders_2026_06 orders_18  (cost=0.00..4337.83 rows=411 width=20) (actual time=15.893..16.096 rows=709.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 164126
+                    Buffers: shared read=2641 written=19
+              ->  Parallel Seq Scan on orders_2025_02 orders_2  (cost=0.00..4054.71 rows=1 width=20) (actual time=15.001..15.001 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 153846
+                    Buffers: shared read=2471 written=16
+              ->  Parallel Seq Scan on orders_2026_02 orders_14  (cost=0.00..4054.71 rows=1 width=20) (actual time=10.767..10.767 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+                    Rows Removed by Filter: 153846
+                    Buffers: shared read=2471
+              ->  Parallel Seq Scan on orders_default orders_19  (cost=0.00..0.00 rows=1 width=20) (actual time=0.000..0.000 rows=0.00 loops=1)
+                    Filter: ((status = 'PREPARING'::text) AND (accepted_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '00:40:00'::interval)))
+Planning:
+  Buffers: shared hit=1663 read=203
+Planning Time: 3.784 ms
+Execution Time: 83.331 ms

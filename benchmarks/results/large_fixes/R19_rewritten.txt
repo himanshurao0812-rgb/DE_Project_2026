@@ -1,0 +1,186 @@
+Sort  (cost=114187.74..114200.24 rows=5000 width=84) (actual time=402.687..402.880 rows=8000.00 loops=1)
+  Sort Key: (max(o.placed_at)) DESC NULLS LAST
+  Sort Method: quicksort  Memory: 688kB
+  Buffers: shared hit=23990 read=49469 written=354
+  CTE bengaluru
+    ->  Hash Join  (cost=2.38..1586.19 rows=5000 width=20) (actual time=0.015..4.806 rows=8000.00 loops=1)
+          Hash Cond: (r.locality_id = l.locality_id)
+          Buffers: shared hit=948
+          ->  Seq Scan on restaurants r  (cost=0.00..1447.00 rows=50000 width=24) (actual time=0.004..1.808 rows=50000.00 loops=1)
+                Buffers: shared hit=947
+          ->  Hash  (cost=2.25..2.25 rows=10 width=4) (actual time=0.007..0.007 rows=10.00 loops=1)
+                Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                Buffers: shared hit=1
+                ->  Seq Scan on localities l  (cost=0.00..2.25 rows=10 width=4) (actual time=0.003..0.005 rows=10.00 loops=1)
+                      Filter: (city_id = 1)
+                      Rows Removed by Filter: 90
+                      Buffers: shared hit=1
+  ->  Hash Right Join  (cost=110924.04..112294.36 rows=5000 width=84) (actual time=399.007..401.656 rows=8000.00 loops=1)
+        Hash Cond: (v.restaurant_id = b.restaurant_id)
+        Buffers: shared hit=23987 read=49469 written=354
+        ->  HashAggregate  (cost=13620.06..14308.92 rows=45924 width=36) (actual time=40.948..42.501 rows=7693.00 loops=1)
+              Group Key: v.restaurant_id
+              Batches: 1  Memory Usage: 2321kB
+              Buffers: shared hit=22188 read=2144 written=354
+              ->  Nested Loop  (cost=0.42..13194.50 rows=85113 width=6) (actual time=0.013..32.941 rows=125400.00 loops=1)
+                    Buffers: shared hit=22188 read=2144 written=354
+                    ->  CTE Scan on bengaluru b_1  (cost=0.00..100.00 rows=5000 width=4) (actual time=0.001..0.343 rows=8000.00 loops=1)
+                          Storage: Memory  Maximum Storage: 440kB
+                    ->  Index Only Scan using idx_reviews_restaurant on reviews v  (cost=0.42..2.45 rows=17 width=6) (actual time=0.002..0.003 rows=15.68 loops=8000)
+                          Index Cond: (restaurant_id = b_1.restaurant_id)
+                          Heap Fetches: 0
+                          Index Searches: 8000
+                          Buffers: shared hit=22188 read=2144 written=354
+        ->  Hash  (cost=97241.48..97241.48 rows=5000 width=52) (actual time=358.050..358.051 rows=8000.00 loops=1)
+              Buckets: 8192  Batches: 1  Memory Usage: 622kB
+              Buffers: shared hit=1799 read=47325
+              ->  Hash Right Join  (cost=96062.00..97241.48 rows=5000 width=52) (actual time=355.970..357.519 rows=8000.00 loops=1)
+                    Hash Cond: (o.restaurant_id = b.restaurant_id)
+                    Buffers: shared hit=1799 read=47325
+                    ->  HashAggregate  (cost=95899.50..96375.07 rows=47557 width=20) (actual time=350.103..350.758 rows=7693.00 loops=1)
+                          Group Key: o.restaurant_id
+                          Batches: 1  Memory Usage: 1561kB
+                          Buffers: shared hit=851 read=47325
+                          ->  Hash Join  (cost=162.50..92745.21 rows=315429 width=23) (actual time=0.749..303.089 rows=480452.00 loops=1)
+                                Hash Cond: (o.restaurant_id = b_2.restaurant_id)
+                                Buffers: shared hit=851 read=47325
+                                ->  Seq Scan on orders o  (cost=0.00..78177.76 rows=3000176 width=23) (actual time=0.043..102.655 rows=3000000.00 loops=1)
+                                      Buffers: shared hit=851 read=47325
+                                ->  Hash  (cost=100.00..100.00 rows=5000 width=4) (actual time=0.697..0.697 rows=8000.00 loops=1)
+                                      Buckets: 8192  Batches: 1  Memory Usage: 346kB
+                                      ->  CTE Scan on bengaluru b_2  (cost=0.00..100.00 rows=5000 width=4) (actual time=0.001..0.351 rows=8000.00 loops=1)
+                                            Storage: Memory  Maximum Storage: 440kB
+                    ->  Hash  (cost=100.00..100.00 rows=5000 width=36) (actual time=5.860..5.860 rows=8000.00 loops=1)
+                          Buckets: 8192  Batches: 1  Memory Usage: 477kB
+                          Buffers: shared hit=948
+                          ->  CTE Scan on bengaluru b  (cost=0.00..100.00 rows=5000 width=36) (actual time=0.016..5.577 rows=8000.00 loops=1)
+                                Storage: Memory  Maximum Storage: 440kB
+                                Buffers: shared hit=948
+Planning:
+  Buffers: shared hit=539 read=14
+Planning Time: 2.550 ms
+Execution Time: 403.217 ms
+Sort  (cost=114187.74..114200.24 rows=5000 width=84) (actual time=343.958..344.150 rows=8000.00 loops=1)
+  Sort Key: (max(o.placed_at)) DESC NULLS LAST
+  Sort Method: quicksort  Memory: 688kB
+  Buffers: shared hit=26225 read=47231 written=94
+  CTE bengaluru
+    ->  Hash Join  (cost=2.38..1586.19 rows=5000 width=20) (actual time=0.011..4.193 rows=8000.00 loops=1)
+          Hash Cond: (r.locality_id = l.locality_id)
+          Buffers: shared hit=948
+          ->  Seq Scan on restaurants r  (cost=0.00..1447.00 rows=50000 width=24) (actual time=0.002..1.326 rows=50000.00 loops=1)
+                Buffers: shared hit=947
+          ->  Hash  (cost=2.25..2.25 rows=10 width=4) (actual time=0.006..0.006 rows=10.00 loops=1)
+                Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                Buffers: shared hit=1
+                ->  Seq Scan on localities l  (cost=0.00..2.25 rows=10 width=4) (actual time=0.002..0.005 rows=10.00 loops=1)
+                      Filter: (city_id = 1)
+                      Rows Removed by Filter: 90
+                      Buffers: shared hit=1
+  ->  Hash Right Join  (cost=110924.04..112294.36 rows=5000 width=84) (actual time=340.423..343.018 rows=8000.00 loops=1)
+        Hash Cond: (v.restaurant_id = b.restaurant_id)
+        Buffers: shared hit=26225 read=47231 written=94
+        ->  HashAggregate  (cost=13620.06..14308.92 rows=45924 width=36) (actual time=27.514..29.025 rows=7693.00 loops=1)
+              Group Key: v.restaurant_id
+              Batches: 1  Memory Usage: 2321kB
+              Buffers: shared hit=24332
+              ->  Nested Loop  (cost=0.42..13194.50 rows=85113 width=6) (actual time=0.007..19.949 rows=125400.00 loops=1)
+                    Buffers: shared hit=24332
+                    ->  CTE Scan on bengaluru b_1  (cost=0.00..100.00 rows=5000 width=4) (actual time=0.000..0.302 rows=8000.00 loops=1)
+                          Storage: Memory  Maximum Storage: 440kB
+                    ->  Index Only Scan using idx_reviews_restaurant on reviews v  (cost=0.42..2.45 rows=17 width=6) (actual time=0.001..0.001 rows=15.68 loops=8000)
+                          Index Cond: (restaurant_id = b_1.restaurant_id)
+                          Heap Fetches: 0
+                          Index Searches: 8000
+                          Buffers: shared hit=24332
+        ->  Hash  (cost=97241.48..97241.48 rows=5000 width=52) (actual time=312.904..312.906 rows=8000.00 loops=1)
+              Buckets: 8192  Batches: 1  Memory Usage: 622kB
+              Buffers: shared hit=1893 read=47231 written=94
+              ->  Hash Right Join  (cost=96062.00..97241.48 rows=5000 width=52) (actual time=311.080..312.432 rows=8000.00 loops=1)
+                    Hash Cond: (o.restaurant_id = b.restaurant_id)
+                    Buffers: shared hit=1893 read=47231 written=94
+                    ->  HashAggregate  (cost=95899.50..96375.07 rows=47557 width=20) (actual time=305.869..306.392 rows=7693.00 loops=1)
+                          Group Key: o.restaurant_id
+                          Batches: 1  Memory Usage: 1561kB
+                          Buffers: shared hit=945 read=47231 written=94
+                          ->  Hash Join  (cost=162.50..92745.21 rows=315429 width=23) (actual time=0.627..267.748 rows=480452.00 loops=1)
+                                Hash Cond: (o.restaurant_id = b_2.restaurant_id)
+                                Buffers: shared hit=945 read=47231 written=94
+                                ->  Seq Scan on orders o  (cost=0.00..78177.76 rows=3000176 width=23) (actual time=0.077..87.911 rows=3000000.00 loops=1)
+                                      Buffers: shared hit=945 read=47231 written=94
+                                ->  Hash  (cost=100.00..100.00 rows=5000 width=4) (actual time=0.546..0.546 rows=8000.00 loops=1)
+                                      Buckets: 8192  Batches: 1  Memory Usage: 346kB
+                                      ->  CTE Scan on bengaluru b_2  (cost=0.00..100.00 rows=5000 width=4) (actual time=0.001..0.283 rows=8000.00 loops=1)
+                                            Storage: Memory  Maximum Storage: 440kB
+                    ->  Hash  (cost=100.00..100.00 rows=5000 width=36) (actual time=5.209..5.209 rows=8000.00 loops=1)
+                          Buckets: 8192  Batches: 1  Memory Usage: 477kB
+                          Buffers: shared hit=948
+                          ->  CTE Scan on bengaluru b  (cost=0.00..100.00 rows=5000 width=36) (actual time=0.011..4.965 rows=8000.00 loops=1)
+                                Storage: Memory  Maximum Storage: 440kB
+                                Buffers: shared hit=948
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.228 ms
+Execution Time: 344.371 ms
+Sort  (cost=114187.74..114200.24 rows=5000 width=84) (actual time=344.181..344.390 rows=8000.00 loops=1)
+  Sort Key: (max(o.placed_at)) DESC NULLS LAST
+  Sort Method: quicksort  Memory: 688kB
+  Buffers: shared hit=26319 read=47137
+  CTE bengaluru
+    ->  Hash Join  (cost=2.38..1586.19 rows=5000 width=20) (actual time=0.010..4.310 rows=8000.00 loops=1)
+          Hash Cond: (r.locality_id = l.locality_id)
+          Buffers: shared hit=948
+          ->  Seq Scan on restaurants r  (cost=0.00..1447.00 rows=50000 width=24) (actual time=0.002..1.370 rows=50000.00 loops=1)
+                Buffers: shared hit=947
+          ->  Hash  (cost=2.25..2.25 rows=10 width=4) (actual time=0.006..0.006 rows=10.00 loops=1)
+                Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                Buffers: shared hit=1
+                ->  Seq Scan on localities l  (cost=0.00..2.25 rows=10 width=4) (actual time=0.002..0.005 rows=10.00 loops=1)
+                      Filter: (city_id = 1)
+                      Rows Removed by Filter: 90
+                      Buffers: shared hit=1
+  ->  Hash Right Join  (cost=110924.04..112294.36 rows=5000 width=84) (actual time=340.496..343.216 rows=8000.00 loops=1)
+        Hash Cond: (v.restaurant_id = b.restaurant_id)
+        Buffers: shared hit=26319 read=47137
+        ->  HashAggregate  (cost=13620.06..14308.92 rows=45924 width=36) (actual time=28.364..29.971 rows=7693.00 loops=1)
+              Group Key: v.restaurant_id
+              Batches: 1  Memory Usage: 2321kB
+              Buffers: shared hit=24332
+              ->  Nested Loop  (cost=0.42..13194.50 rows=85113 width=6) (actual time=0.007..20.579 rows=125400.00 loops=1)
+                    Buffers: shared hit=24332
+                    ->  CTE Scan on bengaluru b_1  (cost=0.00..100.00 rows=5000 width=4) (actual time=0.001..0.332 rows=8000.00 loops=1)
+                          Storage: Memory  Maximum Storage: 440kB
+                    ->  Index Only Scan using idx_reviews_restaurant on reviews v  (cost=0.42..2.45 rows=17 width=6) (actual time=0.001..0.001 rows=15.68 loops=8000)
+                          Index Cond: (restaurant_id = b_1.restaurant_id)
+                          Heap Fetches: 0
+                          Index Searches: 8000
+                          Buffers: shared hit=24332
+        ->  Hash  (cost=97241.48..97241.48 rows=5000 width=52) (actual time=312.129..312.130 rows=8000.00 loops=1)
+              Buckets: 8192  Batches: 1  Memory Usage: 622kB
+              Buffers: shared hit=1987 read=47137
+              ->  Hash Right Join  (cost=96062.00..97241.48 rows=5000 width=52) (actual time=310.270..311.658 rows=8000.00 loops=1)
+                    Hash Cond: (o.restaurant_id = b.restaurant_id)
+                    Buffers: shared hit=1987 read=47137
+                    ->  HashAggregate  (cost=95899.50..96375.07 rows=47557 width=20) (actual time=304.886..305.428 rows=7693.00 loops=1)
+                          Group Key: o.restaurant_id
+                          Batches: 1  Memory Usage: 1561kB
+                          Buffers: shared hit=1039 read=47137
+                          ->  Hash Join  (cost=162.50..92745.21 rows=315429 width=23) (actual time=0.619..266.511 rows=480452.00 loops=1)
+                                Hash Cond: (o.restaurant_id = b_2.restaurant_id)
+                                Buffers: shared hit=1039 read=47137
+                                ->  Seq Scan on orders o  (cost=0.00..78177.76 rows=3000176 width=23) (actual time=0.020..87.490 rows=3000000.00 loops=1)
+                                      Buffers: shared hit=1039 read=47137
+                                ->  Hash  (cost=100.00..100.00 rows=5000 width=4) (actual time=0.595..0.596 rows=8000.00 loops=1)
+                                      Buckets: 8192  Batches: 1  Memory Usage: 346kB
+                                      ->  CTE Scan on bengaluru b_2  (cost=0.00..100.00 rows=5000 width=4) (actual time=0.000..0.314 rows=8000.00 loops=1)
+                                            Storage: Memory  Maximum Storage: 440kB
+                    ->  Hash  (cost=100.00..100.00 rows=5000 width=36) (actual time=5.382..5.382 rows=8000.00 loops=1)
+                          Buckets: 8192  Batches: 1  Memory Usage: 477kB
+                          Buffers: shared hit=948
+                          ->  CTE Scan on bengaluru b  (cost=0.00..100.00 rows=5000 width=36) (actual time=0.011..5.123 rows=8000.00 loops=1)
+                                Storage: Memory  Maximum Storage: 440kB
+                                Buffers: shared hit=948
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.221 ms
+Execution Time: 344.608 ms

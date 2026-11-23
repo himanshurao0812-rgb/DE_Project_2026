@@ -1,0 +1,75 @@
+=== R01 run 1 ===
+Limit  (cost=842.32..842.37 rows=20 width=77) (actual time=4.866..4.870 rows=20.00 loops=1)
+  Buffers: shared hit=4 read=521
+  ->  Sort  (cost=842.32..843.45 rows=450 width=77) (actual time=4.863..4.866 rows=20.00 loops=1)
+        Sort Key: r.rating DESC NULLS LAST
+        Sort Method: top-N heapsort  Memory: 28kB
+        Buffers: shared hit=4 read=521
+        ->  Nested Loop  (cost=11.90..830.35 rows=450 width=77) (actual time=0.822..4.485 rows=708.00 loops=1)
+              Buffers: shared hit=1 read=521
+              ->  Seq Scan on localities l  (cost=0.00..2.25 rows=1 width=4) (actual time=0.009..0.022 rows=1.00 loops=1)
+                    Filter: (locality_name = 'Koramangala'::text)
+                    Rows Removed by Filter: 99
+                    Buffers: shared hit=1
+              ->  Bitmap Heap Scan on restaurants r  (cost=11.90..823.60 rows=450 width=81) (actual time=0.806..4.308 rows=708.00 loops=1)
+                    Recheck Cond: ((l.locality_id = locality_id) AND (status = 'OPEN'::text))
+                    Heap Blocks: exact=516
+                    Buffers: shared read=521
+                    ->  Bitmap Index Scan on idx_restaurants_locality_open_rating  (cost=0.00..11.79 rows=450 width=0) (actual time=0.643..0.643 rows=708.00 loops=1)
+                          Index Cond: (locality_id = l.locality_id)
+                          Index Searches: 1
+                          Buffers: shared read=5
+Planning:
+  Buffers: shared hit=323 read=11
+Planning Time: 3.835 ms
+Execution Time: 4.972 ms
+=== R01 run 2 ===
+Limit  (cost=842.32..842.37 rows=20 width=77) (actual time=2.957..2.962 rows=20.00 loops=1)
+  Buffers: shared hit=525
+  ->  Sort  (cost=842.32..843.45 rows=450 width=77) (actual time=2.955..2.958 rows=20.00 loops=1)
+        Sort Key: r.rating DESC NULLS LAST
+        Sort Method: top-N heapsort  Memory: 28kB
+        Buffers: shared hit=525
+        ->  Nested Loop  (cost=11.90..830.35 rows=450 width=77) (actual time=0.203..2.680 rows=708.00 loops=1)
+              Buffers: shared hit=522
+              ->  Seq Scan on localities l  (cost=0.00..2.25 rows=1 width=4) (actual time=0.007..0.019 rows=1.00 loops=1)
+                    Filter: (locality_name = 'Koramangala'::text)
+                    Rows Removed by Filter: 99
+                    Buffers: shared hit=1
+              ->  Bitmap Heap Scan on restaurants r  (cost=11.90..823.60 rows=450 width=81) (actual time=0.191..2.447 rows=708.00 loops=1)
+                    Recheck Cond: ((l.locality_id = locality_id) AND (status = 'OPEN'::text))
+                    Heap Blocks: exact=516
+                    Buffers: shared hit=521
+                    ->  Bitmap Index Scan on idx_restaurants_locality_open_rating  (cost=0.00..11.79 rows=450 width=0) (actual time=0.111..0.111 rows=708.00 loops=1)
+                          Index Cond: (locality_id = l.locality_id)
+                          Index Searches: 1
+                          Buffers: shared hit=5
+Planning:
+  Buffers: shared hit=334
+Planning Time: 1.603 ms
+Execution Time: 3.051 ms
+=== R01 run 3 ===
+Limit  (cost=842.32..842.37 rows=20 width=77) (actual time=2.743..2.748 rows=20.00 loops=1)
+  Buffers: shared hit=525
+  ->  Sort  (cost=842.32..843.45 rows=450 width=77) (actual time=2.741..2.744 rows=20.00 loops=1)
+        Sort Key: r.rating DESC NULLS LAST
+        Sort Method: top-N heapsort  Memory: 28kB
+        Buffers: shared hit=525
+        ->  Nested Loop  (cost=11.90..830.35 rows=450 width=77) (actual time=0.223..2.489 rows=708.00 loops=1)
+              Buffers: shared hit=522
+              ->  Seq Scan on localities l  (cost=0.00..2.25 rows=1 width=4) (actual time=0.011..0.021 rows=1.00 loops=1)
+                    Filter: (locality_name = 'Koramangala'::text)
+                    Rows Removed by Filter: 99
+                    Buffers: shared hit=1
+              ->  Bitmap Heap Scan on restaurants r  (cost=11.90..823.60 rows=450 width=81) (actual time=0.205..2.260 rows=708.00 loops=1)
+                    Recheck Cond: ((l.locality_id = locality_id) AND (status = 'OPEN'::text))
+                    Heap Blocks: exact=516
+                    Buffers: shared hit=521
+                    ->  Bitmap Index Scan on idx_restaurants_locality_open_rating  (cost=0.00..11.79 rows=450 width=0) (actual time=0.122..0.122 rows=708.00 loops=1)
+                          Index Cond: (locality_id = l.locality_id)
+                          Index Searches: 1
+                          Buffers: shared hit=5
+Planning:
+  Buffers: shared hit=334
+Planning Time: 1.626 ms
+Execution Time: 2.837 ms

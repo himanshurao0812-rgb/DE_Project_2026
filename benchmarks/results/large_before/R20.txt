@@ -1,0 +1,123 @@
+=== R20 run 1 ===
+Limit  (cost=125204.00..125204.05 rows=20 width=56) (actual time=271.973..274.206 rows=20.00 loops=1)
+  Buffers: shared hit=8979 read=45902, temp read=1629 written=1635
+  ->  Sort  (cost=125204.00..125400.75 rows=78700 width=56) (actual time=271.972..274.204 rows=20.00 loops=1)
+        Sort Key: (sum(o.total_amount)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=8979 read=45902, temp read=1629 written=1635
+        ->  Finalize GroupAggregate  (cost=95740.95..123109.82 rows=78700 width=56) (actual time=188.104..267.054 rows=79547.00 loops=1)
+              Group Key: c.customer_id
+              Buffers: shared hit=8976 read=45902, temp read=1629 written=1635
+              ->  Gather Merge  (cost=95740.95..120237.27 rows=188880 width=56) (actual time=188.099..228.665 rows=197783.00 loops=1)
+                    Workers Planned: 2
+                    Workers Launched: 2
+                    Buffers: shared hit=8976 read=45902, temp read=1629 written=1635
+                    ->  Partial GroupAggregate  (cost=94740.93..97435.81 rows=78700 width=56) (actual time=185.943..213.448 rows=65927.67 loops=3)
+                          Group Key: c.customer_id
+                          Buffers: shared hit=8976 read=45902, temp read=1629 written=1635
+                          ->  Sort  (cost=94740.93..95168.71 rows=171113 width=21) (actual time=185.927..192.731 rows=139374.00 loops=3)
+                                Sort Key: c.customer_id
+                                Sort Method: external merge  Disk: 4344kB
+                                Buffers: shared hit=8976 read=45902, temp read=1629 written=1635
+                                Worker 0:  Sort Method: external merge  Disk: 4288kB
+                                Worker 1:  Sort Method: external merge  Disk: 4400kB
+                                ->  Parallel Hash Join  (cost=9702.07..76356.78 rows=171113 width=21) (actual time=50.581..163.981 rows=139374.00 loops=3)
+                                      Hash Cond: (o.customer_id = c.customer_id)
+                                      Buffers: shared hit=8962 read=45902
+                                      ->  Parallel Seq Scan on orders o  (cost=0.00..63800.99 rows=1087124 width=9) (actual time=0.043..64.639 rows=869172.33 loops=3)
+                                            Filter: (status = 'DELIVERED'::text)
+                                            Rows Removed by Filter: 130828
+                                            Buffers: shared hit=8962 read=39214
+                                      ->  Parallel Hash  (cost=9292.17..9292.17 rows=32792 width=16) (actual time=50.490..50.491 rows=26666.67 loops=3)
+                                            Buckets: 131072  Batches: 1  Memory Usage: 5152kB
+                                            Buffers: shared read=6688
+                                            ->  Parallel Seq Scan on customers c  (cost=0.00..9292.17 rows=32792 width=16) (actual time=0.519..48.118 rows=26666.67 loops=3)
+                                                  Filter: (city_id = 2)
+                                                  Rows Removed by Filter: 140000
+                                                  Buffers: shared read=6688
+Planning:
+  Buffers: shared hit=221 read=13
+Planning Time: 2.192 ms
+Execution Time: 275.994 ms
+=== R20 run 2 ===
+Limit  (cost=125204.00..125204.05 rows=20 width=56) (actual time=230.118..232.281 rows=20.00 loops=1)
+  Buffers: shared hit=9609 read=45272, temp read=1630 written=1636
+  ->  Sort  (cost=125204.00..125400.75 rows=78700 width=56) (actual time=230.118..232.279 rows=20.00 loops=1)
+        Sort Key: (sum(o.total_amount)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=9609 read=45272, temp read=1630 written=1636
+        ->  Finalize GroupAggregate  (cost=95740.95..123109.82 rows=78700 width=56) (actual time=145.136..225.236 rows=79547.00 loops=1)
+              Group Key: c.customer_id
+              Buffers: shared hit=9606 read=45272, temp read=1630 written=1636
+              ->  Gather Merge  (cost=95740.95..120237.27 rows=188880 width=56) (actual time=145.132..186.420 rows=198002.00 loops=1)
+                    Workers Planned: 2
+                    Workers Launched: 2
+                    Buffers: shared hit=9606 read=45272, temp read=1630 written=1636
+                    ->  Partial GroupAggregate  (cost=94740.93..97435.81 rows=78700 width=56) (actual time=143.486..171.647 rows=66000.67 loops=3)
+                          Group Key: c.customer_id
+                          Buffers: shared hit=9606 read=45272, temp read=1630 written=1636
+                          ->  Sort  (cost=94740.93..95168.71 rows=171113 width=21) (actual time=143.474..150.581 rows=139374.00 loops=3)
+                                Sort Key: c.customer_id
+                                Sort Method: external merge  Disk: 4336kB
+                                Buffers: shared hit=9606 read=45272, temp read=1630 written=1636
+                                Worker 0:  Sort Method: external merge  Disk: 4280kB
+                                Worker 1:  Sort Method: external merge  Disk: 4424kB
+                                ->  Parallel Hash Join  (cost=9702.07..76356.78 rows=171113 width=21) (actual time=9.382..122.529 rows=139374.00 loops=3)
+                                      Hash Cond: (o.customer_id = c.customer_id)
+                                      Buffers: shared hit=9592 read=45272
+                                      ->  Parallel Seq Scan on orders o  (cost=0.00..63800.99 rows=1087124 width=9) (actual time=0.033..64.699 rows=869172.33 loops=3)
+                                            Filter: (status = 'DELIVERED'::text)
+                                            Rows Removed by Filter: 130828
+                                            Buffers: shared hit=9310 read=38866
+                                      ->  Parallel Hash  (cost=9292.17..9292.17 rows=32792 width=16) (actual time=9.301..9.302 rows=26666.67 loops=3)
+                                            Buckets: 131072  Batches: 1  Memory Usage: 5152kB
+                                            Buffers: shared hit=282 read=6406
+                                            ->  Parallel Seq Scan on customers c  (cost=0.00..9292.17 rows=32792 width=16) (actual time=0.082..7.351 rows=26666.67 loops=3)
+                                                  Filter: (city_id = 2)
+                                                  Rows Removed by Filter: 140000
+                                                  Buffers: shared hit=282 read=6406
+Planning:
+  Buffers: shared hit=234
+Planning Time: 0.431 ms
+Execution Time: 234.149 ms
+=== R20 run 3 ===
+Limit  (cost=125204.00..125204.05 rows=20 width=56) (actual time=225.679..228.428 rows=20.00 loops=1)
+  Buffers: shared hit=11241 read=43502, temp read=1630 written=1636
+  ->  Sort  (cost=125204.00..125400.75 rows=78700 width=56) (actual time=225.678..228.426 rows=20.00 loops=1)
+        Sort Key: (sum(o.total_amount)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=11241 read=43502, temp read=1630 written=1636
+        ->  Finalize GroupAggregate  (cost=95740.95..123109.82 rows=78700 width=56) (actual time=144.020..221.193 rows=79547.00 loops=1)
+              Group Key: c.customer_id
+              Buffers: shared hit=11238 read=43502, temp read=1630 written=1636
+              ->  Gather Merge  (cost=95740.95..120237.27 rows=188880 width=56) (actual time=144.015..184.614 rows=197747.00 loops=1)
+                    Workers Planned: 2
+                    Workers Launched: 2
+                    Buffers: shared hit=11238 read=43502, temp read=1630 written=1636
+                    ->  Partial GroupAggregate  (cost=94740.93..97435.81 rows=78700 width=56) (actual time=142.221..169.930 rows=65915.67 loops=3)
+                          Group Key: c.customer_id
+                          Buffers: shared hit=11238 read=43502, temp read=1630 written=1636
+                          ->  Sort  (cost=94740.93..95168.71 rows=171113 width=21) (actual time=142.209..149.309 rows=139374.00 loops=3)
+                                Sort Key: c.customer_id
+                                Sort Method: external merge  Disk: 4400kB
+                                Buffers: shared hit=11238 read=43502, temp read=1630 written=1636
+                                Worker 0:  Sort Method: external merge  Disk: 4280kB
+                                Worker 1:  Sort Method: external merge  Disk: 4360kB
+                                ->  Parallel Hash Join  (cost=9702.07..76356.78 rows=171113 width=21) (actual time=9.791..121.302 rows=139374.00 loops=3)
+                                      Hash Cond: (o.customer_id = c.customer_id)
+                                      Buffers: shared hit=11224 read=43502
+                                      ->  Parallel Seq Scan on orders o  (cost=0.00..63800.99 rows=1087124 width=9) (actual time=0.049..63.375 rows=869172.33 loops=3)
+                                            Filter: (status = 'DELIVERED'::text)
+                                            Rows Removed by Filter: 130828
+                                            Buffers: shared hit=10660 read=37378
+                                      ->  Parallel Hash  (cost=9292.17..9292.17 rows=32792 width=16) (actual time=9.697..9.697 rows=26666.67 loops=3)
+                                            Buckets: 131072  Batches: 1  Memory Usage: 5152kB
+                                            Buffers: shared hit=564 read=6124
+                                            ->  Parallel Seq Scan on customers c  (cost=0.00..9292.17 rows=32792 width=16) (actual time=0.041..7.682 rows=26666.67 loops=3)
+                                                  Filter: (city_id = 2)
+                                                  Rows Removed by Filter: 140000
+                                                  Buffers: shared hit=564 read=6124
+Planning:
+  Buffers: shared hit=234
+Planning Time: 0.431 ms
+Execution Time: 230.594 ms

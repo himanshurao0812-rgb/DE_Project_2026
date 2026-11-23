@@ -1,0 +1,60 @@
+=== R13 run 1 ===
+Bitmap Heap Scan on delivery_partners p  (cost=2251.60..2797.75 rows=2862 width=27) (actual time=10.042..10.043 rows=0.00 loops=1)
+  Recheck Cond: ((city_id = 1) AND (status = 'ACTIVE'::text))
+  Filter: (NOT (ANY (partner_id = (hashed SubPlan 1).col1)))
+  Rows Removed by Filter: 5685
+  Heap Blocks: exact=446
+  Buffers: shared hit=771 read=452
+  ->  Bitmap Index Scan on idx_delivery_partners_city_active  (cost=0.00..67.21 rows=5723 width=0) (actual time=0.065..0.065 rows=5685.00 loops=1)
+        Index Cond: (city_id = 1)
+        Index Searches: 1
+        Buffers: shared read=6
+  SubPlan 1
+    ->  Index Scan using idx_orders_placed_at on orders o  (cost=0.43..2101.01 rows=33062 width=4) (actual time=0.005..4.319 rows=32967.00 loops=1)
+          Index Cond: (placed_at >= '2026-06-25 00:00:00+05:30'::timestamp with time zone)
+          Index Searches: 1
+          Buffers: shared hit=771
+Planning:
+  Buffers: shared hit=302 read=5 dirtied=1
+Planning Time: 0.863 ms
+Execution Time: 10.083 ms
+=== R13 run 2 ===
+Bitmap Heap Scan on delivery_partners p  (cost=2251.60..2797.75 rows=2862 width=27) (actual time=6.245..6.245 rows=0.00 loops=1)
+  Recheck Cond: ((city_id = 1) AND (status = 'ACTIVE'::text))
+  Filter: (NOT (ANY (partner_id = (hashed SubPlan 1).col1)))
+  Rows Removed by Filter: 5685
+  Heap Blocks: exact=446
+  Buffers: shared hit=1223
+  ->  Bitmap Index Scan on idx_delivery_partners_city_active  (cost=0.00..67.21 rows=5723 width=0) (actual time=0.060..0.060 rows=5685.00 loops=1)
+        Index Cond: (city_id = 1)
+        Index Searches: 1
+        Buffers: shared hit=6
+  SubPlan 1
+    ->  Index Scan using idx_orders_placed_at on orders o  (cost=0.43..2101.01 rows=33062 width=4) (actual time=0.005..2.817 rows=32967.00 loops=1)
+          Index Cond: (placed_at >= '2026-06-25 00:00:00+05:30'::timestamp with time zone)
+          Index Searches: 1
+          Buffers: shared hit=771
+Planning:
+  Buffers: shared hit=307
+Planning Time: 0.496 ms
+Execution Time: 6.275 ms
+=== R13 run 3 ===
+Bitmap Heap Scan on delivery_partners p  (cost=2251.60..2797.75 rows=2862 width=27) (actual time=9.135..9.135 rows=0.00 loops=1)
+  Recheck Cond: ((city_id = 1) AND (status = 'ACTIVE'::text))
+  Filter: (NOT (ANY (partner_id = (hashed SubPlan 1).col1)))
+  Rows Removed by Filter: 5685
+  Heap Blocks: exact=446
+  Buffers: shared hit=1223
+  ->  Bitmap Index Scan on idx_delivery_partners_city_active  (cost=0.00..67.21 rows=5723 width=0) (actual time=0.060..0.060 rows=5685.00 loops=1)
+        Index Cond: (city_id = 1)
+        Index Searches: 1
+        Buffers: shared hit=6
+  SubPlan 1
+    ->  Index Scan using idx_orders_placed_at on orders o  (cost=0.43..2101.01 rows=33062 width=4) (actual time=0.005..4.102 rows=32967.00 loops=1)
+          Index Cond: (placed_at >= '2026-06-25 00:00:00+05:30'::timestamp with time zone)
+          Index Searches: 1
+          Buffers: shared hit=771
+Planning:
+  Buffers: shared hit=307
+Planning Time: 0.508 ms
+Execution Time: 9.202 ms

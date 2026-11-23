@@ -1,0 +1,45 @@
+=== R03 run 1 ===
+Sort  (cost=42.43..42.48 rows=19 width=29) (actual time=0.045..0.046 rows=19.00 loops=1)
+  Sort Key: category, is_bestseller DESC, item_name
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=12
+  ->  Index Scan using menu_items_restaurant_name_key on menu_items  (cost=0.42..42.03 rows=19 width=29) (actual time=0.008..0.010 rows=19.00 loops=1)
+        Index Cond: (restaurant_id = 217)
+        Filter: is_available
+        Rows Removed by Filter: 1
+        Index Searches: 1
+        Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=137
+Planning Time: 0.194 ms
+Execution Time: 0.063 ms
+=== R03 run 2 ===
+Sort  (cost=42.43..42.48 rows=19 width=29) (actual time=0.048..0.049 rows=19.00 loops=1)
+  Sort Key: category, is_bestseller DESC, item_name
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=12
+  ->  Index Scan using menu_items_restaurant_name_key on menu_items  (cost=0.42..42.03 rows=19 width=29) (actual time=0.008..0.009 rows=19.00 loops=1)
+        Index Cond: (restaurant_id = 217)
+        Filter: is_available
+        Rows Removed by Filter: 1
+        Index Searches: 1
+        Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=131
+Planning Time: 0.181 ms
+Execution Time: 0.066 ms
+=== R03 run 3 ===
+Sort  (cost=42.43..42.48 rows=19 width=29) (actual time=0.045..0.045 rows=19.00 loops=1)
+  Sort Key: category, is_bestseller DESC, item_name
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=12
+  ->  Index Scan using menu_items_restaurant_name_key on menu_items  (cost=0.42..42.03 rows=19 width=29) (actual time=0.007..0.009 rows=19.00 loops=1)
+        Index Cond: (restaurant_id = 217)
+        Filter: is_available
+        Rows Removed by Filter: 1
+        Index Searches: 1
+        Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=131
+Planning Time: 0.175 ms
+Execution Time: 0.062 ms
